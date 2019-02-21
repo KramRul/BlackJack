@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "StartGame";
+}
+@model BlackJack.ViewModels.StartGameViews.StartGameHomeResponseView
+<h2>Start Game</h2>
+
+
+<input type="button" class="btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" />
+<input type="button" class="btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" />
+<div>
+    @Html.RouteLink("На главную", new { action = "Index", controller = "StartGame" })
+</div>
+
+

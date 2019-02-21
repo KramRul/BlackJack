@@ -1,0 +1,14 @@
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.BusinessLogic.deps.json
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.BusinessLogic.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.csprojAssemblyReference.cache
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.AssemblyInfo.cs
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.csproj.CopyComplete
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.BusinessLogic.pdb
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.pdb
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.pdb

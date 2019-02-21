@@ -1,0 +1,10 @@
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.deps.json
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.AssemblyInfo.cs
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.runtimeconfig.json
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.runtimeconfig.dev.json
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb

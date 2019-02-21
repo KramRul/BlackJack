@@ -1,0 +1,8 @@
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.deps.json
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.AssemblyInfoInputs.cache
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.AssemblyInfo.cs
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.pdb
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.pdb

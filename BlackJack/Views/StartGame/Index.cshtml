@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<BlackJack.DataAccess.Entities.Player>
+
+<!--<form method="post" asp-controller="Home" asp-action="StartGame">-->
+<div asp-validation-summary="All"></div>
+<div class="form-group">
+    <label for="exampleFormControlSelect1">Выберите количество ботов</label>
+    <select class="form-control" id="countOfBots" name="countOfBots">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Username:</label>
+    <input name="player" id="player" list="players" class="form-control" />
+    <datalist id="players">
+        @foreach (var user in Model)
+        {
+        <option value=@user.UserName />
+        }
+    </datalist>
+    <div>
+        <label>Password:</label>
+        <input type="password" id="Password" name="Password" class="form-control">
+    </div>
+</div>
+<div class="form-group">
+    <input type="button" class="btn btn-primary btn-lg" name="SubmitLogin" id="SubmitLogin" value="Login" />
+</div>
+
+<input type="button" class="btn btn-primary btn-lg btn-block" id="SubmitStartGame" name="SubmitStartGame" value="Start Game">
+
+<div>
+    @Html.RouteLink("Просмотреть все игры", new { action = "AllGames", controller = "StartGame" })
+</div>
+<div>
+    @Html.RouteLink("Просмотреть всех игроков", new { action = "Index", controller = "User" })
+</div>
+<div>
+    @Html.RouteLink("Просмотреть игры игроков", new { action = "AllGames", controller = "User" })
+</div>
+<div>
+    @Html.RouteLink("Просмотреть всех дилеров", new { action = "Index", controller = "Dealer" })
+</div>
+<div>
+    @Html.RouteLink("Просмотреть всех ботов", new { action = "Index", controller = "Bot" })
+</div>
+<div>
+    @Html.RouteLink("Register", new { action = "Register", controller = "Account" })
+</div>
+<input type="hidden" name="SubmitLoginPath" id="SubmitLoginPath" data-submit-Path="@Url.Action("Login", "Account")">
+<input type="hidden" name="SubmitStartGamePath" id="SubmitStartGamePath" data-submit-Start-Game-Path="@Url.Action("StartGame", "StartGame")">
+
+<input type="button" hidden name="getDataByLogin" id="getDataByLogin" data-submit-Path="@Url.Action("Test", "User")">
