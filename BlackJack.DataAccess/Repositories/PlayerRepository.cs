@@ -1,52 +1,55 @@
-﻿using BlackJack.DataAccess;
-using BlackJack.DataAccess.Entities;
+﻿using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private ApplicationContext db;
+        private readonly ApplicationContext _db;
 
         public PlayerRepository(ApplicationContext context)
         {
-            this.db = context;
+            _db = context;
         }
 
-        public IEnumerable<Player> GetAll()
+        public async Task<IEnumerable<Player>> GetAll()
         {
-            return db.Users;
+            var result = await _db.Users.ToListAsync();
+            return result;
         }
 
-        public Player Get(Guid id)
+        public async Task<Player> Get(Guid id)
         {
-            return db.Users.Find(id.ToString());
+            var result = await _db.Users.FindAsync(id.ToString());
+            return result;
         }
 
-        public void Create(Player player)
+        public async Task<IEnumerable<Player>> GetByName(string name)
         {
-            db.Users.Add(player);
+            var result = await _db.Users.Where(x => x.UserName == name).ToListAsync();
+            return result;
+        }
+
+        public async Task Create(Player player)
+        {
+            await _db.Users.AddAsync(player);
         }
 
         public void Update(Player player)
         {
-            db.Entry(player).State = EntityState.Modified;
+            _db.Entry(player).State = EntityState.Modified;
         }
 
-        public IEnumerable<Player> Find(Func<Player, Boolean> predicate)
+        public async Task Delete(Guid id)
         {
-            return db.Users.Where(predicate).ToList();
-        }
-
-        public void Delete(Guid id)
-        {
-            Player player = db.Users.Find(id);
+            Player player = await _db.Users.FindAsync(id.ToString());
             if (player != null)
-                db.Users.Remove(player);
+                _db.Users.Remove(player);
         }
     }
 }

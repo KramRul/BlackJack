@@ -1,24 +1,24 @@
 ﻿using BlackJack.DataAccess.Interfaces;
+using BlackJack.DataAccess.Repositories;
 using System;
+using System.Threading.Tasks;
 
-namespace BlackJack.DataAccess.Repositories
+namespace BlackJack.DataAccess
 {
     public class EFUnitOfWork : IUnitOfWork
     {
         private ApplicationContext db;
-        //private GameRepository gameRepository;
+        private GameRepository gameRepository;
         private PlayerRepository playerRepository;
-        /*private BotRepository botRepository;
-        private DealerRepository dealerRepository;
+        private BotRepository botRepository;
         private PlayerStepRepository playerStepRepository;
         private BotStepRepository botStepRepository;
-        private DealerStepRepository dealerStepRepository;*/
 
         public EFUnitOfWork(ApplicationContext context)
         {
             db = context;
         }
-        /*public IRepository<Game> Games
+        public IGameRepository Games
         {
             get
             {
@@ -26,7 +26,7 @@ namespace BlackJack.DataAccess.Repositories
                     gameRepository = new GameRepository(db);
                 return gameRepository;
             }
-        }*/
+        }
 
         public IPlayerRepository Players
         {
@@ -38,7 +38,7 @@ namespace BlackJack.DataAccess.Repositories
             }
         }
 
-        /*public IRepository<Bot> Bots
+        public IBotRepository Bots
         {
             get
             {
@@ -48,17 +48,7 @@ namespace BlackJack.DataAccess.Repositories
             }
         }
 
-        public IRepository<Dealer> Dealers
-        {
-            get
-            {
-                if (dealerRepository == null)
-                    dealerRepository = new DealerRepository(db);
-                return dealerRepository;
-            }
-        }
-
-        public IRepository<PlayerStep> PlayerSteps
+        public IPlayerStepRepository PlayerSteps
         {
             get
             {
@@ -68,7 +58,7 @@ namespace BlackJack.DataAccess.Repositories
             }
         }
 
-        public IRepository<BotStep> BotSteps
+        public IBotStepRepository BotSteps
         {
             get
             {
@@ -78,19 +68,9 @@ namespace BlackJack.DataAccess.Repositories
             }
         }
 
-        public IRepository<DealerStep> DealerSteps
+        public async Task Save()
         {
-            get
-            {
-                if (dealerStepRepository == null)
-                    dealerStepRepository = new DealerStepRepository(db);
-                return dealerStepRepository;
-            }
-        }*/
-
-        public void Save()
-        {
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         private bool disposed = false;

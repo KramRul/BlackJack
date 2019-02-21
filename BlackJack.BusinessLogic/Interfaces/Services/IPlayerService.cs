@@ -1,12 +1,14 @@
-﻿namespace BlackJack.BusinessLogic.Interfaces.Services
+﻿using BlackJack.ViewModels.PlayerViews;
+
+namespace BlackJack.BusinessLogic.Interfaces.Services
 {
     public interface IPlayerService
     {
-        /*IEnumerable<PlayerStepViewModel> GetAllSteps(string playerId);
+        GetAllStepsByPlayerIdPlayerView GetAllStepsByPlayerId(string playerId);
 
-        IEnumerable<PlayerStepViewModel> GetAllSteps(string playerId, GameViewModel gameVM);
+        GetAllStepsPlayerView GetAllSteps(string playerId, string GameID);
 
-        void Edit(PlayerViewModel playerVM);
+        /*void Edit(PlayerViewModel playerVM);
 
         void Delete(PlayerViewModel playerVM);*/
     }

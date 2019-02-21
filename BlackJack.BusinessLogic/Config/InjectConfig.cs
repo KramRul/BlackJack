@@ -2,8 +2,8 @@
 using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.BusinessLogic.Providers;
 using BlackJack.BusinessLogic.Services;
+using BlackJack.DataAccess;
 using BlackJack.DataAccess.Interfaces;
-using BlackJack.DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BlackJack.BusinessLogic.Config
