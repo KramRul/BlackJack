@@ -2,10 +2,10 @@
 
 namespace BlackJack.BusinessLogic.Common.Exceptions
 {
-    public class CustomValidationException : Exception
+    public class CustomServiceException : Exception
     {
         public string Property { get; protected set; }
-        public CustomValidationException(string message, string prop) : base(message)
+        public CustomServiceException(string message, string prop) : base(message)
         {
             Property = prop;
         }

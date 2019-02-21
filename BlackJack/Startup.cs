@@ -51,7 +51,7 @@ namespace BlackJack.WEB
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=StartGame}/{action=Index}/{id?}");
+                    template: "{controller=Game}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "Account",
                     template: "{controller=Account}/{action=Register}/{id?}");

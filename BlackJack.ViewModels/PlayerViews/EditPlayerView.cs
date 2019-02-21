@@ -4,7 +4,10 @@ using System.Text;
 
 namespace BlackJack.ViewModels.PlayerViews
 {
-    public class PlayerStepGetAllStepsPlayerViewItem
+    public class EditPlayerView
     {
+        public string Id { get; set; }
+
+        public string UserName { get; set; }
     }
 }

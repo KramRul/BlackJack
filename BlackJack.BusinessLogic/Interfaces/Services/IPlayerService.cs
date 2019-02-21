@@ -1,15 +1,15 @@
 ﻿using BlackJack.ViewModels.PlayerViews;
+using System;
+using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Interfaces.Services
 {
     public interface IPlayerService
     {
-        GetAllStepsByPlayerIdPlayerView GetAllStepsByPlayerId(string playerId);
+        Task<GetAllStepsByPlayerIdPlayerView> GetAllStepsByPlayerId(string playerId);
 
-        GetAllStepsPlayerView GetAllSteps(string playerId, string GameID);
+        Task<GetPlayerByIdPlayerResponseView> GetPlayerById(string playerId);
 
-        /*void Edit(PlayerViewModel playerVM);
-
-        void Delete(PlayerViewModel playerVM);*/
+        Task Edit(EditPlayerView model);
     }
 }

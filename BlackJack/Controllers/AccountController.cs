@@ -37,7 +37,7 @@ namespace BlackJack.WEB.Controllers
                 {
                     var result = await _accountService.Register(model);
                     
-                    return RedirectToAction("Index", "StartGame", result.Succeeded);
+                    return RedirectToAction("Index", "Game", result.Succeeded);
                 }
                 catch(Exception ex)
                 {

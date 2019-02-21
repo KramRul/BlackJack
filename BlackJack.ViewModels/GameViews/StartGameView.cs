@@ -1,6 +1,6 @@
-﻿namespace BlackJack.ViewModels.StartGameViews
+﻿namespace BlackJack.ViewModels.GameViews
 {
-    public class StartGameHomeView
+    public class StartGameView
     {
         public int CountOfBots { get; set; }
 

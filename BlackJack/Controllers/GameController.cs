@@ -1,19 +1,20 @@
 ﻿using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.DataAccess.Entities;
-using BlackJack.ViewModels.StartGameViews;
+using BlackJack.ViewModels.GameViews;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlackJack.WEB.Controllers
 {
-    public class StartGameController : Controller
+    public class GameController : Controller
     {
         private readonly UserManager<Player> _userManager;
         private readonly IPlayerService _userService;
 
-        public StartGameController(UserManager<Player> userManager, IPlayerService userService)
+        public GameController(UserManager<Player> userManager, IPlayerService userService)
         {
             _userManager = userManager;
             _userService = userService;
@@ -25,17 +26,18 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> StartGame(StartGameHomeView model)
+        [Authorize]
+        public async Task<IActionResult> Start(StartGameView model)
         {
             try
             {
-                if (ModelState.IsValid && User.Identity.IsAuthenticated)
+                if (ModelState.IsValid)
                 {
-                    StartGameHomeResponseView gameDetailsVM = new StartGameHomeResponseView()
+                    StartGameResponseView gameDetailsVM = new StartGameResponseView()
                     {
 
                     };
-                    return View("StartGame", gameDetailsVM);
+                    return View("Start", gameDetailsVM);
                 }
                 else
                 {
@@ -48,7 +50,7 @@ namespace BlackJack.WEB.Controllers
             }*/
             catch
             {
-                return RedirectToAction("Index", "StartGame");
+                return RedirectToAction("Index", "Game");
             }
 
         }
