@@ -20,13 +20,19 @@ namespace BlackJack.BusinessLogic.Services
         {
         }
 
-        public async Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID)
+        public async Task<GetAllStepsGameView> GetAllSteps(string playerName, Guid gameID)
         {
             var model = new GetAllStepsGameView();
+            var player = await Database.Players.GetByName(playerName);
+            if (player == null)
+            {
+                throw new CustomServiceException("Player does not exist");
+            }
+
             var playerSteps = await Database.PlayerSteps.GetAll();
             foreach (var item in playerSteps)
             {
-                if (item.PlayerId == playerId && item.GameId == gameID)
+                if (item.PlayerId == player.First().Id && item.GameId == gameID)
                 {
                     model.PlayerSteps.Add(new PlayerStepGetAllStepsGameViewItem()
                     {
@@ -72,9 +78,9 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<StartGameView> Start(string playerId, int countOfBots)
+        public async Task<StartGameView> Start(string playerName, int countOfBots)
         {
-            var player = await Database.Players.Get(Guid.Parse(playerId));
+            var player = await Database.Players.GetByName(playerName);
 
             if (player == null)
             {
@@ -83,12 +89,12 @@ namespace BlackJack.BusinessLogic.Services
 
             var game = new Game()
             {
-                Player = player,
+                Player = player.First(),
                 GameState = GameState.Unknown
             };
 
-            await Database.PlayerSteps.Create(CreatePlayerStep(player, game));
-            await Database.PlayerSteps.Create(CreatePlayerStep(player, game));
+            await Database.PlayerSteps.Create(CreatePlayerStep(player.First(), game));
+            await Database.PlayerSteps.Create(CreatePlayerStep(player.First(), game));
 
             if (countOfBots > 0)
             {
@@ -101,7 +107,7 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             await Database.Games.Create(game);
-            Database.Players.Update(player);
+            Database.Players.Update(player.First());
             await Database.Save();
             var result = new StartGameView()
             {

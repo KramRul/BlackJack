@@ -7,7 +7,7 @@ using BlackJack.ViewModels;
 
 namespace BlackJack.WEB.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
 
@@ -29,42 +29,16 @@ namespace BlackJack.WEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterAccountView model)
+        public async Task Register(RegisterAccountView model)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var result = await _accountService.Register(model);
-                    
-                    return RedirectToAction("Index", "Game", result.Succeeded);
-                }
-                catch(Exception ex)
-                {
-                    var response = new GenericResponseView<string>();
-                    response.Error = ex.Message;
-                    return BadRequest(response);
-                }
-            }
-            return View(model);
+            await Execute(async ()=> await _accountService.Register(model));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginAccountView model)
+        [ValidateAntiForgeryToken]
+        public async Task Login(LoginAccountView model)
         {
-            try
-            {
-                var result = await _accountService.Login(model);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                var response = new GenericResponseView<string>();
-                response.Error = ex.Message;
-
-                return BadRequest(response);
-            }
-           
+            await Execute(async () => await _accountService.Login(model));           
         }
     }
 }

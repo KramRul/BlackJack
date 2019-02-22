@@ -14,13 +14,11 @@ namespace BlackJack.WEB.Controllers
     public class GameController : Controller
     {
         private readonly UserManager<Player> _userManager;
-        private readonly IPlayerService _userService;
         private readonly IGameService _gameService;
 
-        public GameController(UserManager<Player> userManager, IPlayerService userService, IGameService gameService)
+        public GameController(UserManager<Player> userManager, IGameService gameService)
         {
             _userManager = userManager;
-            _userService = userService;
             _gameService = gameService;
         }
 
@@ -31,14 +29,15 @@ namespace BlackJack.WEB.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Start(StartGameView model)
+        public async Task<IActionResult> Start(int countOfBots, string player)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var game = await _gameService.Start(model.Player.PlayerId, model.CountOfBots);
-                    var playerSteps = await _gameService.GetAllSteps(model.Player.PlayerId, game.Id);
+
+                    var game = await _gameService.Start(player, countOfBots);
+                    var playerSteps = await _gameService.GetAllSteps(player, game.Id);
                     var botsSteps = await _gameService.GetAllStepOfBots(game.Id);
                     var result = new StartGameResultView()
                     {
