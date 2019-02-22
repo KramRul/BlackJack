@@ -55,6 +55,6 @@
     @Html.RouteLink("Register", new { action = "Register", controller = "Account" })
 </div>
 <input type="hidden" name="SubmitLoginPath" id="SubmitLoginPath" data-submit-Path="@Url.Action("Login", "Account")">
-<input type="hidden" name="SubmitStartGamePath" id="SubmitStartGamePath" data-submit-Start-Game-Path="@Url.Action("StartGame", "StartGame")">
+<input type="hidden" name="SubmitStartGamePath" id="SubmitStartGamePath" data-submit-Start-Game-Path="@Url.Action("Start", "Game")">
 
 <input type="button" hidden name="getDataByLogin" id="getDataByLogin" data-submit-Path="@Url.Action("Test", "User")">

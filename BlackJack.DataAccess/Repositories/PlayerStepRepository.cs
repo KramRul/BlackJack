@@ -3,6 +3,7 @@ using BlackJack.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories
@@ -19,6 +20,12 @@ namespace BlackJack.DataAccess.Repositories
         public async Task<IEnumerable<PlayerStep>> GetAll()
         {            
             var result = await db.PlayerSteps.Include(p => p.Player).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
+        {
+            var result = await db.PlayerSteps.Include(p => p.Player).Where(p => p.PlayerId == playerId && p.GameId == gameId).ToListAsync();
             return result;
         }
 

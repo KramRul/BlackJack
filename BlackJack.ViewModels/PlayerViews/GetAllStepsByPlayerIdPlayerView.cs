@@ -19,17 +19,23 @@ namespace BlackJack.ViewModels.PlayerViews
     public class PlayerStepGetAllStepsByPlayerIdPlayerViewItem
     {
         public Guid Id { get; set; }
-
         public Suite Suite { get; set; }
-
         public Rank Rank { get; set; }
-
-        public string PlayerId { get; set; }
-
-        public Player Player { get; set; }
-
-        public Guid GameId { get; set; }
-
-        public Game Game { get; set; }
+        public PlayerGetAllStepsByPlayerIdPlayerView Player { get; set; }
+        public GameGetAllStepsByPlayerIdPlayerView Game { get; set; }
     }
+
+    public class PlayerGetAllStepsByPlayerIdPlayerView
+    {
+        public string PlayerId { get; set; }
+        public decimal Balance { get; set; }
+        public decimal Bet { get; set; }
+    }
+
+    public class GameGetAllStepsByPlayerIdPlayerView
+    {
+        public Guid GameId { get; set; }
+        public GameState GameState { get; set; }
+    }
+
 }

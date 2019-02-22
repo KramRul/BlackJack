@@ -167,7 +167,7 @@
                     $('.loginForm').css('display', 'none');
                     // сохраняем в хранилище sessionStorage токен доступа
 
-                    sessionStorage.setItem(tokenKey, data.access_token);
+                    sessionStorage.setItem(tokenKey, data.accessToken);
                     console.log(data.accessToken);
                     //console.log(data.access_token.Result);
                 },
@@ -192,6 +192,7 @@
                 type: 'POST',
                 url: SubmitStartGamePath,
                 data: { 'player': player, 'countOfBots': countOfBots },
+                async: true,
                 beforeSend: function (xhr) {
                     var token = sessionStorage.getItem(tokenKey);
                     xhr.setRequestHeader("Authorization", "Bearer " + token);

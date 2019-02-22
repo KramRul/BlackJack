@@ -8,8 +8,6 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
     {
         Task<GetAllStepsByPlayerIdPlayerView> GetAllStepsByPlayerId(string playerId);
 
-        Task<GetPlayerByIdPlayerResponseView> GetPlayerById(string playerId);
-
-        Task Edit(EditPlayerView model);
+        Task<GetPlayerByIdPlayerView> GetPlayerById(string playerId);
     }
 }

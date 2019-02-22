@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BlackJack.ViewModels.PlayerViews
 {
-    public class GetPlayerByIdPlayerResponseView
+    public class GetPlayerByIdPlayerView
     {
         public string Id { get; set; }
 

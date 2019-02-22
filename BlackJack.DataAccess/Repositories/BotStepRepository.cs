@@ -3,11 +3,12 @@ using BlackJack.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories
 {
-    public class BotStepRepository: IBotStepRepository
+    public class BotStepRepository : IBotStepRepository
     {
         private ApplicationContext db;
 
@@ -19,6 +20,24 @@ namespace BlackJack.DataAccess.Repositories
         public async Task<IEnumerable<BotStep>> GetAll()
         {
             var result = await db.BotSteps.ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<Bot>> GetAllBotsByGameId(Guid gameId)
+        {
+            var result = await db.BotSteps.Include(b => b.Bot).Where(b => b.GameId == gameId).Select(b => b.Bot).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<BotStep>> GetAllStepsByGameId(Guid gameId)
+        {
+            var result = await db.BotSteps.Include(b => b.Bot).Where(b => b.GameId == gameId).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<BotStep>> GetAllStepsByBotId(Guid botId)
+        {
+            var result = await db.BotSteps.Include(b => b.Bot).Where(b => b.BotId == botId).ToListAsync();
             return result;
         }
 

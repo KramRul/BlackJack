@@ -1,4 +1,5 @@
-﻿using BlackJack.BusinessLogic.Interfaces.Services;
+﻿using BlackJack.BusinessLogic.Common.Exceptions;
+using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels.PlayerViews;
@@ -16,41 +17,48 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<GetAllStepsByPlayerIdPlayerView> GetAllStepsByPlayerId(string playerId)
         {
-            GetAllStepsByPlayerIdPlayerView pl = new GetAllStepsByPlayerIdPlayerView();
+            var result = new GetAllStepsByPlayerIdPlayerView();
             foreach (var item in await Database.PlayerSteps.GetAll())
             {
                 if (item.PlayerId == playerId)
                 {
-                    pl.PlayerSteps.Add(new PlayerStepGetAllStepsByPlayerIdPlayerViewItem()
+                    result.PlayerSteps.Add(new PlayerStepGetAllStepsByPlayerIdPlayerViewItem()
                     {
                         Id = item.Id,
-                        Player = item.Player,
-                        PlayerId = item.PlayerId,
+                        Player = new PlayerGetAllStepsByPlayerIdPlayerView()
+                        {
+                            PlayerId = item.PlayerId,
+                            Balance = item.Player.Balance,
+                            Bet = item.Player.Bet
+                        },
+                        Game = new GameGetAllStepsByPlayerIdPlayerView()
+                        {
+                            GameId = item.GameId,
+                            GameState = item.Game.GameState
+                        },
                         Rank = item.Rank,
                         Suite = item.Suite
                     });
                 }
             }
-            return pl;
+            return result;
         }
 
-        public async Task Edit(EditPlayerView model)
+        public async Task<GetPlayerByIdPlayerView> GetPlayerById(string playerId)
         {
-            Player player = await Database.Players.Get(Guid.Parse(model.Id));
-            player.UserName = model.UserName;
-            Database.Players.Update(player);
-            await Database.Save();
-        }
+            var player = await Database.Players.Get(Guid.Parse(playerId));
 
-        public async Task<GetPlayerByIdPlayerResponseView> GetPlayerById(string playerId)
-        {
-            var result = await Database.Players.Get(Guid.Parse(playerId));
-            GetPlayerByIdPlayerResponseView response = new GetPlayerByIdPlayerResponseView()
+            if (player == null)
             {
-                Id = result.Id,
-                UserName = result.UserName,
-                Balance = result.Balance,
-                Bet = result.Bet
+                throw new CustomServiceException("Player does not exist");
+            }
+
+            var response = new GetPlayerByIdPlayerView()
+            {
+                Id = player.Id,
+                UserName = player.UserName,
+                Balance = player.Balance,
+                Bet = player.Bet
             };
             return response;
         }

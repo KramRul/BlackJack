@@ -36,7 +36,7 @@ namespace BlackJack.BusinessLogic.Services
 
             if (!userCheck)
             {
-                throw new CustomServiceException("Invalid username or password.", "");
+                throw new CustomServiceException("Invalid username or password.");
             }
 
             string encodedJwt = await _jwtProvider.GenerateJwtToken(user.Email, user);
@@ -55,7 +55,7 @@ namespace BlackJack.BusinessLogic.Services
             var result = await _userManager.CreateAsync(user, playerModel.Password);
             if(!result.Succeeded)
             {
-                throw new CustomServiceException("The user was not registered", "");
+                throw new CustomServiceException("The user was not registered");
             }
             return new RegisterAccountResponseView() { Succeeded=true};
         }

@@ -1,4 +1,5 @@
-﻿using BlackJack.ViewModels.PlayerViews;
+﻿using BlackJack.ViewModels.GameViews;
+using BlackJack.ViewModels.PlayerViews;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,16 +11,18 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
     {
         Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID);
 
-        /*GameViewModel StartGame(string playerId, int countOfBots);
+        Task<GetAllStepOfBotsGameView> GetAllStepOfBots(Guid gameId);
 
-        PlayerStepViewModel Hit(string playerId, string gameId);
+        Task<StartGameView> Start(string playerId, int countOfBots);
 
-        void PlaceABet(string playerId, decimal bet);
+        Task<HitGameView> Hit(string playerId, string gameId);
 
-        void Stand(string playerId, string gameId);
+        Task PlaceABet(string playerId, decimal bet);
 
-        IEnumerable<GameViewModel> GetGamesForPlayer(string playerId)
+        Task Stand(string playerId, Guid gameId);
 
-        GameViewModel GetGame(Guid gameId)*/
+        Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId);
+
+        Task<GetGameView> Get(Guid gameId);
     }
 }

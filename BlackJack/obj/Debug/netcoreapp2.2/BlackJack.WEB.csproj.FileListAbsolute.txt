@@ -34,3 +34,5 @@ C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack\obj\Debug\net
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack\obj\Debug\netcoreapp2.2\Razor\Views\Account\Register.g.cshtml.cs
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack\obj\Debug\netcoreapp2.2\Razor\Views\Game\Index.g.cshtml.cs
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack\obj\Debug\netcoreapp2.2\Razor\Views\Game\Start.g.cshtml.cs
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack\obj\Debug\netcoreapp2.2\Razor\Views\Game\_GetBotsSteps.g.cshtml.cs
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack\obj\Debug\netcoreapp2.2\Razor\Views\Game\_GetPlayerSteps.g.cshtml.cs

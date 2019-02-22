@@ -4,7 +4,7 @@
     {
         Unknown,
         PlayerWon,
-        DealerWon,
+        BotWon,
         Draw
     }
 }
