@@ -32,7 +32,8 @@ namespace BlackJack.BusinessLogic.Services
             var playerSteps = await Database.PlayerSteps.GetAll();
             foreach (var item in playerSteps)
             {
-                if (item.PlayerId == player.First().Id && item.GameId == gameID)
+                var playerId = player.First().Id;
+                if (item.PlayerId == playerId && item.GameId == gameID)
                 {
                     model.PlayerSteps.Add(new PlayerStepGetAllStepsGameViewItem()
                     {
@@ -89,25 +90,33 @@ namespace BlackJack.BusinessLogic.Services
 
             var game = new Game()
             {
+                
                 Player = player.First(),
                 GameState = GameState.Unknown
             };
+            var firstPlayer = player.First();
 
-            await Database.PlayerSteps.Create(CreatePlayerStep(player.First(), game));
-            await Database.PlayerSteps.Create(CreatePlayerStep(player.First(), game));
+            var playerSteps = new List<PlayerStep>
+            {
+                CreatePlayerStep(firstPlayer, game),
+                CreatePlayerStep(firstPlayer, game)
+            };
+            await Database.PlayerSteps.AddRange(playerSteps);
 
+            var StepsOfAllBots = new List<BotStep>(); 
             if (countOfBots > 0)
             {
                 for (int i = 0; i < countOfBots; i++)
                 {
                     var bot = new Bot() { Balance = 1000, Bet = 0 };
-                    await Database.BotSteps.Create(CreateBotStep(bot, game));
-                    await Database.BotSteps.Create(CreateBotStep(bot, game));
+                    StepsOfAllBots.Add(CreateBotStep(bot, game));
+                    StepsOfAllBots.Add(CreateBotStep(bot, game));
                 }
             }
+            await Database.BotSteps.AddRange(StepsOfAllBots);
 
             await Database.Games.Create(game);
-            Database.Players.Update(player.First());
+            Database.Players.Update(firstPlayer);
             await Database.Save();
             var result = new StartGameView()
             {

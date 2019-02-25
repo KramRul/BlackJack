@@ -1,5 +1,6 @@
 ﻿using BlackJack.DataAccess.Enums;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlackJack.DataAccess.Entities
 {
@@ -8,7 +9,8 @@ namespace BlackJack.DataAccess.Entities
         public Guid Id { get; set; }
 
         public GameState GameState { get; set; }
-
-        public Player Player { get; set; }
+        public string PlayerId { get; set; }
+        [ForeignKey("PlayerId")]
+        public virtual Player Player { get; set; }
     }
 }

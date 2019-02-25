@@ -50,14 +50,24 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<RegisterAccountResponseView> Register(RegisterAccountView playerModel)
         {
-            var user = new Player { UserName = playerModel.UserName, Balance = 1000, PasswordHash = playerModel.Password };
+            var user = new Player
+            {
+                UserName = playerModel.UserName,
+                Balance = 1000
+            };
 
             var result = await _userManager.CreateAsync(user, playerModel.Password);
             if(!result.Succeeded)
             {
                 throw new CustomServiceException("The user was not registered");
             }
-            return new RegisterAccountResponseView() { Succeeded=true};
+
+            string encodedJwt = await _jwtProvider.GenerateJwtToken(user.Email, user);
+            return new RegisterAccountResponseView()
+            {
+                AccessToken = encodedJwt,
+                UserName = user.UserName
+            };
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Mvc;
-using BlackJack.ViewModels;
 
 namespace BlackJack.WEB.Controllers
 {
@@ -15,30 +13,19 @@ namespace BlackJack.WEB.Controllers
         {
             _accountService = accountService;
         }
-
-        public IActionResult Index()
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([FromBody]RegisterAccountView model)
         {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
+            return await Execute(()=>_accountService.Register(model));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task Register(RegisterAccountView model)
+        public async Task Login([FromBody]LoginAccountView model)
         {
-            await Execute(async ()=> await _accountService.Register(model));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task Login(LoginAccountView model)
-        {
-            await Execute(async () => await _accountService.Login(model));           
+            await Execute(() => _accountService.Login(model));           
         }
     }
 }

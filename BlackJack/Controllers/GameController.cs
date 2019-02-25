@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.DataAccess.Entities;
-using BlackJack.ViewModels;
 using BlackJack.ViewModels.GameViews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,72 +10,62 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlackJack.WEB.Controllers
 {
-    public class GameController : Controller
+    public class GameController : BaseController
     {
-        private readonly UserManager<Player> _userManager;
+        private readonly IPlayerService _playerService;
         private readonly IGameService _gameService;
 
-        public GameController(UserManager<Player> userManager, IGameService gameService)
+        public GameController(IPlayerService playerService, IGameService gameService)
         {
-            _userManager = userManager;
+            _playerService = playerService;
             _gameService = gameService;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _userManager.Users.ToListAsync());
+            var result = await Execute(() => _playerService.GetAllPlayers());
+            return result;
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Start(int countOfBots, string player)
+        public async Task<IActionResult> Start(int countOfBots, string playerId)
         {
-            try
+            var result = await Execute(async () =>
             {
-                if (ModelState.IsValid)
+                var game = await _gameService.Start(playerId, countOfBots);
+                var playerSteps = await _gameService.GetAllSteps(playerId, game.Id);
+                var botsSteps = await _gameService.GetAllStepOfBots(game.Id);
+                var model = new StartGameResultView()
                 {
-
-                    var game = await _gameService.Start(player, countOfBots);
-                    var playerSteps = await _gameService.GetAllSteps(player, game.Id);
-                    var botsSteps = await _gameService.GetAllStepOfBots(game.Id);
-                    var result = new StartGameResultView()
-                    {
-                        Game = game,
-                        PlayerSteps = playerSteps,
-                        BotsSteps = botsSteps
-                    };
-                    return View("Start", result);
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            catch (Exception ex)
-            {
-                var response = new GenericResponseView<string>();
-                response.Error = ex.Message;
-                return BadRequest(response);
-            }
-
+                    Game = game,
+                    PlayerSteps = playerSteps,
+                    BotsSteps = botsSteps
+                };
+                return model;
+            });
+            return result;
         }
 
-        /*[HttpGet]
-        public IActionResult StartGame(GameViewModel gameVM)
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Hit(string playerId, string gameId)
         {
-            try
-            {
-                return View(gameVM);
-            }
-            catch (ValidationException ex)
-            {
-                return RedirectToAction("Index", "Home", ex.Property);
-            }
-            catch
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return await Execute(() => _gameService.Hit(playerId, gameId));
+        }
 
-        }*/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PlaceABet(string playerId, decimal bet)
+        {
+            return await Execute(() => _gameService.PlaceABet(playerId, bet));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Stand(string playerId, Guid gameId)
+        {
+            return await Execute(() => _gameService.Stand(playerId, gameId));
+        }
     }
 }

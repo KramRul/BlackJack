@@ -2,6 +2,8 @@
 {
     public class RegisterAccountResponseView
     {
-        public bool Succeeded { get; set; }
+        public string AccessToken { get; set; }
+
+        public string UserName { get; set; }
     }
 }

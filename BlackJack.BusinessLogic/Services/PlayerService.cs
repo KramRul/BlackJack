@@ -15,6 +15,22 @@ namespace BlackJack.BusinessLogic.Services
         {
         }
 
+        public async Task<GetAllPlayersPlayerView> GetAllPlayers()
+        {
+            var result = new GetAllPlayersPlayerView();
+            foreach (var player in await Database.Players.GetAll())
+            {
+                result.Players.Add(new PlayerGetAllPlayersPlayerViewItem()
+                {
+                    PlayerId = player.Id,
+                    UserName = player.UserName,
+                    Balance = player.Balance,
+                    Bet = player.Bet
+                });
+            };
+            return result;
+        }
+
         public async Task<GetAllStepsByPlayerIdPlayerView> GetAllStepsByPlayerId(string playerId)
         {
             var result = new GetAllStepsByPlayerIdPlayerView();

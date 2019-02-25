@@ -40,6 +40,11 @@ namespace BlackJack.DataAccess.Repositories
             await db.PlayerSteps.AddAsync(playerStep);
         }
 
+        public async Task AddRange(List<PlayerStep> playerSteps)
+        {
+            await db.PlayerSteps.AddRangeAsync(playerSteps);
+        }
+
         public void Update(PlayerStep playerStep)
         {
             db.Entry(playerStep).State = EntityState.Modified;
