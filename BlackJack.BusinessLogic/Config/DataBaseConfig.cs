@@ -9,7 +9,7 @@ namespace BlackJack.BusinessLogic.Config
         public static void DataBaseConfigures(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(connectionString, b => b.MigrationsAssembly("BlackJack")));
+                options.UseSqlServer(connectionString, b => b.MigrationsAssembly("BlackJack.WEB")));
         }
     }
 }

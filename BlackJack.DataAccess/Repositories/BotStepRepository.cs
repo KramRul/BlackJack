@@ -25,7 +25,7 @@ namespace BlackJack.DataAccess.Repositories
 
         public async Task<IEnumerable<Bot>> GetAllBotsByGameId(Guid gameId)
         {
-            var result = await db.BotSteps.Include(b => b.Bot).Where(b => b.GameId == gameId).Select(b => b.Bot).ToListAsync();
+            var result = await db.BotSteps.Include(b => b.Bot).Where(b => b.GameId == gameId).Select(b => b.Bot).Distinct().ToListAsync();
             return result;
         }
 

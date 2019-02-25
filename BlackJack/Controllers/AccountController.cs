@@ -15,14 +15,12 @@ namespace BlackJack.WEB.Controllers
         }
         
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromBody]RegisterAccountView model)
         {
             return await Execute(()=>_accountService.Register(model));
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task Login([FromBody]LoginAccountView model)
         {
             await Execute(() => _accountService.Login(model));           

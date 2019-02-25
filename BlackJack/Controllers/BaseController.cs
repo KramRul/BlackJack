@@ -34,6 +34,7 @@ namespace BlackJack.WEB.Controllers
             catch(Exception ex)
             {
                 //lloging
+                Console.WriteLine(ex.Message);
                 response.Error = "Server internal error";
                 return BadRequest(response);
             }

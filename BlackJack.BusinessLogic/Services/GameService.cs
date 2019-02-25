@@ -20,10 +20,10 @@ namespace BlackJack.BusinessLogic.Services
         {
         }
 
-        public async Task<GetAllStepsGameView> GetAllSteps(string playerName, Guid gameID)
+        public async Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID)
         {
             var model = new GetAllStepsGameView();
-            var player = await Database.Players.GetByName(playerName);
+            var player = await Database.Players.Get(Guid.Parse(playerId));
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
@@ -32,7 +32,6 @@ namespace BlackJack.BusinessLogic.Services
             var playerSteps = await Database.PlayerSteps.GetAll();
             foreach (var item in playerSteps)
             {
-                var playerId = player.First().Id;
                 if (item.PlayerId == playerId && item.GameId == gameID)
                 {
                     model.PlayerSteps.Add(new PlayerStepGetAllStepsGameViewItem()
@@ -79,9 +78,9 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<StartGameView> Start(string playerName, int countOfBots)
+        public async Task<StartGameView> Start(string playerId, int countOfBots)
         {
-            var player = await Database.Players.GetByName(playerName);
+            var player = await Database.Players.Get(Guid.Parse(playerId));
 
             if (player == null)
             {
@@ -91,15 +90,14 @@ namespace BlackJack.BusinessLogic.Services
             var game = new Game()
             {
                 
-                Player = player.First(),
+                Player = player,
                 GameState = GameState.Unknown
             };
-            var firstPlayer = player.First();
 
             var playerSteps = new List<PlayerStep>
             {
-                CreatePlayerStep(firstPlayer, game),
-                CreatePlayerStep(firstPlayer, game)
+                CreatePlayerStep(player, game),
+                CreatePlayerStep(player, game)
             };
             await Database.PlayerSteps.AddRange(playerSteps);
 
@@ -116,7 +114,7 @@ namespace BlackJack.BusinessLogic.Services
             await Database.BotSteps.AddRange(StepsOfAllBots);
 
             await Database.Games.Create(game);
-            Database.Players.Update(firstPlayer);
+            Database.Players.Update(player);
             await Database.Save();
             var result = new StartGameView()
             {
@@ -316,7 +314,7 @@ namespace BlackJack.BusinessLogic.Services
                 }
 
                 var botRanks = new List<Rank>();
-                foreach (var step in playerSteps)
+                foreach (var step in botSteps)
                 {
                     botRanks.Add(step.Rank);
                 }
@@ -332,6 +330,7 @@ namespace BlackJack.BusinessLogic.Services
                         Rank = (Rank)rnd.Next(1, 13),
                         Suite = (Suite)rnd.Next(1, 4)
                     };
+                    botRanks.Add(botStep.Rank);
                     await Database.BotSteps.Create(botStep);
                     await Database.Save();
                 }

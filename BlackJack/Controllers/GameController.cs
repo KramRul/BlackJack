@@ -27,7 +27,7 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Start(int countOfBots, string playerId)
         {
@@ -47,22 +47,20 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Hit(string playerId, string gameId)
         {
             return await Execute(() => _gameService.Hit(playerId, gameId));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> PlaceABet(string playerId, decimal bet)
         {
             return await Execute(() => _gameService.PlaceABet(playerId, bet));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Stand(string playerId, Guid gameId)
         {
             return await Execute(() => _gameService.Stand(playerId, gameId));

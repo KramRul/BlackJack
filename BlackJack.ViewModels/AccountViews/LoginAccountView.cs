@@ -13,11 +13,5 @@ namespace BlackJack.ViewModels.AccountViews
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
-        [Required]
-        [Compare("Password", ErrorMessage = "Passwords do not match")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        public string PasswordConfirm { get; set; }
     }
 }
