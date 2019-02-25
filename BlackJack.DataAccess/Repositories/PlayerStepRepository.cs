@@ -19,7 +19,7 @@ namespace BlackJack.DataAccess.Repositories
 
         public async Task<IEnumerable<PlayerStep>> GetAll()
         {            
-            var result = await db.PlayerSteps.Include(p => p.Player).ToListAsync();
+            var result = await db.PlayerSteps.Include(p => p.Player).Include(g=>g.Game).ToListAsync();
             return result;
         }
 

@@ -65,5 +65,17 @@ namespace BlackJack.WEB.Controllers
         {
             return await Execute(() => _gameService.Stand(playerId, gameId));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllSteps(string playerId, Guid gameId)
+        {
+            return await Execute(() => _gameService.GetAllSteps(playerId, gameId));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllStepOfBots(Guid gameId)
+        {
+            return await Execute(() => _gameService.GetAllStepOfBots(gameId));
+        }
     }
 }
