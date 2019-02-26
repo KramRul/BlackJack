@@ -8,4 +8,3 @@ C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\bi
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
-C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.csprojAssemblyReference.cache
