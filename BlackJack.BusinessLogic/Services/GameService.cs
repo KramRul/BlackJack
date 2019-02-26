@@ -369,12 +369,17 @@ namespace BlackJack.BusinessLogic.Services
             {
                 if (game.Player.Id == playerId)
                 {
-                    result.Player = new PlayerGetAllGamesByPlayerIdGameView()
+                    result.Games.Add(new GameGetGamesByPlayerIdGameViewItem()
                     {
-                        PlayerId = game.Player.Id,
-                        Balance = game.Player.Balance,
-                        Bet = game.Player.Bet
-                    };
+                        Id = game.Id,
+                        GameState = game.GameState,
+                        Player = new PlayerGetAllGamesByPlayerIdGameView()
+                        {
+                            PlayerId = game.Player.Id,
+                            Balance = game.Player.Balance,
+                            Bet = game.Player.Bet
+                        }
+                    });
                 }
             }
             return result;

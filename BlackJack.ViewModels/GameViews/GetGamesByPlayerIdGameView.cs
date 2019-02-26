@@ -7,6 +7,16 @@ namespace BlackJack.ViewModels.GameViews
 {
     public class GetGamesByPlayerIdGameView
     {
+        public List<GameGetGamesByPlayerIdGameViewItem> Games { get; set; }
+
+        public GetGamesByPlayerIdGameView()
+        {
+            Games = new List<GameGetGamesByPlayerIdGameViewItem>();
+        }
+    }
+
+    public class GameGetGamesByPlayerIdGameViewItem
+    {
         public Guid Id { get; set; }
 
         public GameState GameState { get; set; }

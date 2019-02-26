@@ -1,12 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlackJack.BusinessLogic.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace BlackJack.WEB.Controllers
 {
-    public class PlayerController : Controller
+    public class PlayerController : BaseController
     {
-        public IActionResult Index()
+        private readonly IPlayerService _playerService;
+
+        public PlayerController(IPlayerService playerService)
         {
-            return View();
+            _playerService = playerService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllPlayers()
+        {
+            return await Execute(() => _playerService.GetAllPlayers());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllStepsByPlayerId(string playerId)
+        {
+            return await Execute(() => _playerService.GetAllStepsByPlayerId(playerId));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPlayerById(string playerId)
+        {
+            return await Execute(() => _playerService.GetPlayerById(playerId));
         }
     }
 }
