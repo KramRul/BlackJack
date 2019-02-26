@@ -1,0 +1,17 @@
+<h2>Регистрация нового пользователя</h2>
+  <div class="form-group">
+    <label>UserName</label><br />
+    <input type="text" [(ngModel)]="player.userName" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label>Password</label><br />
+    <input type="text" [(ngModel)]="player.password" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>PasswordConfirm</label><br />
+    <input type="text" [(ngModel)]="player.passwordConfirm" class="form-control" />
+  </div>
+  <div class="form-group">
+    <input type="button" value="Register" (click)="register()" class="btn btn-success" />
+  </div>
+
