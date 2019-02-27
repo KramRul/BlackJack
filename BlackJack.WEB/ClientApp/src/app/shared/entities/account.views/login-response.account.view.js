@@ -6,4 +6,4 @@ var LoginAccountResponseView = /** @class */ (function () {
     return LoginAccountResponseView;
 }());
 exports.LoginAccountResponseView = LoginAccountResponseView;
-//# sourceMappingURL=LoginAccountResponseView.js.map
+//# sourceMappingURL=login-response.account.view.js.map

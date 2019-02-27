@@ -1,4 +1,4 @@
-﻿export class LoginAccountResponseView {
-    AccessToken?: string;
-    UserName?: string;
+export class LoginAccountResponseView {
+    accessToken?: string;
+    userName?: string;
 }

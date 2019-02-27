@@ -21,9 +21,9 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task Login([FromBody]LoginAccountView model)
+        public async Task<IActionResult> Login([FromBody]LoginAccountView model)
         {
-            await Execute(() => _accountService.Login(model));           
+            return await Execute(() => _accountService.Login(model));           
         }
     }
 }

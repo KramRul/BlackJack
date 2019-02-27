@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AccountRoutingModule } from './account-routing.module';
+import { AccountComponent } from './account.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [AccountComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forChild([
-      { path: 'Register', component: RegisterComponent },
-      { path: 'Login', component: LoginComponent }
-    ])
+    AccountRoutingModule
   ]
 })
 export class AccountModule { }

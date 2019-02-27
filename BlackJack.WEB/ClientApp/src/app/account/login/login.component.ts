@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginAccountView } from 'src/app/shared/entities/account.views/login.account.view';
+import { RegisterAccountView } from 'src/app/shared/entities/account.views/register.account.view';
+import { AccountService } from 'src/app/shared/services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,13 @@ import { LoginAccountView } from 'src/app/shared/entities/account.views/login.ac
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  player: LoginAccountView = new LoginAccountView();
-  constructor() { }
+  model: RegisterAccountView = new RegisterAccountView();
+  constructor(private accountService: AccountService, private router: Router) {
 
+  }
+  login() {
+    this.accountService.login(this.model).subscribe(data => this.router.navigateByUrl("/") );
+  }
   ngOnInit() {
   }
 

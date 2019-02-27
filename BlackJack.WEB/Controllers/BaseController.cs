@@ -23,7 +23,7 @@ namespace BlackJack.WEB.Controllers
                 }
                 var result = await func();
                 response.Model = result;
-                return Ok(response);
+                return Ok(response.Model);
                 
             }
             catch (CustomServiceException ex)
