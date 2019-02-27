@@ -1,0 +1,1 @@
+{"version":3,"file":"start-result.game.view.js","sourceRoot":"","sources":["start-result.game.view.ts"],"names":[],"mappings":";;AAAA,qDAAkD;AAClD,qEAAgE;AAChE,mFAA4E;AAE5E;IAKE;QACE,IAAI,CAAC,IAAI,GAAG,IAAI,+BAAa,EAAE,CAAC;QAChC,IAAI,CAAC,WAAW,GAAG,IAAI,6CAAmB,EAAE,CAAC;QAC7C,IAAI,CAAC,SAAS,GAAG,IAAI,yDAAwB,EAAE,CAAC;IAClD,CAAC;IACH,0BAAC;AAAD,CAAC,AAVD,IAUC;AAVY,kDAAmB"}

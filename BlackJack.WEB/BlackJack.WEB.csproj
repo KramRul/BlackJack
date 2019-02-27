@@ -36,15 +36,17 @@
     <None Remove="ClientApp\src\app\shared\entities\game.views\hit.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\start-result.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\start.game.view.ts" />
+    <None Remove="ClientApp\src\app\shared\entities\player.views\get-all-players.player.view.ts" />
+    <None Remove="ClientApp\src\app\shared\entities\player.views\get-all-steps-by-playerId.player.view.ts" />
+    <None Remove="ClientApp\src\app\shared\entities\player.views\get-player-by-id.player.view.ts" />
+    <None Remove="ClientApp\src\app\shared\enums\game-state.ts" />
+    <None Remove="ClientApp\src\app\shared\enums\rank.ts" />
+    <None Remove="ClientApp\src\app\shared\enums\suite.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlackJack.BusinessLogic\BlackJack.BusinessLogic.csproj" />
     <ProjectReference Include="..\BlackJack.DataAccess\BlackJack.DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\shared\entities\player.views\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +57,12 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\hit.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\start-result.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\start.game.view.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\entities\player.views\get-all-players.player.view.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\entities\player.views\get-all-steps-by-playerId.player.view.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\entities\player.views\get-player-by-id.player.view.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\game-state.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\rank.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\suite.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

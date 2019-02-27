@@ -1,5 +1,7 @@
+import { GameState } from 'src/app/shared/enums/game-state';
+
 export class GetGameView {
-  id?: number;
+  id?: string;
   gameState?: GameState;
   player?: PlayerGetGameView;
 
@@ -8,15 +10,8 @@ export class GetGameView {
   }
 }
 
-enum GameState {
-  Unknown,
-  PlayerWon,
-  BotWon,
-  Draw
-}
-
 export class PlayerGetGameView {
-  PlayerId?: number;
+  PlayerId?: string;
   Balance?: number;
   Bet?: number;
 }
