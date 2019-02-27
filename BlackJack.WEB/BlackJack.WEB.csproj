@@ -42,6 +42,7 @@
     <None Remove="ClientApp\src\app\shared\enums\game-state.ts" />
     <None Remove="ClientApp\src\app\shared\enums\rank.ts" />
     <None Remove="ClientApp\src\app\shared\enums\suite.ts" />
+    <None Remove="ClientApp\src\app\shared\services\account.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +64,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\enums\game-state.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\enums\rank.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\enums\suite.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\account.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

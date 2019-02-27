@@ -16,11 +16,14 @@ import { GetAllStepsByPlayerIdPlayerView } from './entities/player.views/get-all
 import { GetPlayerByIdPlayerView } from './entities/player.views/get-player-by-id.player.view';
 
 @NgModule({
-  declarations: [LoginAccountView, LoginAccountResponseView, RegisterAccountView, RegisterAccountResponseView,
-    GetGameView, GetAllStepOfBotsGameView, GetAllStepsGameView, GetGamesByPlayerIdGameView, HitGameView, StartGameView, StartGameResultView,
-    GetAllPlayersPlayerView, GetAllStepsByPlayerIdPlayerView, GetPlayerByIdPlayerView],
+  declarations: [],
   imports: [
     CommonModule
+  ],
+  providers: [
+    LoginAccountView, LoginAccountResponseView, RegisterAccountView, RegisterAccountResponseView,
+    GetGameView, GetAllStepOfBotsGameView, GetAllStepsGameView, GetGamesByPlayerIdGameView, HitGameView, StartGameView, StartGameResultView,
+    GetAllPlayersPlayerView, GetAllStepsByPlayerIdPlayerView, GetPlayerByIdPlayerView
   ]
 })
 export class SharedModule { }
