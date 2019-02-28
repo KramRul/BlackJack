@@ -9,13 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  validationErrors: string;
   model: RegisterAccountView = new RegisterAccountView();
+
   constructor(private accountService: AccountService, private router: Router) {
 
   }
+
   login() {
-    this.accountService.login(this.model).subscribe(data => this.router.navigateByUrl("/") );
+    this.accountService.login(this.model).subscribe(data => this.router.navigateByUrl("/"), error => this.validationErrors = error );
   }
+
   ngOnInit() {
   }
 

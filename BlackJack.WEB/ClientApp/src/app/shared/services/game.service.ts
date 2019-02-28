@@ -6,38 +6,39 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginAccountResponseView } from '../entities/account.views/login-response.account.view';
 import { GetAllPlayersPlayerView } from '../entities/player.views/get-all-players.player.view';
+import { StartGameResultView } from '../entities/game.views/start-result.game.view';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'my-auth-token'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  public static validationErrors: string;
   private url = "/game/";
 
   constructor(private http: HttpClient) {
   }
 
-  index() {
+  index(model: GetAllPlayersPlayerView) {
     return this.http.get<GetAllPlayersPlayerView>(this.url + "index").pipe(
       map((response: GetAllPlayersPlayerView) => {
         console.log(response);
-      }),
-      catchError(this.handleError));
+        model.players = response.players;
+      }));
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error.error}`);
-      //AccountService.validationErrors = error.error.error;
-    }
-    return new Observable();
-  };
+  start(model: StartGameResultView, countOfBots: number, playerId: string) {
+    //const token = `Bearer ${sessionStorage.getItem('accessToken')}`;
+
+    return this.http.get<StartGameResultView>(this.url + "start" + "?" + 'countOfBots=' + countOfBots + '&playerId=' + playerId/*, { headers: new HttpHeaders().set('Authorization', token)}*/).pipe(
+      map((response: StartGameResultView) => {
+        console.log(response);
+        model = response;
+      }));
+  }
 }

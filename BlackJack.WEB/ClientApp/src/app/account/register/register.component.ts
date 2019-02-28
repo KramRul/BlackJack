@@ -9,7 +9,6 @@ import { AccountService } from 'src/app/shared/services/account.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
   validationErrors: string;
   model: RegisterAccountView = new RegisterAccountView();
 
@@ -19,8 +18,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.accountService.register(this.model).subscribe(data => this.router.navigateByUrl("/"));
-    this.validationErrors = AccountService.validationErrors;
+    this.accountService.register(this.model).subscribe(data => this.router.navigateByUrl("/"), error => this.validationErrors = error);
   }
 
   ngOnInit() {

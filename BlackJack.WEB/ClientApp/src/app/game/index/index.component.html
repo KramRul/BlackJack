@@ -1,19 +1,19 @@
 <div asp-validation-summary="All"></div>
 <div class="form-group">
   <label for="exampleFormControlSelect1">Выберите количество ботов</label>
-  <select class="form-control" id="countOfBots" name="countOfBots">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
+  <select class="form-control" [(ngModel)]="countOfBots">
+    <option [ngValue]="1">1</option>
+    <option [ngValue]="2">2</option>
+    <option [ngValue]="3">3</option>
+    <option [ngValue]="4">4</option>
+    <option [ngValue]="5">5</option>
   </select>
 </div>
 <div class="form-group">
   <label>Username:</label>
-  <input name="player" id="player" list="players" class="form-control" />
+  <input name="player" [(ngModel)]="playerId" list="players" class="form-control" />
   <datalist id="players">
-    <option *ngFor="let player of modelPlayers.players">{{player.userName}}</option>
+    <option *ngFor="let player of modelPlayers.players" [ngValue]="player.playerId">{{player.userName}}</option>
   </datalist>
 </div>
-<input type="button" class="btn btn-primary btn-lg btn-block" id="SubmitStartGame" name="SubmitStartGame" value="Start Game">
+<input type="button" class="btn btn-primary btn-lg btn-block" (click)="start()" value="Start Game">

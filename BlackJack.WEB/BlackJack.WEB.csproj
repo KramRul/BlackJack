@@ -31,6 +31,8 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\account\account-routing.module.ts" />
     <None Remove="ClientApp\src\app\game\game-routing.module.ts" />
+    <None Remove="ClientApp\src\app\http-config.interceptor.ts" />
+    <None Remove="ClientApp\src\app\http-error.interceptor.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-all-step-of-bots.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-all-steps.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-games-by-playerId.game.view.ts" />
@@ -56,6 +58,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\account\account-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\game\game-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\http-error.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\http-config.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-all-step-of-bots.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-all-steps.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-games-by-playerId.game.view.ts" />
