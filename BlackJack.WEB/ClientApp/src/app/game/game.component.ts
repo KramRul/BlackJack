@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class GameComponent implements OnInit {
 
-  constructor(private gameService: GameService, private router: Router) {
+  constructor() {
 
   }
 

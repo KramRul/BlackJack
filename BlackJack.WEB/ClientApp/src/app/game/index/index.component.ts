@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetAllPlayersPlayerView } from 'src/app/shared/entities/player.views/get-all-players.player.view';
+import { GameService } from 'src/app/shared/services/game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -9,7 +11,9 @@ import { GetAllPlayersPlayerView } from 'src/app/shared/entities/player.views/ge
 export class IndexComponent implements OnInit {
   modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
 
-  constructor() { }
+  constructor(private gameService: GameService, private router: Router) {
+    this.gameService.index().subscribe(/*data => this.router.navigateByUrl("/")*/);
+  }
 
   ngOnInit() {
   }
