@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\account\account-routing.module.ts" />
+    <None Remove="ClientApp\src\app\game\game-routing.module.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-all-step-of-bots.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-all-steps.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-games-by-playerId.game.view.ts" />
@@ -44,6 +45,7 @@
     <None Remove="ClientApp\src\app\shared\enums\rank.ts" />
     <None Remove="ClientApp\src\app\shared\enums\suite.ts" />
     <None Remove="ClientApp\src\app\shared\services\account.service.ts" />
+    <None Remove="ClientApp\src\app\shared\services\game.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +55,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\account\account-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\game\game-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-all-step-of-bots.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-all-steps.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-games-by-playerId.game.view.ts" />
@@ -67,6 +70,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\enums\rank.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\enums\suite.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\account.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\game.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

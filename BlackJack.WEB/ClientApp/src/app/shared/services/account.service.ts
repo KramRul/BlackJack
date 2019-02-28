@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { LoginAccountView } from '../entities/account.views/login.account.view';
 import { RegisterAccountView } from '../entities/account.views/register.account.view';
 import { Observable, of } from 'rxjs';
@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AccountService {
-
+  public static validationErrors: string;
   private url = "/account/";
 
   constructor(private http: HttpClient) {
@@ -31,13 +31,27 @@ export class AccountService {
   }
 
   register(model: RegisterAccountView) {
-    return this.http.post(this.url + "register", model, httpOptions);
+    return this.http.post(this.url + "register", model, httpOptions).pipe(
+      //catchError(this.handleError('register', []))
+      catchError(this.handleError1)
+    );
   }
 
-  private extractData(res: Response) {
-    let body = res;
-    return body || {};
-  }
+  private handleError1(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error.error}`);
+      AccountService.validationErrors = error.error.error;
+    }
+    // return an ErrorObservable with a user-facing error message
+    return new Observable();
+  };
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any) => {
