@@ -32,10 +32,10 @@ export class GameService {
       }));
   }
 
-  start(model: StartGameResultView, countOfBots: number, playerId: string) {
+  start(model: StartGameResultView, countOfBots: number, playerName: string) {
     //const token = `Bearer ${sessionStorage.getItem('accessToken')}`;
 
-    return this.http.get<StartGameResultView>(this.url + "start" + "?" + 'countOfBots=' + countOfBots + '&playerId=' + playerId/*, { headers: new HttpHeaders().set('Authorization', token)}*/).pipe(
+    return this.http.get<StartGameResultView>(this.url + "start" + "?" + 'countOfBots=' + countOfBots + '&playerName=' + playerName).pipe(
       map((response: StartGameResultView) => {
         console.log(response);
         model = response;

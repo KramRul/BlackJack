@@ -11,9 +11,9 @@
 </div>
 <div class="form-group">
   <label>Username:</label>
-  <input name="player" [(ngModel)]="playerId" list="players" class="form-control" />
-  <datalist id="players">
-    <option *ngFor="let player of modelPlayers.players" [ngValue]="player.playerId">{{player.userName}}</option>
+  <input [(ngModel)]="playerName" list="players" class="form-control" />
+  <datalist id="players"> <!--[(ngModel)]="players"-->
+    <option *ngFor="let player of modelPlayers.players">{{player.userName}}</option>
   </datalist>
 </div>
 <input type="button" class="btn btn-primary btn-lg btn-block" (click)="start()" value="Start Game">

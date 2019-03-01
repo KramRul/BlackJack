@@ -20,16 +20,17 @@ namespace BlackJack.BusinessLogic.Services
         {
         }
 
-        public async Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID)
+        public async Task<GetAllStepsGameView> GetAllSteps(string playerName, Guid gameID)
         {
             var model = new GetAllStepsGameView();
-            var player = await Database.Players.Get(Guid.Parse(playerId));
+            var player = await Database.Players.GetByName(playerName);
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
             }
 
             var playerSteps = await Database.PlayerSteps.GetAll();
+            var playerId = player.Id;
             foreach (var item in playerSteps)
             {
                 if (item.PlayerId == playerId && item.GameId == gameID)
@@ -78,9 +79,9 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<StartGameView> Start(string playerId, int countOfBots)
+        public async Task<StartGameView> Start(string playerName, int countOfBots)
         {
-            var player = await Database.Players.Get(Guid.Parse(playerId));
+            var player = await Database.Players.GetByName(playerName);
 
             if (player == null)
             {
@@ -120,6 +121,7 @@ namespace BlackJack.BusinessLogic.Services
             {
                 Id = game.Id,
                 GameState = game.GameState,
+                CountOfBots = countOfBots,
                 Player = new PlayerStartGameView()
                 {
                     PlayerId = game.Player.Id,

@@ -50,6 +50,13 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<RegisterAccountResponseView> Register(RegisterAccountView playerModel)
         {
+            var playerExist = await _userManager.FindByNameAsync(playerModel.UserName);
+
+            if (playerExist!=null)
+            {
+                throw new CustomServiceException("Player allready exist.");
+            }
+
             var user = new Player
             {
                 UserName = playerModel.UserName,

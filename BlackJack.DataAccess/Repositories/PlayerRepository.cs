@@ -29,9 +29,9 @@ namespace BlackJack.DataAccess.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<Player>> GetByName(string name)
+        public async Task<Player> GetByName(string name)
         {
-            var result = await _db.Users.Where(x => x.UserName == name).ToListAsync();
+            var result = await _db.Users.Where(x => x.UserName == name).FirstOrDefaultAsync();
             return result;
         }
 

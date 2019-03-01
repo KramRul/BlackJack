@@ -29,12 +29,12 @@ namespace BlackJack.WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Start(int countOfBots, string playerId)
+        public async Task<IActionResult> Start(int countOfBots, string playerName)
         {
             var result = await Execute(async () =>
             {
-                var game = await _gameService.Start(playerId, countOfBots);
-                var playerSteps = await _gameService.GetAllSteps(playerId, game.Id);
+                var game = await _gameService.Start(playerName, countOfBots);
+                var playerSteps = await _gameService.GetAllSteps(playerName, game.Id);
                 var botsSteps = await _gameService.GetAllStepOfBots(game.Id);
                 var model = new StartGameResultView()
                 {

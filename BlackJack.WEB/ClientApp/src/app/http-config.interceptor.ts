@@ -18,7 +18,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     }
 
     if (!request.headers.has('Content-Type')) {
-      request = request.clone({ headers: request.headers.set('Transfer-Encoding', 'chunked') });
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
 

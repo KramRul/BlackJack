@@ -13,14 +13,16 @@ export class IndexComponent implements OnInit {
   modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
   modelStartResponse: StartGameResultView = new StartGameResultView();
   countOfBots: number;
-  playerId: string;
+  playerName: string;
+  player: object;
 
   constructor(private gameService: GameService, private router: Router) {
     this.gameService.index(this.modelPlayers).subscribe(/*data => this.router.navigateByUrl("/")*/);
   }
 
   start() {
-    this.gameService.start(this.modelStartResponse, this.countOfBots, this.playerId).subscribe();
+    var dxb = this.player;
+    this.gameService.start(this.modelStartResponse, this.countOfBots, this.playerName).subscribe(data => this.router.navigateByUrl("/game/start"));
   }
 
   ngOnInit() {
