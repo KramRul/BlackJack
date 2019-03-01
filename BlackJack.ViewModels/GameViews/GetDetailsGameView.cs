@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlackJack.ViewModels.GameViews
 {
-    public class StartGameResultView
+    public class GetDetailsGameView
     {
         public StartGameView Game { get; set; }
         public GetAllStepsGameView PlayerSteps { get; set; }

@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { LoginAccountResponseView } from '../entities/account.views/login-response.account.view';
 import { GetAllPlayersPlayerView } from '../entities/player.views/get-all-players.player.view';
 import { StartGameResultView } from '../entities/game.views/start-result.game.view';
+import { StartGameView } from '../entities/game.views/start.game.view';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -32,13 +33,12 @@ export class GameService {
       }));
   }
 
-  start(model: StartGameResultView, countOfBots: number, playerName: string) {
-    //const token = `Bearer ${sessionStorage.getItem('accessToken')}`;
-
-    return this.http.get<StartGameResultView>(this.url + "start" + "?" + 'countOfBots=' + countOfBots + '&playerName=' + playerName).pipe(
-      map((response: StartGameResultView) => {
+  start(countOfBots: number, playerName: string) {
+    return this.http.get<StartGameView>(this.url + "start" + "?" + 'countOfBots=' + countOfBots + '&playerName=' + playerName).pipe(
+      map((response: StartGameView) => {
         console.log(response);
-        model = response;
+        //model = response;
+        return response;
       }));
   }
 }

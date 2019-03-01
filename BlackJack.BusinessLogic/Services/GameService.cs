@@ -20,17 +20,17 @@ namespace BlackJack.BusinessLogic.Services
         {
         }
 
-        public async Task<GetAllStepsGameView> GetAllSteps(string playerName, Guid gameID)
+        public async Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID)
         {
             var model = new GetAllStepsGameView();
-            var player = await Database.Players.GetByName(playerName);
+            var player = await Database.Players.Get(Guid.Parse(playerId));
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
             }
 
             var playerSteps = await Database.PlayerSteps.GetAll();
-            var playerId = player.Id;
+
             foreach (var item in playerSteps)
             {
                 if (item.PlayerId == playerId && item.GameId == gameID)
@@ -87,6 +87,11 @@ namespace BlackJack.BusinessLogic.Services
             {
                 throw new CustomServiceException("Player does not exist");
             }
+            var gameCheck = await Database.Games.GetActiveGameForPlayer(player.Id);
+            if (gameCheck != null)
+            {
+                throw new CustomServiceException("There is active game");
+            }
 
             var game = new Game()
             {
@@ -128,6 +133,37 @@ namespace BlackJack.BusinessLogic.Services
                     UserName = game.Player.UserName,
                     Balance = game.Player.Balance,
                     Bet = game.Player.Bet
+                }
+            };
+            return result;
+        }
+
+        public async Task<GetDetailsResponseGameView> GetDetails(string playerId)
+        {
+            var player = await Database.Players.Get(Guid.Parse(playerId));
+
+            if (player == null)
+            {
+                throw new CustomServiceException("Player does not exist");
+            }
+
+            var game = await Database.Games.GetActiveGameForPlayer(playerId);
+
+            if (game == null)
+            {
+                throw new CustomServiceException("Game does not exist");
+            }
+
+            var result = new GetDetailsResponseGameView()
+            {
+                Id = game.Id,
+                GameState = game.GameState,
+                Player = new PlayerGetDetailsGameView()
+                {
+                    PlayerId = player.Id,
+                    UserName = player.UserName,
+                    Balance = player.Balance,
+                    Bet = player.Bet
                 }
             };
             return result;

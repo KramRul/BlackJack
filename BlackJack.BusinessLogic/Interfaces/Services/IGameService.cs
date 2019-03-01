@@ -9,7 +9,7 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
 {
     public interface IGameService
     {
-        Task<GetAllStepsGameView> GetAllSteps(string playerName, Guid gameID);
+        Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID);
 
         Task<GetAllStepOfBotsGameView> GetAllStepOfBots(Guid gameId);
 
@@ -24,5 +24,7 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
         Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId);
 
         Task<GetGameView> Get(Guid gameId);
+
+        Task<GetDetailsResponseGameView> GetDetails(string playerId);
     }
 }

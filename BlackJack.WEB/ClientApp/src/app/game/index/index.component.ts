@@ -3,6 +3,7 @@ import { GetAllPlayersPlayerView } from 'src/app/shared/entities/player.views/ge
 import { GameService } from 'src/app/shared/services/game.service';
 import { Router } from '@angular/router';
 import { StartGameResultView } from 'src/app/shared/entities/game.views/start-result.game.view';
+import { StartGameView } from 'src/app/shared/entities/game.views/start.game.view';
 
 @Component({
   selector: 'app-index',
@@ -11,18 +12,25 @@ import { StartGameResultView } from 'src/app/shared/entities/game.views/start-re
 })
 export class IndexComponent implements OnInit {
   modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
-  modelStartResponse: StartGameResultView = new StartGameResultView();
+  modelStartResponse: StartGameView = new StartGameView();
+  validationErrors: string;
   countOfBots: number;
   playerName: string;
   player: object;
 
   constructor(private gameService: GameService, private router: Router) {
-    this.gameService.index(this.modelPlayers).subscribe(/*data => this.router.navigateByUrl("/")*/);
+    this.gameService.index(this.modelPlayers).subscribe();
   }
 
   start() {
     var dxb = this.player;
-    this.gameService.start(this.modelStartResponse, this.countOfBots, this.playerName).subscribe(data => this.router.navigateByUrl("/game/start"));
+    this.gameService.start(this.countOfBots, this.playerName).subscribe(
+      data => {
+        console.log(data);
+        this.router.navigate(["/game/start"], { queryParams: { data: JSON.stringify(data) } });
+      }
+      , error => this.validationErrors = error
+    );
   }
 
   ngOnInit() {

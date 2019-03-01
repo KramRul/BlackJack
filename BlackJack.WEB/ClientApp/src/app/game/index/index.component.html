@@ -17,3 +17,6 @@
   </datalist>
 </div>
 <input type="button" class="btn btn-primary btn-lg btn-block" (click)="start()" value="Start Game">
+<div class="form-group">
+  <input type="text" class="form-control is-invalid" disabled [hidden]="!validationErrors" [(ngModel)]="validationErrors">
+</div>

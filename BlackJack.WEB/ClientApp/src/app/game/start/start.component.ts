@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GameService } from '../../shared/services/game.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-start',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService: GameService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    var res = this.route.snapshot.queryParamMap.get('data');
+    console.log(res);
   }
 
 }
