@@ -1,3 +1,62 @@
-<p>
-  game works!
-</p>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr><th>GameID</th><th>User Name</th><th>Balance</th><th>Bet</th><th>Dealer Id</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>@Model.Game.Id</td>
+      <td>@Model.Game.Player.UserName</td>
+      <td>@Model.Game.Player.Balance</td>
+      <td>@Model.Game.Player.Bet</td>
+      <td>@Model.Game.Dealer.Id</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr><th>Player Step Id</th><th>Player Suite</th><th>Suite</th><th>Rank</th></tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model.PlayerStepVM)
+    {
+    <tr>
+      <td>@item.Id</td>
+      <td>@item.PlayerId</td>
+      <td>@item.Suite</td>
+      <td>@item.Rank</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr><th>Dealer Step Id</th><th>Dealer Suite</th><th>Suite</th><th>Rank</th></tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model.DealerStepVM)
+    {
+    <tr>
+      <td>@item.Id</td>
+      <td>@item.DealerId</td>
+      <td>@item.Suite</td>
+      <td>@item.Rank</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<table class="table">
+  <thead class="thead-light">
+    <tr><th>Bot Step Id</th><th>Bot Suite</th><th>Suite</th><th>Rank</th></tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model.BotStepVM)
+    {
+    <tr>
+      <td>@item.Id</td>
+      <td>@item.BotId</td>
+      <td>@item.Suite</td>
+      <td>@item.Rank</td>
+    </tr>
+    }
+  </tbody>
+</table>

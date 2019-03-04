@@ -1,3 +1,19 @@
-<p>
-  index works!
-</p>
+<table class="table">
+  <tr><th>GameID</th><th>User Name</th><th>Balance</th><th>Bet</th><th>Dealer Id</th></tr>
+  <tr *ngFor="let playerStep of gameDetails.playerSteps.playerSteps">
+    <td>@game.Id</td>
+    <td>@game.Player.UserName</td>
+    <td>@game.Player.Balance</td>
+    <td>@game.Player.Bet</td>
+    <td>@game.Dealer.Id</td>
+    <td>
+      <form asp-action="Delete" asp-controller="Home" asp-route-id="@game.Id" method="post">
+        <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@game.Id">Детали</a>
+        <button type="submit" class="btn btn-sm btn-danger">
+          Удалить
+        </button>
+      </form>
+    </td>
+  </tr>
+  }
+</table>

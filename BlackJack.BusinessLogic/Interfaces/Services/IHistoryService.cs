@@ -1,12 +1,15 @@
-﻿using System;
+﻿using BlackJack.ViewModels.HistoryViews;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Interfaces.Services
 {
-    interface IHistoryService
+    public interface IHistoryService
     {
-        /*IEnumerable<GameViewModel> GetHistoryOfGames()
-        Details(Guid Id)*/
+        Task<GetHistoryOfGamesHistoryView> GetHistoryOfGames();
+
+        Task<DetailsOfGameHistoryView> DetailsOfGame(Guid gameID);
     }
 }

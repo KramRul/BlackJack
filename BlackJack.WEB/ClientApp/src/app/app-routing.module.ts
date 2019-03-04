@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 const routes: Routes = [{ path: '', component: AppComponent },
   { path: 'game', loadChildren: "./game/game.module#GameModule" },
   { path: 'account', loadChildren: "./account/account.module#AccountModule" },
+  { path: 'history', loadChildren: "./history/history.module#HistoryModule" },
   { path: '**', redirectTo: '/404', pathMatch: 'full'}]
 
 @NgModule({
