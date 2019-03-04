@@ -8,6 +8,7 @@ import { LoginAccountResponseView } from '../entities/account.views/login-respon
 import { GetAllPlayersPlayerView } from '../entities/player.views/get-all-players.player.view';
 import { StartGameResultView } from '../entities/game.views/start-result.game.view';
 import { StartGameView } from '../entities/game.views/start.game.view';
+import { GetDetailsGameView } from '../entities/game.views/get-details.game.view';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -38,6 +39,17 @@ export class GameService {
       map((response: StartGameView) => {
         console.log(response);
         //model = response;
+        return response;
+      }));
+  }
+
+  startGetDetails(model: GetDetailsGameView, playerId: string) {
+    return this.http.get<GetDetailsGameView>(this.url + "GetDetails" + "?" + 'playerId=' + playerId).pipe(
+      map((response: GetDetailsGameView) => {
+        console.log(response);
+        model.game = response.game;
+        model.playerSteps = response.playerSteps;
+        model.botsSteps = response.botsSteps;
         return response;
       }));
   }

@@ -1,3 +1,22 @@
-<p>
-  start works!
-</p>
+<h2>Start Game</h2>
+<h2>User: {{gameDetails.game.player.userName}}</h2>
+<hr />
+<div>Balance: <input value={{gameDetails.game.player.balance}} name="PlayerBalance" id="PlayerBalance" disabled /> Bet: <input value={{gameDetails.game.player.bet}} name="PlayerBet" id="PlayerBet" disabled /></div>
+<div>Game State: <input value={{gameDetails.game.gameState}} name="GameState" id="GameState" disabled /> </div>
+<hr />
+@Html.Partial("_GetBotsSteps", Model.BotsSteps)
+@Html.Partial("_GetPlayerSteps", Model.PlayerSteps)
+<hr />
+<div *ngIf="gameDetails.game.player.bet==0">
+  <div>
+    <input value={{gameDetails.game.player.balance}} name="Balance" id="Balance" hidden />
+    <!--<label value={{gameDetails.game.player.bet}} name="LabelBet" id="LabelBet"></label><br />-->
+    <input value={{gameDetails.game.player.bet}} name="Bet" id="Bet" />
+  </div>
+  <div>
+    <input id="formPlaceAbet" type="button" value="Bet" class="btn btn-secondary btn-lg" />
+  </div>
+</div>
+<input type="button" class="btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" />
+<input type="button" class="btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" />
+

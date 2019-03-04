@@ -12,22 +12,19 @@ import { StartGameView } from 'src/app/shared/entities/game.views/start.game.vie
 })
 export class IndexComponent implements OnInit {
   modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
-  modelStartResponse: StartGameView = new StartGameView();
   validationErrors: string;
   countOfBots: number;
   playerName: string;
-  player: object;
 
   constructor(private gameService: GameService, private router: Router) {
     this.gameService.index(this.modelPlayers).subscribe();
   }
 
   start() {
-    var dxb = this.player;
     this.gameService.start(this.countOfBots, this.playerName).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(["/game/start"], { queryParams: { data: JSON.stringify(data) } });
+        this.router.navigate(["/game/start"], { queryParams: { data: data.player.playerId } });
       }
       , error => this.validationErrors = error
     );
