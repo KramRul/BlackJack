@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Common.Exceptions;
 using BlackJack.ViewModels;
@@ -9,7 +10,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlackJack.WEB.Controllers
 {
     public class BaseController : Controller
-    {
+    {   
+        protected string PlayerId
+        {
+            get
+            {
+                return User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+        }
+
         public async Task<IActionResult> Execute<T>(Func<Task<T>> func)
         {
             GenericResponseView<T> response = new GenericResponseView<T>();

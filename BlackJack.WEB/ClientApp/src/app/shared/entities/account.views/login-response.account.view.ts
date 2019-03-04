@@ -1,4 +1,5 @@
 export class LoginAccountResponseView {
-    accessToken?: string;
-    userName?: string;
+  accessToken?: string;
+  userName?: string;
+  playerId?: string;
 }

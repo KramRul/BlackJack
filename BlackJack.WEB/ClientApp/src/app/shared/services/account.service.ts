@@ -25,8 +25,6 @@ export class AccountService {
   }
 
   register(model: RegisterAccountView) {
-    return this.http.post(this.url + "register", model).pipe(
-      //catchError(this.handleError('register', []))
-    );
+    return this.http.post(this.url + "register", model).pipe();
   }
 }

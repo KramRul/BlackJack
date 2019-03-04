@@ -43,7 +43,8 @@ namespace BlackJack.BusinessLogic.Services
             var result = new LoginAccountResponseView()
             {
                 AccessToken = encodedJwt,
-                UserName = user.UserName
+                UserName = user.UserName,
+                PlayerId = user.Id
             };
             return result;
         }

@@ -44,7 +44,7 @@ export class GameService {
   }
 
   startGetDetails(model: GetDetailsGameView, playerId: string) {
-    return this.http.get<GetDetailsGameView>(this.url + "GetDetails" + "?" + 'playerId=' + playerId).pipe(
+    return this.http.get<GetDetailsGameView>(this.url + "GetDetails").pipe(
       map((response: GetDetailsGameView) => {
         console.log(response);
         model.game = response.game;

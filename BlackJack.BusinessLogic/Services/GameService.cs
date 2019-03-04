@@ -140,6 +140,11 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<GetDetailsResponseGameView> GetDetails(string playerId)
         {
+            if (playerId == null)
+            {
+                throw new CustomServiceException("Player is unautorized");
+            }
+
             var player = await Database.Players.Get(Guid.Parse(playerId));
 
             if (player == null)
