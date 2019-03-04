@@ -77,5 +77,10 @@ namespace BlackJack.BusinessLogic.Services
                 UserName = user.UserName
             };
         }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

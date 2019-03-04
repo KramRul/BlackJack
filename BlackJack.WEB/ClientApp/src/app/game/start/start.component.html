@@ -1,22 +1,49 @@
 <h2>Start Game</h2>
 <h2>User: {{gameDetails.game.player.userName}}</h2>
 <hr />
-<div>Balance: <input value={{gameDetails.game.player.balance}} name="PlayerBalance" id="PlayerBalance" disabled /> Bet: <input value={{gameDetails.game.player.bet}} name="PlayerBet" id="PlayerBet" disabled /></div>
-<div>Game State: <input value={{gameDetails.game.gameState}} name="GameState" id="GameState" disabled /> </div>
+<div>Balance: <input value={{gameDetails.game.player.balance}} name="PlayerBalance" id="PlayerBalance" class="form-group" disabled /> Bet: <input value={{gameDetails.game.player.bet}} name="PlayerBet" id="PlayerBet" class="form-group" disabled /></div>
+<div>Game State: <input value={{gameDetails.game.gameState}} name="GameState" id="GameState" class="form-group" disabled /> </div>
 <hr />
-@Html.Partial("_GetBotsSteps", Model.BotsSteps)
-@Html.Partial("_GetPlayerSteps", Model.PlayerSteps)
+<table class="table">
+  <tr><th>Step Id</th><th>Bot Id</th><th>Suite</th><th>Rank</th></tr>
+  <tr *ngFor="let botStep of gameDetails.botsSteps.botSteps">
+    <td>{{botStep.id}}</td>
+    <td>{{botStep.bot.id}}</td>
+    <td>{{botStep.suite}}</td>
+    <td>{{botStep.rank}}</td>
+  </tr>
+</table>
+<hr />
+<table class="table" id="TablePlayerStepsInGame">
+  <tr><th>Player Id</th><th>StepId</th><th>Suite</th><th>Rank</th></tr>
+  <tr *ngFor="let playerStep of gameDetails.playerSteps.playerSteps">
+    <td>{{playerStep.player.playerId}}</td>
+    <td>{{playerStep.id}}</td>
+    <td>{{playerStep.suite}}</td>
+    <td>{{playerStep.rank}}</td>
+  </tr>
+</table>
 <hr />
 <div *ngIf="gameDetails.game.player.bet==0">
-  <div>
+  <div class="form-group">
     <input value={{gameDetails.game.player.balance}} name="Balance" id="Balance" hidden />
     <!--<label value={{gameDetails.game.player.bet}} name="LabelBet" id="LabelBet"></label><br />-->
-    <input value={{gameDetails.game.player.bet}} name="Bet" id="Bet" />
+    <input [(ngModel)]="bet" name="Bet" id="Bet" />
   </div>
   <div>
-    <input id="formPlaceAbet" type="button" value="Bet" class="btn btn-secondary btn-lg" />
+    <input id="formPlaceAbet" type="button" value="Bet" class="btn btn-secondary btn-lg" (click)="placeABet()"/>
   </div>
 </div>
-<input type="button" class="btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" />
-<input type="button" class="btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" />
-
+<div class="form-group" *ngIf="gameDetails.game.player.bet!=0 && gameDetails.game.gameState==0">
+  <input type="button" class="btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" (click)="hit()"/>
+  <input type="button" class="btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" (click)="stand()"/>
+</div>
+<div class="form-group" *ngIf="gameDetails.game.gameState==1">
+  <input type="text" class="form-control is-valid" disabled value="PLAYER WON">
+</div>
+<div class="form-group" *ngIf="gameDetails.game.gameState==2">
+  <input type="text" class="form-control is-valid" disabled value="BOTS WON">
+</div>
+<div class="form-group" *ngIf="gameDetails.game.gameState==3">
+  <input type="text" class="form-control is-valid" disabled value="DRAW">
+</div>

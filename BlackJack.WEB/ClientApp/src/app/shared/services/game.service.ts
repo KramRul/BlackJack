@@ -43,14 +43,26 @@ export class GameService {
       }));
   }
 
-  startGetDetails(model: GetDetailsGameView, playerId: string) {
-    return this.http.get<GetDetailsGameView>(this.url + "GetDetails").pipe(
+  startGetDetails(/*model: GetDetailsGameView*/) {
+    return this.http.get<GetDetailsGameView>(this.url + "getDetails").pipe(
       map((response: GetDetailsGameView) => {
         console.log(response);
-        model.game = response.game;
+        /*model.game = response.game;
         model.playerSteps = response.playerSteps;
-        model.botsSteps = response.botsSteps;
+        model.botsSteps = response.botsSteps;*/
         return response;
       }));
+  }
+
+  placeABet(bet?: number) {
+    return this.http.get(this.url + "placeABet" + "?" + 'bet=' + bet).pipe();
+  }
+
+  hit() {
+    return this.http.get(this.url + "hit").pipe();
+  }
+
+  stand() {
+    return this.http.get(this.url + "stand").pipe();
   }
 }

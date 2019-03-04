@@ -25,5 +25,12 @@ namespace BlackJack.WEB.Controllers
         {
             return await Execute(() => _accountService.Login(model));           
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            return await Execute(() => _accountService.Logout());
+        }
+
     }
 }

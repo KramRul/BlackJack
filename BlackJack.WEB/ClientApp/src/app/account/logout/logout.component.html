@@ -1,0 +1,7 @@
+<h2>Logout</h2>
+<div class="form-group">
+  <input type="text" class="form-control is-invalid" disabled [hidden]="!validationErrors" [(ngModel)]="validationErrors">
+</div>
+<div class="form-group">
+  <input type="button" value="Logout" (click)="logout()" class="btn btn-success" />
+</div>

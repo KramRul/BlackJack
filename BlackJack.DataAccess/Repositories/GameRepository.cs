@@ -35,6 +35,12 @@ namespace BlackJack.DataAccess.Repositories
             return result;
         }
 
+        public async Task<Game> GetLastActiveGameForPlayer(string playerId)
+        {
+            var result = await db.Games.Include(d => d.Player).Where(p => p.Player.Id == playerId).LastOrDefaultAsync();
+            return result;
+        }
+
         public async Task<Game> Get(Guid gameid)
         {
             var result = await db.Games.Include(p => p.Player).Where(t => t.Id == gameid).ToListAsync();

@@ -15,11 +15,11 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
 
         Task<StartGameView> Start(string playerName, int countOfBots);
 
-        Task<HitGameView> Hit(string playerId, string gameId);
+        Task<HitGameView> Hit(string playerId);
 
         Task PlaceABet(string playerId, decimal bet);
 
-        Task Stand(string playerId, Guid gameId);
+        Task Stand(string playerId);
 
         Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId);
 

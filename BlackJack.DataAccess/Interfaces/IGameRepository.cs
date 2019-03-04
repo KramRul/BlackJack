@@ -9,5 +9,7 @@ namespace BlackJack.DataAccess.Interfaces
         Task<IEnumerable<Game>> GetGamesForPlayer(string playerId);
 
         Task<Game> GetActiveGameForPlayer(string playerId);
+
+        Task<Game> GetLastActiveGameForPlayer(string playerId);
     }
 }

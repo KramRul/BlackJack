@@ -73,21 +73,21 @@ namespace BlackJack.WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Hit(string playerId, string gameId)
+        public async Task<IActionResult> Hit()
         {
-            return await Execute(() => _gameService.Hit(playerId, gameId));
+            return await Execute(() => _gameService.Hit(PlayerId));
         }
 
         [HttpGet]
-        public async Task<IActionResult> PlaceABet(string playerId, decimal bet)
+        public async Task<IActionResult> PlaceABet(decimal bet)
         {
-            return await Execute(() => _gameService.PlaceABet(playerId, bet));
+            return await Execute(() => _gameService.PlaceABet(PlayerId, bet));
         }
 
         [HttpGet]
-        public async Task<IActionResult> Stand(string playerId, Guid gameId)
+        public async Task<IActionResult> Stand()
         {
-            return await Execute(() => _gameService.Stand(playerId, gameId));
+            return await Execute(() => _gameService.Stand(PlayerId));
         }
 
         [HttpGet]

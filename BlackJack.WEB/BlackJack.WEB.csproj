@@ -31,6 +31,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\account\account-routing.module.ts" />
     <None Remove="ClientApp\src\app\game\game-routing.module.ts" />
+    <None Remove="ClientApp\src\app\history\history-routing.component.ts" />
     <None Remove="ClientApp\src\app\http-config.interceptor.ts" />
     <None Remove="ClientApp\src\app\http-error.interceptor.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-all-step-of-bots.game.view.ts" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\account\account-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\game\game-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\history\history-routing.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\http-error.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\http-config.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-all-step-of-bots.game.view.ts" />
