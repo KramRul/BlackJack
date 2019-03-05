@@ -17,7 +17,7 @@ namespace BlackJack.BusinessLogic.Config
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IJwtProvider, JwtProvider>();
-            //services.AddTransient<IBotService, BotService>();
+            services.AddTransient<IHistoryService, HistoryService>();
         }
     }
 }

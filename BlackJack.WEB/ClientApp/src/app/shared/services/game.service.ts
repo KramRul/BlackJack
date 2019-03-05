@@ -10,13 +10,6 @@ import { StartGameResultView } from '../entities/game.views/start-result.game.vi
 import { StartGameView } from '../entities/game.views/start.game.view';
 import { GetDetailsGameView } from '../entities/game.views/get-details.game.view';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'my-auth-token'
-  })
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -38,18 +31,14 @@ export class GameService {
     return this.http.get<StartGameView>(this.url + "start" + "?" + 'countOfBots=' + countOfBots + '&playerName=' + playerName).pipe(
       map((response: StartGameView) => {
         console.log(response);
-        //model = response;
         return response;
       }));
   }
 
-  startGetDetails(/*model: GetDetailsGameView*/) {
+  startGetDetails() {
     return this.http.get<GetDetailsGameView>(this.url + "getDetails").pipe(
       map((response: GetDetailsGameView) => {
         console.log(response);
-        /*model.game = response.game;
-        model.playerSteps = response.playerSteps;
-        model.botsSteps = response.botsSteps;*/
         return response;
       }));
   }

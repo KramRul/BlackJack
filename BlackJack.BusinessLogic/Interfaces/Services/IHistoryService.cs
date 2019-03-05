@@ -10,6 +10,6 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
     {
         Task<GetHistoryOfGamesHistoryView> GetHistoryOfGames();
 
-        Task<DetailsOfGameHistoryView> DetailsOfGame(Guid gameID);
+        Task<GameDetailsOfGameHistoryView> DetailsOfGame(string gameID);
     }
 }
