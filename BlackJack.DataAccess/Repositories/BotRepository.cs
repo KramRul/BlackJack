@@ -22,6 +22,12 @@ namespace BlackJack.DataAccess.Repositories
             return result;
         }
 
+        public async Task<int> Count()
+        {
+            var result = await db.Bots.CountAsync();
+            return result;
+        }
+
         public async Task<Bot> Get(Guid id)
         {
             var result = await db.Bots.FindAsync(id);

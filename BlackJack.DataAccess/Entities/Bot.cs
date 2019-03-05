@@ -6,6 +6,8 @@ namespace BlackJack.DataAccess.Entities
     {
         public Guid Id { get; set; }
 
+        public string Name { get; set; }
+
         public decimal Balance { get; set; }
 
         public decimal Bet { get; set; }

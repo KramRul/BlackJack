@@ -21,6 +21,7 @@ export class BotStepGetAllStepOfBotsViewItem {
 
 export class BotGetAllStepOfBotsView {
   id?: string;
+  name?: string;
   Balance?: number;
   Bet?: number;
 }

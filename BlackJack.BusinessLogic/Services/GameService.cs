@@ -71,6 +71,7 @@ namespace BlackJack.BusinessLogic.Services
                     Bot = new BotGetAllStepOfBotsView()
                     {
                         Id=item.BotId,
+                        Name = item.Bot.Name,
                         Balance = item.Bot.Balance,
                         Bet = item.Bot.Bet
                     }
@@ -107,12 +108,14 @@ namespace BlackJack.BusinessLogic.Services
             };
             await Database.PlayerSteps.AddRange(playerSteps);
 
-            var StepsOfAllBots = new List<BotStep>(); 
+            var StepsOfAllBots = new List<BotStep>();
+            var countOfBotsInDB = await Database.Bots.Count() + 1;
             if (countOfBots > 0)
             {
                 for (int i = 0; i < countOfBots; i++)
                 {
-                    var bot = new Bot() { Balance = 1000, Bet = 0 };
+                    var bot = new Bot() { Balance = 1000, Bet = 0, Name = String.Format("Bot {0}",countOfBotsInDB.ToString())};
+                    countOfBotsInDB += 1;
                     StepsOfAllBots.Add(CreateBotStep(bot, game));
                     StepsOfAllBots.Add(CreateBotStep(bot, game));
                 }
@@ -375,7 +378,8 @@ namespace BlackJack.BusinessLogic.Services
                     {
                         Game = game,
                         GameId = game.Id,
-                        Bot =bot, BotId=bot.Id,
+                        Bot = bot,
+                        BotId =bot.Id,
                         Rank = (Rank)rnd.Next(1, 13),
                         Suite = (Suite)rnd.Next(1, 4)
                     };

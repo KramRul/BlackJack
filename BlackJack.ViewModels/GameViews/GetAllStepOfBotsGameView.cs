@@ -26,6 +26,7 @@ namespace BlackJack.ViewModels.GameViews
     public class BotGetAllStepOfBotsView
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
         public decimal Balance { get; set; }
         public decimal Bet { get; set; }
     }

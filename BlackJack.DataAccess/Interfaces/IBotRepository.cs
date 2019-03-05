@@ -6,5 +6,6 @@ namespace BlackJack.DataAccess.Interfaces
 {
     public interface IBotRepository: IBaseRepository<Bot>
     {
+        Task<int> Count();
     }
 }

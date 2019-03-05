@@ -14,9 +14,10 @@
   <input type="text" class="form-control is-valid" disabled value="DRAW">
 </div>
 <table class="table">
-  <tr><th>Step Id</th><th>Bot Id</th><th>Suite</th><th>Rank</th></tr>
+  <tr><th>Step Id</th><th>Bot Name</th><th>Bot Id</th><th>Suite</th><th>Rank</th></tr>
   <tr *ngFor="let botStep of gameDetails.botsSteps.botSteps">
     <td>{{botStep.id}}</td>
+    <td>{{botStep.bot.name}}</td>
     <td>{{botStep.bot.id}}</td>
     <td>{{Suite[botStep.suite]}}</td>
     <td>{{Rank[botStep.rank]}}</td>
