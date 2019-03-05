@@ -1,11 +1,12 @@
 <table class="table table-bordered">
   <thead class="thead-dark">
-    <tr><th>GameID</th><th>Game State</th><th>User Name</th><th>Balance</th><th>Bet</th><th>Player Id</th></tr>
+    <tr><th>GameID</th><th>Game State</th><th>Won Id</th><th>User Name</th><th>Balance</th><th>Bet</th><th>Player Id</th></tr>
   </thead>
   <tbody>
     <tr>
       <td>{{gameDetails.game.id}}</td>
-      <td>{{gameDetails.game.gameState}}</td>
+      <td>{{GameState[gameDetails.game.gameState]}}</td>
+      <td>{{gameDetails.game.wonId}}</td>
       <td>{{gameDetails.game.player.userName}}</td>
       <td>{{gameDetails.game.player.balance}}</td>
       <td>{{gameDetails.game.player.bet}}</td>
@@ -22,8 +23,8 @@
       <td>{{i}}</td>
       <td>{{playerStep.id}}</td>
       <td>{{playerStep.player.playerId}}</td>
-      <td>{{playerStep.suite}}</td>
-      <td>{{playerStep.rank}}</td>
+      <td>{{Suite[playerStep.suite]}}</td>
+      <td>{{Rank[playerStep.rank]}}</td>
     </tr>
 </table>
 <table class="table">
@@ -35,8 +36,8 @@
       <td>{{i}}</td>
       <td>{{botStep.id}}</td>
       <td>{{botStep.bot.id}}</td>
-      <td>{{botStep.suite}}</td>
-      <td>{{botStep.rank}}</td>
+      <td>{{Suite[botStep.suite]}}</td>
+      <td>{{Rank[botStep.rank]}}</td>
     </tr>
   </tbody>
 </table>

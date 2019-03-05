@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HistoryService } from '../../shared/services/history.service';
 import { GetHistoryOfGamesHistoryView } from '../../shared/entities/history.views/get-history-of-games.history.view';
 import { Router } from '@angular/router';
+import { GameState } from '../../shared/enums/game-state';
 
 @Component({
   selector: 'app-index',
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+  GameState = GameState;
   gamesHistory?: GetHistoryOfGamesHistoryView = new GetHistoryOfGamesHistoryView();
+
   constructor(private historyService: HistoryService, private router: Router) { }
 
   ngOnInit() {

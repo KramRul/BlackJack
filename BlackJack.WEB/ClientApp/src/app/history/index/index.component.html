@@ -2,7 +2,7 @@
   <tr><th>GameID</th><th>Game State</th><th>Player Id</th><th>User Name</th><th>Balance</th><th>Bet</th></tr>
   <tr *ngFor="let gameItem of gamesHistory.games">
     <td>{{gameItem.id}}</td>
-    <td>{{gameItem.gameState}}</td>
+    <td>{{GameState[gameItem.gameState]}}</td>
     <td>{{gameItem.player.playerId}}</td>
     <td>{{gameItem.player.userName}}</td>
     <td>{{gameItem.player.balance}}</td>

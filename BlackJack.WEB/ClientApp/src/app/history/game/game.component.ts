@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HistoryService } from '../../shared/services/history.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DetailsOfGameHistoryView } from '../../shared/entities/history.views/details-of-game.history.view';
+import { Suite } from '../../shared/enums/suite';
+import { Rank } from '../../shared/enums/rank';
+import { GameState } from '../../shared/enums/game-state';
 
 @Component({
   selector: 'app-game',
@@ -10,6 +13,10 @@ import { DetailsOfGameHistoryView } from '../../shared/entities/history.views/de
 })
 export class GameComponent implements OnInit { 
   gameDetails?: DetailsOfGameHistoryView = new DetailsOfGameHistoryView();
+  Suite = Suite;
+  Rank = Rank;
+  GameState = GameState;
+
   constructor(private historyService: HistoryService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {

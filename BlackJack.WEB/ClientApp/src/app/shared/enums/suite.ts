@@ -1,6 +1,6 @@
 export enum Suite {
-  Club = 1,
-  Diamond = 2,
-  Heart = 3,
-  Spades = 4
+  "Club \u2663"= 1,
+  "Diamond \u2666" = 2,
+  "Heart \u2665" = 3,
+  "Spade \u2660" = 4
 }

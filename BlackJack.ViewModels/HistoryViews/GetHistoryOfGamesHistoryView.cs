@@ -18,7 +18,7 @@ namespace BlackJack.ViewModels.HistoryViews
     public class GameGetHistoryOfGamesHistoryViewItem
     {
         public Guid Id { get; set; }
-
+        public string WonId { get; set; }
         public GameState GameState { get; set; }
 
         public PlayerGetHistoryOfGamesHistoryView Player { get; set; }

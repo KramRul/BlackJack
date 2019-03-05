@@ -16,6 +16,7 @@ export class DetailsOfGameHistoryView {
 
 export class GameDetailsOfGameHistoryView {
   id?: string;
+  wonId?: string;
   gameState?: GameState;
   player?: PlayerDetailsOfGameHistoryView;
 

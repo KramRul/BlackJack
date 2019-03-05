@@ -29,6 +29,7 @@ namespace BlackJack.BusinessLogic.Services
             {
                 Id = game.Id,
                 GameState = game.GameState,
+                WonId = game.WonId,
                 Player = new PlayerDetailsOfGameHistoryView()
                 {
                     Id = game.PlayerId,

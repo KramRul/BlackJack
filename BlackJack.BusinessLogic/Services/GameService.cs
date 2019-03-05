@@ -242,6 +242,8 @@ namespace BlackJack.BusinessLogic.Services
             if (TotalValue(ranks) > 21)
             {
                 player.Balance -= player.Bet;
+                var bots = await Database.BotSteps.GetAllBotsByGameId(game.Id);
+                game.WonId = await CheckingCardsOfBots(bots, game);
                 game.GameState = GameState.BotWon;
             }
             Database.Games.Update(game);
@@ -384,15 +386,18 @@ namespace BlackJack.BusinessLogic.Services
                 if (TotalValue(botRanks) > 21 || TotalValue(playerRanks) > TotalValue(botRanks))
                 {
                     player.Balance += player.Bet;
+                    game.WonId = player.Id;
                     game.GameState = GameState.PlayerWon;
                 }
                 else if (TotalValue(botRanks) == TotalValue(playerRanks))
                 {
                     game.GameState = GameState.Draw;
+                    game.WonId = player.Id;
                 }
                 else
                 {
                     player.Balance -= player.Bet;
+                    game.WonId = bot.Id.ToString();
                     game.GameState = GameState.BotWon;
                 }
             }
@@ -405,6 +410,59 @@ namespace BlackJack.BusinessLogic.Services
                 Database.Bots.Update(bot);
             }
             await Database.Save();
+        }
+
+        private async Task<string> CheckingCardsOfBots(IEnumerable<Bot> bots, Game game)
+        {
+            var amountOfCardsOfBots = new Dictionary<string, int>();
+            string idOfWonBot = "";
+
+            foreach (var bot in bots)
+            {
+                var botSteps = await Database.BotSteps.GetAllStepsByBotId(bot.Id);
+
+                var botRanks = new List<Rank>();
+                foreach (var step in botSteps)
+                {
+                    botRanks.Add(step.Rank);
+                }
+
+                while (TotalValue(botRanks) <= 20)
+                {
+                    var rnd = new Random();
+                    var botStep = new BotStep()
+                    {
+                        Game = game,
+                        GameId = game.Id,
+                        Bot = bot,
+                        BotId = bot.Id,
+                        Rank = (Rank)rnd.Next(1, 13),
+                        Suite = (Suite)rnd.Next(1, 4)
+                    };
+                    botRanks.Add(botStep.Rank);
+                    await Database.BotSteps.Create(botStep);
+                    await Database.Save();
+                }
+
+                amountOfCardsOfBots.Add(bot.Id.ToString(), TotalValue(botRanks));
+            }
+
+            var maxAmount = 0;
+
+            foreach (var item in amountOfCardsOfBots)
+            {
+                if (item.Value == 21) idOfWonBot = item.Key;
+                else if (item.Value < 21)
+                {
+                    if (item.Value > maxAmount)
+                    {
+                        maxAmount = item.Value;
+                        idOfWonBot = item.Key;
+                    }                       
+                }
+            }
+
+            return idOfWonBot;
         }
 
         public async Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId)
