@@ -28,6 +28,7 @@ namespace BlackJack.ViewModels.GameViews
     public class PlayerGetAllStepsGameView
     {
         public string PlayerId { get; set; }
+        public string UserName { get; set; }
         public decimal Balance { get; set; }
         public decimal Bet { get; set; }
     }

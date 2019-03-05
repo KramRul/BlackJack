@@ -42,6 +42,7 @@ namespace BlackJack.BusinessLogic.Services
                         {
                             PlayerId = item.PlayerId,
                             Balance = item.Player.Balance,
+                            UserName = item.Player.UserName,
                             Bet = item.Player.Bet
                         },
                         Game = new GameGetAllStepsGameView()
@@ -75,6 +76,24 @@ namespace BlackJack.BusinessLogic.Services
                         Balance = item.Bot.Balance,
                         Bet = item.Bot.Bet
                     }
+                });
+            }
+            return model;
+        }
+
+        public async Task<GetAllBotsInGameGameView> GetAllBotsInGame(Guid gameId)
+        {
+            var model = new GetAllBotsInGameGameView();
+            var botSteps = await Database.BotSteps.GetAllStepsByGameId(gameId);
+            foreach (var item in botSteps)
+            {
+                if(item.GameId == gameId)
+                model.Bots.Add(new BotGetAllBotsInGameGameViewItem()
+                {
+                    Id = item.Bot.Id,
+                    Name = item.Bot.Name,
+                    Balance = item.Bot.Balance,
+                    Bet = item.Bot.Bet
                 });
             }
             return model;

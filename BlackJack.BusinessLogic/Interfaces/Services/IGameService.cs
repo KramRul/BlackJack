@@ -11,6 +11,8 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
     {
         Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID);
 
+        Task<GetAllBotsInGameGameView> GetAllBotsInGame(Guid gameId);
+
         Task<GetAllStepOfBotsGameView> GetAllStepOfBots(Guid gameId);
 
         Task<StartGameView> Start(string playerName, int countOfBots);

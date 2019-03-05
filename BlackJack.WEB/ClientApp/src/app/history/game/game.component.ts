@@ -25,6 +25,7 @@ export class GameComponent implements OnInit {
       this.gameDetails.game = data.game;
       this.gameDetails.botsSteps = data.botsSteps;
       this.gameDetails.playerSteps = data.playerSteps;
+      this.gameDetails.playerAndBotSteps = data.playerAndBotSteps;
     });
   }
 }

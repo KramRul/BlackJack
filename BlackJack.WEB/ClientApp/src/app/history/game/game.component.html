@@ -14,6 +14,37 @@
     </tr>
   </tbody>
 </table>
+
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th></th>
+      <th>Player Step Id</th>
+      <th>Player Id</th>
+      <th>Suite</th>
+      <th>Rank</th>
+      <th>Bot Step Id</th>
+      <th>Bot Name</th>
+      <th>Bot Id</th>
+      <th>Suite</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let step of gameDetails.playerAndBotSteps.steps; let i = index">
+      <td>{{i}}</td>
+      <td>{{step.playerStep.id}}</td>
+      <td>{{step.playerStep.player.id}}</td>
+      <td>{{Suite[step.playerStep.suite]}}</td>
+      <td>{{Rank[step.playerStep.rank]}}</td>
+      <td>{{step.botStep.id}}</td>
+      <td>{{step.botStep.bot.name}}</td>
+      <td>{{step.botStep.bot.id}}</td>
+      <td>{{Suite[step.botStep.suite]}}</td>
+      <td>{{Rank[step.botStep.rank]}}</td>
+    </tr>
+</table>
+
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr><th></th><th>Step Id</th><th>Player Id</th><th>Suite</th><th>Rank</th></tr>
