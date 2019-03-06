@@ -264,7 +264,7 @@ namespace BlackJack.BusinessLogic.Services
             {
                 player.Balance -= player.Bet;
                 var bots = await Database.BotSteps.GetAllBotsByGameId(game.Id);
-                game.WonId = await CheckingCardsOfBots(bots, game);
+                game.WonName = await CheckingCardsOfBots(bots, game);
                 game.GameState = GameState.BotWon;
             }
             Database.Games.Update(game);
@@ -408,18 +408,18 @@ namespace BlackJack.BusinessLogic.Services
                 if (TotalValue(botRanks) > 21 || TotalValue(playerRanks) > TotalValue(botRanks))
                 {
                     player.Balance += player.Bet;
-                    game.WonId = player.Id;
+                    game.WonName = player.UserName;
                     game.GameState = GameState.PlayerWon;
                 }
                 else if (TotalValue(botRanks) == TotalValue(playerRanks))
                 {
                     game.GameState = GameState.Draw;
-                    game.WonId = player.Id;
+                    game.WonName = player.UserName;
                 }
                 else
                 {
                     player.Balance -= player.Bet;
-                    game.WonId = bot.Id.ToString();
+                    game.WonName = player.UserName;
                     game.GameState = GameState.BotWon;
                 }
             }
@@ -437,7 +437,7 @@ namespace BlackJack.BusinessLogic.Services
         private async Task<string> CheckingCardsOfBots(IEnumerable<Bot> bots, Game game)
         {
             var amountOfCardsOfBots = new Dictionary<string, int>();
-            string idOfWonBot = "";
+            string nameOfWonBot = "";
 
             foreach (var bot in bots)
             {
@@ -466,25 +466,25 @@ namespace BlackJack.BusinessLogic.Services
                     await Database.Save();
                 }
 
-                amountOfCardsOfBots.Add(bot.Id.ToString(), TotalValue(botRanks));
+                amountOfCardsOfBots.Add(bot.Name.ToString(), TotalValue(botRanks));
             }
 
             var maxAmount = 0;
 
             foreach (var item in amountOfCardsOfBots)
             {
-                if (item.Value == 21) idOfWonBot = item.Key;
+                if (item.Value == 21) nameOfWonBot = item.Key;
                 else if (item.Value < 21)
                 {
                     if (item.Value > maxAmount)
                     {
                         maxAmount = item.Value;
-                        idOfWonBot = item.Key;
+                        nameOfWonBot = item.Key;
                     }                       
                 }
             }
 
-            return idOfWonBot;
+            return nameOfWonBot;
         }
 
         public async Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId)

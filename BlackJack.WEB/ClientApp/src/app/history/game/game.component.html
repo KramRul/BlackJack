@@ -3,17 +3,16 @@
 </div>
 <table class="table table-bordered">
   <thead class="thead-dark">
-    <tr><th>GameID</th><th>Game State</th><th>Won Id</th><th>User Name</th><th>Balance</th><th>Bet</th><th>Player Id</th></tr>
+    <tr><th>GameID</th><th>Game State</th><th>Won Id</th><th>Player Name</th><th>Balance</th><th>Bet</th></tr>
   </thead>
   <tbody>
     <tr>
       <td>{{gameDetails.game.id}}</td>
       <td>{{GameState[gameDetails.game.gameState]}}</td>
-      <td>{{gameDetails.game.wonId}}</td>
+      <td>{{gameDetails.game.wonName}}</td>
       <td>{{gameDetails.game.player.userName}}</td>
       <td>{{gameDetails.game.player.balance}}</td>
       <td>{{gameDetails.game.player.bet}}</td>
-      <td>{{gameDetails.game.player.id}}</td>
     </tr>
   </tbody>
 </table>

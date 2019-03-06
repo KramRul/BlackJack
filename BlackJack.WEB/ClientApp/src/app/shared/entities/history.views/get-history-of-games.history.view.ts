@@ -10,7 +10,7 @@ export class GetHistoryOfGamesHistoryView {
 
 export class GameGetHistoryOfGamesHistoryViewItem {
   id?: string;
-  wonId?: string;
+  wonName?: string;
   gameState?: GameState;
   player?: PlayerGetHistoryOfGamesHistoryView;
 

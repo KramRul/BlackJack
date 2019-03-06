@@ -1,4 +1,5 @@
-﻿using BlackJack.ViewModels.HistoryViews;
+﻿using BlackJack.ViewModels.GameViews;
+using BlackJack.ViewModels.HistoryViews;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,5 +12,11 @@ namespace BlackJack.BusinessLogic.Interfaces.Services
         Task<GetHistoryOfGamesHistoryView> GetHistoryOfGames();
 
         Task<GameDetailsOfGameHistoryView> DetailsOfGame(string gameID);
+
+        Task<List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>> GetStepsDetailsOfGame(
+            GameDetailsOfGameHistoryView game, 
+            GetAllStepsGameView playerSteps, 
+            GetAllStepOfBotsGameView botsSteps,
+            GetAllBotsInGameGameView bots);
     }
 }

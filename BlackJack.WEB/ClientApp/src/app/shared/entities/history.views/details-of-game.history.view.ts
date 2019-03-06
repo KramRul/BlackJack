@@ -60,7 +60,7 @@ export class PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView {
 
 export class GameCardPlayerAndBotStepsDetailsOfGameHistoryView {
   id?: string;
-  wonId?: string;
+  wonName?: string;
   gameState?: GameState;
 }
 
@@ -73,7 +73,7 @@ export class BotCardPlayerAndBotStepsDetailsOfGameHistoryView {
 /***************************************************************/
 export class GameDetailsOfGameHistoryView {
   id?: string;
-  wonId?: string;
+  wonName?: string;
   gameState?: GameState;
   player?: PlayerDetailsOfGameHistoryView;
 

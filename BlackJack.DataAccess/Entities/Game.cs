@@ -10,7 +10,7 @@ namespace BlackJack.DataAccess.Entities
 
         public GameState GameState { get; set; }
 
-        public string WonId { get; set; }
+        public string WonName { get; set; }
 
         public string PlayerId { get; set; }
         [ForeignKey("PlayerId")]
