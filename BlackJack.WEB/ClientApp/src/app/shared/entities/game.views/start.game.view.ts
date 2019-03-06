@@ -2,6 +2,7 @@ import { GameState } from '../../enums/game-state';
 
 export class StartGameView {
   id?: string;
+  wonName?: string;
   gameState?: GameState;
   countOfBots?: number;
   player?: PlayerStartGameView;

@@ -53,6 +53,7 @@ namespace BlackJack.WEB.Controllers
                     Game = new StartGameView()
                     {
                         Id= game.Id,
+                        WonName = game.WonName,
                         Player = new PlayerStartGameView()
                         {
                             PlayerId = game.Player.PlayerId,

@@ -188,6 +188,7 @@ namespace BlackJack.BusinessLogic.Services
             {
                 Id = game.Id,
                 GameState = game.GameState,
+                WonName = game.WonName,
                 Player = new PlayerGetDetailsGameView()
                 {
                     PlayerId = player.Id,
@@ -264,7 +265,8 @@ namespace BlackJack.BusinessLogic.Services
             {
                 player.Balance -= player.Bet;
                 var bots = await Database.BotSteps.GetAllBotsByGameId(game.Id);
-                game.WonName = await CheckingCardsOfBots(bots, game);
+                var wonName = await CheckingCardsOfBots(bots, game);
+                game.WonName = wonName;
                 game.GameState = GameState.BotWon;
             }
             Database.Games.Update(game);
@@ -483,6 +485,8 @@ namespace BlackJack.BusinessLogic.Services
                     }                       
                 }
             }
+
+            if (nameOfWonBot == "") nameOfWonBot = "NOBODY";
 
             return nameOfWonBot;
         }

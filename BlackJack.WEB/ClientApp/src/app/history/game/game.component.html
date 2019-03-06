@@ -20,7 +20,7 @@
 <div>
   <hr />
 </div>
-<table class="table table-bordered">
+<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=1">
   <caption style="caption-side: top">STEP 1</caption>
   <thead class="thead-light">
     <tr>
@@ -52,7 +52,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered">
+<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=2">
   <caption style="caption-side: top">STEP 2</caption>
   <thead class="thead-light">
     <tr>
@@ -84,7 +84,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered">
+<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=3">
   <caption style="caption-side: top">STEP 3</caption>
   <thead class="thead-light">
     <tr>
@@ -116,7 +116,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered">
+<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=4">
   <caption style="caption-side: top">STEP 4</caption>
   <thead class="thead-light">
     <tr>
@@ -148,7 +148,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered">
+<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=5">
   <caption style="caption-side: top">STEP 5</caption>
   <thead class="thead-light">
     <tr>

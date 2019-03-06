@@ -1,15 +1,19 @@
 <app-for-logged-players-menu></app-for-logged-players-menu>
-<table class="table">
-  <tr><th>GameID</th><th>Game State</th><th>Player Id</th><th>User Name</th><th>Balance</th><th>Bet</th></tr>
-  <tr *ngFor="let gameItem of gamesHistory.games">
-    <td>{{gameItem.id}}</td>
-    <td>{{GameState[gameItem.gameState]}}</td>
-    <td>{{gameItem.player.playerId}}</td>
-    <td>{{gameItem.player.userName}}</td>
-    <td>{{gameItem.player.balance}}</td>
-    <td>{{gameItem.player.bet}}</td>
-    <td>
-      <input type="button" class="btn btn-sm btn-primary" value="Details" (click)="game(gameItem.id)" />
-    </td>
-  </tr>
+<table class="table table-bordered">
+  <thead>
+    <tr><th></th><th>GameID</th><th>Game State</th><th>Player Name</th><th>Balance</th><th>Bet</th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let gameItem of gamesHistory.games; let i = index">
+      <td>{{i}}</td>
+      <td>{{gameItem.id}}</td>
+      <td>{{GameState[gameItem.gameState]}}</td>
+      <td>{{gameItem.player.userName}}</td>
+      <td>{{gameItem.player.balance}}</td>
+      <td>{{gameItem.player.bet}}</td>
+      <td>
+        <input type="button" class="btn btn-sm btn-primary" value="Details" (click)="game(gameItem.id)" />
+      </td>
+    </tr>
+  </tbody> 
 </table>

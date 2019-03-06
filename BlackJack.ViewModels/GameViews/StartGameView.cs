@@ -7,6 +7,7 @@ namespace BlackJack.ViewModels.GameViews
     public class StartGameView
     {
         public Guid Id { get; set; }
+        public string WonName { get; set; }
         public int CountOfBots { get; set; }
         public GameState GameState { get; set; }
 

@@ -8,6 +8,7 @@ namespace BlackJack.ViewModels.GameViews
     public class GetDetailsResponseGameView
     {
         public Guid Id { get; set; }
+        public string WonName { get; set; }
         public int CountOfBots { get; set; }
         public GameState GameState { get; set; }
 
