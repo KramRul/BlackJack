@@ -1,4 +1,5 @@
 ﻿using BlackJack.ViewModels.AccountViews;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Interfaces.Services

@@ -1,3 +1,11 @@
+<ng-template *ngIf="isSignedIn==true; then thenBlock else elseBlock">
+</ng-template>
+<ng-template #thenBlock>
+  <app-for-logged-players-menu></app-for-logged-players-menu>
+</ng-template>
+<ng-template #elseBlock>
+  <app-for-non-logged-players-menu></app-for-non-logged-players-menu>
+</ng-template>
 <div asp-validation-summary="All"></div>
 <div class="form-group">
   <label for="exampleFormControlSelect1">Выберите количество ботов</label>
@@ -12,7 +20,8 @@
 <div class="form-group">
   <label>Username:</label>
   <input [(ngModel)]="playerName" list="players" class="form-control" />
-  <datalist id="players"> <!--[(ngModel)]="players"-->
+  <datalist id="players">
+    <!--[(ngModel)]="players"-->
     <option *ngFor="let player of modelPlayers.players">{{player.userName}}</option>
   </datalist>
 </div>

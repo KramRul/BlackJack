@@ -8,6 +8,7 @@ using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services

@@ -15,6 +15,14 @@ export class AccountService {
   constructor(private http: HttpClient) {
   }
 
+  isSignedIn()
+  {
+    if (localStorage.getItem("accessToken") != null)
+      return true;
+    else
+      return false;
+  }
+
   login(model: LoginAccountView) {
     return this.http.post<LoginAccountResponseView>(this.url + "login", model).pipe(
       map((response: LoginAccountResponseView) =>

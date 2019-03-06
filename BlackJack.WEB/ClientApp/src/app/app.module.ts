@@ -7,6 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { HttpConfigInterceptor } from './http-config.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HttpConfigInterceptor } from './http-config.interceptor';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    SharedModule,
     FormsModule
   ],
   providers: [{

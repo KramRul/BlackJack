@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,5 @@ namespace BlackJack.WEB.Controllers
         {
             return await Execute(() => _accountService.Logout());
         }
-
     }
 }
