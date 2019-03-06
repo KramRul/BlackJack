@@ -84,16 +84,15 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<GetAllBotsInGameGameView> GetAllBotsInGame(Guid gameId)
         {
             var model = new GetAllBotsInGameGameView();
-            var botSteps = await Database.BotSteps.GetAllStepsByGameId(gameId);
-            foreach (var item in botSteps)
+            var bots = await Database.BotSteps.GetAllBotsByGameId(gameId);
+            foreach (var item in bots)
             {
-                if(item.GameId == gameId)
                 model.Bots.Add(new BotGetAllBotsInGameGameViewItem()
                 {
-                    Id = item.Bot.Id,
-                    Name = item.Bot.Name,
-                    Balance = item.Bot.Balance,
-                    Bet = item.Bot.Bet
+                    Id = item.Id,
+                    Name = item.Name,
+                    Balance = item.Balance,
+                    Bet = item.Bet
                 });
             }
             return model;

@@ -22,45 +22,38 @@ var PlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
 exports.PlayerAndBotStepsDetailsOfGameHistoryView = PlayerAndBotStepsDetailsOfGameHistoryView;
 var StepPlayerAndBotStepsDetailsOfGameHistoryViewItem = /** @class */ (function () {
     function StepPlayerAndBotStepsDetailsOfGameHistoryViewItem() {
-        this.playerStep = new PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView();
-        this.botStep = new BotStepPlayerAndBotStepsDetailsOfGameHistoryView();
+        this.cards = new Array();
     }
     return StepPlayerAndBotStepsDetailsOfGameHistoryViewItem;
 }());
 exports.StepPlayerAndBotStepsDetailsOfGameHistoryViewItem = StepPlayerAndBotStepsDetailsOfGameHistoryViewItem;
-var PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
-    function PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView() {
-        this.player = new PlayerPlayerAndBotStepsDetailsOfGameHistoryView();
-        this.game = new PlayerPlayerAndBotStepsDetailsOfGameHistoryView();
+var CardPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
+    function CardPlayerAndBotStepsDetailsOfGameHistoryView() {
+        this.player = new PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView();
+        this.game = new GameCardPlayerAndBotStepsDetailsOfGameHistoryView();
+        this.bot = new BotCardPlayerAndBotStepsDetailsOfGameHistoryView();
     }
-    return PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView;
+    return CardPlayerAndBotStepsDetailsOfGameHistoryView;
 }());
-exports.PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView = PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView;
-var BotStepPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
-    function BotStepPlayerAndBotStepsDetailsOfGameHistoryView() {
-        this.bot = new BotPlayerAndBotStepsDetailsOfGameHistoryView();
+exports.CardPlayerAndBotStepsDetailsOfGameHistoryView = CardPlayerAndBotStepsDetailsOfGameHistoryView;
+var PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
+    function PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView() {
     }
-    return BotStepPlayerAndBotStepsDetailsOfGameHistoryView;
+    return PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView;
 }());
-exports.BotStepPlayerAndBotStepsDetailsOfGameHistoryView = BotStepPlayerAndBotStepsDetailsOfGameHistoryView;
-var PlayerPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
-    function PlayerPlayerAndBotStepsDetailsOfGameHistoryView() {
+exports.PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView = PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView;
+var GameCardPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
+    function GameCardPlayerAndBotStepsDetailsOfGameHistoryView() {
     }
-    return PlayerPlayerAndBotStepsDetailsOfGameHistoryView;
+    return GameCardPlayerAndBotStepsDetailsOfGameHistoryView;
 }());
-exports.PlayerPlayerAndBotStepsDetailsOfGameHistoryView = PlayerPlayerAndBotStepsDetailsOfGameHistoryView;
-var GamePlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
-    function GamePlayerAndBotStepsDetailsOfGameHistoryView() {
+exports.GameCardPlayerAndBotStepsDetailsOfGameHistoryView = GameCardPlayerAndBotStepsDetailsOfGameHistoryView;
+var BotCardPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
+    function BotCardPlayerAndBotStepsDetailsOfGameHistoryView() {
     }
-    return GamePlayerAndBotStepsDetailsOfGameHistoryView;
+    return BotCardPlayerAndBotStepsDetailsOfGameHistoryView;
 }());
-exports.GamePlayerAndBotStepsDetailsOfGameHistoryView = GamePlayerAndBotStepsDetailsOfGameHistoryView;
-var BotPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
-    function BotPlayerAndBotStepsDetailsOfGameHistoryView() {
-    }
-    return BotPlayerAndBotStepsDetailsOfGameHistoryView;
-}());
-exports.BotPlayerAndBotStepsDetailsOfGameHistoryView = BotPlayerAndBotStepsDetailsOfGameHistoryView;
+exports.BotCardPlayerAndBotStepsDetailsOfGameHistoryView = BotCardPlayerAndBotStepsDetailsOfGameHistoryView;
 /***************************************************************/
 var GameDetailsOfGameHistoryView = /** @class */ (function () {
     function GameDetailsOfGameHistoryView() {

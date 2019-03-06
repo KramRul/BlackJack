@@ -28,55 +28,45 @@ export class PlayerAndBotStepsDetailsOfGameHistoryView {
 }
 
 export class StepPlayerAndBotStepsDetailsOfGameHistoryViewItem {
-  playerStep?: PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView;
-  botStep?: BotStepPlayerAndBotStepsDetailsOfGameHistoryView;
+  cards?: Array<CardPlayerAndBotStepsDetailsOfGameHistoryView>;
+  
 
   constructor() {
-    this.playerStep = new PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView();
-    this.botStep = new BotStepPlayerAndBotStepsDetailsOfGameHistoryView();
+    this.cards = new Array <CardPlayerAndBotStepsDetailsOfGameHistoryView>();
   }
 }
 
-export class PlayerStepPlayerAndBotStepsDetailsOfGameHistoryView {
+export class CardPlayerAndBotStepsDetailsOfGameHistoryView {
   id?: string;
   suite?: Suite;
   rank?: Rank;
-  player?: PlayerPlayerAndBotStepsDetailsOfGameHistoryView;
-  game?: PlayerPlayerAndBotStepsDetailsOfGameHistoryView;
+  player?: PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView;
+  game?: GameCardPlayerAndBotStepsDetailsOfGameHistoryView;
+  bot?: BotCardPlayerAndBotStepsDetailsOfGameHistoryView;
 
   constructor() {
-    this.player = new PlayerPlayerAndBotStepsDetailsOfGameHistoryView();
-    this.game = new PlayerPlayerAndBotStepsDetailsOfGameHistoryView();
+    this.player = new PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView();
+    this.game = new GameCardPlayerAndBotStepsDetailsOfGameHistoryView();
+    this.bot = new BotCardPlayerAndBotStepsDetailsOfGameHistoryView();
   }
 }
 
-export class BotStepPlayerAndBotStepsDetailsOfGameHistoryView {
-  id?: string;
-  suite?: Suite;
-  rank?: Rank;
-  bot?: BotPlayerAndBotStepsDetailsOfGameHistoryView;
-
-  constructor() {
-    this.bot = new BotPlayerAndBotStepsDetailsOfGameHistoryView();
-  }
-}
-
-export class PlayerPlayerAndBotStepsDetailsOfGameHistoryView {
+export class PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView {
   userName?: string;
   id?: string;
   balance?: number;
   bet?: number;
 }
 
-export class GamePlayerAndBotStepsDetailsOfGameHistoryView {
+export class GameCardPlayerAndBotStepsDetailsOfGameHistoryView {
   id?: string;
   wonId?: string;
   gameState?: GameState;
 }
 
-export class BotPlayerAndBotStepsDetailsOfGameHistoryView {
+export class BotCardPlayerAndBotStepsDetailsOfGameHistoryView {
   id?: string;
-  userName?: string;
+  name?: string;
   balance?: number;
   bet?: number;
 }

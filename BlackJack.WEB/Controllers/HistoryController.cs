@@ -40,12 +40,15 @@ namespace BlackJack.WEB.Controllers
                 var bots = await _gameService.GetAllBotsInGame(game.Id);
 
                 var steps = new List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>();
+                var cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
 
                 for (int i = 0; i < 5; i++)
                 {
-                    var cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>()
+                    cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
+
+                    if (playerSteps.PlayerSteps.Count > i)
                     {
-                        new CardPlayerAndBotStepsDetailsOfGameHistoryView()
+                        cards.Add(new CardPlayerAndBotStepsDetailsOfGameHistoryView()
                         {
                             Id = playerSteps.PlayerSteps[i].Id,
                             Suite = playerSteps.PlayerSteps[i].Suite,
@@ -70,13 +73,48 @@ namespace BlackJack.WEB.Controllers
                                 Balance = 0,
                                 Bet = 0
                             }
-                        },
-                        
-                    };
-                    steps.Add(new StepPlayerAndBotStepsDetailsOfGameHistoryViewItem()
+                        });
+                    }
+                    foreach (var bot in bots.Bots)
                     {
-                        Cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>().AddRange()
-                    });
+                        if (botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList().Count > i)
+                        {
+                            cards.Add(new CardPlayerAndBotStepsDetailsOfGameHistoryView()
+                            {
+                                Id = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Id,
+                                Suite = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Suite,
+                                Rank = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Rank,
+                                Player = new PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView()
+                                {
+                                    Id = "",
+                                    UserName = "",
+                                    Balance = 0,
+                                    Bet = 0
+                                },
+                                Game = new GameCardPlayerAndBotStepsDetailsOfGameHistoryView()
+                                {
+                                    Id = game.Id,
+                                    WonId = game.WonId,
+                                    GameState = game.GameState
+                                },
+                                Bot = new BotCardPlayerAndBotStepsDetailsOfGameHistoryView()
+                                {
+                                    Id = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Id,
+                                    Name = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Name,
+                                    Balance = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Balance,
+                                    Bet = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Bet
+                                }
+                            });
+                        }
+                    }
+
+                    if (cards.Count != 0)
+                    {
+                        steps.Add(new StepPlayerAndBotStepsDetailsOfGameHistoryViewItem()
+                        {
+                            Cards = cards
+                        });
+                    }                   
                 }
 
                 var model = new DetailsOfGameHistoryView()
