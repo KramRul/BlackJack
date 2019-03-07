@@ -1,7 +1,7 @@
-﻿using BlackJack.BusinessLogic.Interfaces.Providers;
-using BlackJack.BusinessLogic.Interfaces.Services;
-using BlackJack.BusinessLogic.Providers;
+﻿using BlackJack.BusinessLogic.Providers;
+using BlackJack.BusinessLogic.Providers.Interfaces;
 using BlackJack.BusinessLogic.Services;
+using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess;
 using BlackJack.DataAccess.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +18,7 @@ namespace BlackJack.BusinessLogic.Config
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IJwtProvider, JwtProvider>();
             services.AddTransient<IHistoryService, HistoryService>();
+            services.AddTransient<IAdditionalRanksService, AdditionalRanksService>();            
         }
     }
 }

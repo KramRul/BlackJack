@@ -21,10 +21,11 @@ namespace BlackJack.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.Configure<AuthenticationOptions>(options =>
-                Configuration.GetSection("JWTOptions").Bind(options));
+            var options = Configuration.GetSection("JWTOptions");
+
             services.DataBaseConfigures(connection);
             services.IdentityConfigures();
+            services.OptionsConfigures(options);
             services.JwtConfigures();
             services.InjectConfigures();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

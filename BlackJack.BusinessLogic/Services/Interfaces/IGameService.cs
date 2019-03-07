@@ -1,11 +1,8 @@
 ﻿using BlackJack.ViewModels.GameViews;
-using BlackJack.ViewModels.PlayerViews;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace BlackJack.BusinessLogic.Interfaces.Services
+namespace BlackJack.BusinessLogic.Services.Interfaces
 {
     public interface IGameService
     {

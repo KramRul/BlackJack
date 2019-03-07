@@ -1,8 +1,7 @@
 ﻿using BlackJack.ViewModels.PlayerViews;
-using System;
 using System.Threading.Tasks;
 
-namespace BlackJack.BusinessLogic.Interfaces.Services
+namespace BlackJack.BusinessLogic.Services.Interfaces
 {
     public interface IPlayerService
     {

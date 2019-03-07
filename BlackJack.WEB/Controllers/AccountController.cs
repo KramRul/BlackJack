@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using BlackJack.BusinessLogic.Interfaces.Services;
+using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +24,12 @@ namespace BlackJack.WEB.Controllers
         public async Task<IActionResult> Login([FromBody]LoginAccountView model)
         {
             return await Execute(() => _accountService.Login(model));           
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetLoggedPlayerName()
+        {
+            return await Execute(() => _accountService.GetLoggedPlayerName(PlayerId));
         }
 
         [HttpPost]

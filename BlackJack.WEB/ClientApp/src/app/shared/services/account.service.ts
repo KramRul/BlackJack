@@ -37,6 +37,14 @@ export class AccountService {
       }));
   }
 
+  getLoggedPlayerName() {
+    return this.http.post<string>(this.url + "getLoggedPlayerName", null).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response;
+      }));
+  }
+
   register(model: RegisterAccountView) {
     return this.http.post(this.url + "register", model).pipe();
   }

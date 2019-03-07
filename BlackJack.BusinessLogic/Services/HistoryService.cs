@@ -1,6 +1,7 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
-using BlackJack.BusinessLogic.Interfaces.Services;
+using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.Interfaces;
+using BlackJack.ViewModels.EnumViews;
 using BlackJack.ViewModels.GameViews;
 using BlackJack.ViewModels.HistoryViews;
 using System;
@@ -28,7 +29,7 @@ namespace BlackJack.BusinessLogic.Services
             var result = new GameDetailsOfGameHistoryView()
             {
                 Id = game.Id,
-                GameState = game.GameState,
+                GameState = (GameStateTypeEnumView)game.GameState,
                 WonName = game.WonName,
                 Player = new PlayerDetailsOfGameHistoryView()
                 {
@@ -51,7 +52,7 @@ namespace BlackJack.BusinessLogic.Services
                 result.Games.Add(new GameGetHistoryOfGamesHistoryViewItem()
                 {
                     Id = game.Id,
-                    GameState = game.GameState,
+                    GameState = (GameStateTypeEnumView)game.GameState,
                     Player = new PlayerGetHistoryOfGamesHistoryView()
                     {
                         PlayerId = game.PlayerId,

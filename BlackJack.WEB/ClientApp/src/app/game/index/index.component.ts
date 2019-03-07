@@ -10,13 +10,14 @@ import { AccountService } from 'src/app/shared/services/account.service';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit{
-  modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
+  //modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
   validationErrors: string;
   countOfBots: number;
   playerName: string;
 
   constructor(private gameService: GameService, private accountService: AccountService, private router: Router) {
-    this.gameService.index(this.modelPlayers).subscribe();
+    //this.gameService.index(this.modelPlayers).subscribe();
+    console.log(localStorage.getItem("accessToken"));
   }
 
   start() {
@@ -30,5 +31,10 @@ export class IndexComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.accountService.getLoggedPlayerName().subscribe(data => {
+      console.log(data);
+      this.playerName = data;
+    }
+      , error => this.validationErrors = error);
   }
 }

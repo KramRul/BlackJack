@@ -1,14 +1,12 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
-using BlackJack.BusinessLogic.Interfaces.Providers;
-using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.BusinessLogic.Models;
+using BlackJack.BusinessLogic.Providers.Interfaces;
+using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
@@ -85,6 +83,16 @@ namespace BlackJack.BusinessLogic.Services
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<string> GetLoggedPlayerName(string playerId)
+        {
+            var user = await _userManager.FindByIdAsync(playerId);
+            if (user == null)
+            {
+                throw new CustomServiceException("Player does not exist.");
+            }
+            return user.UserName;
         }
     }
 }

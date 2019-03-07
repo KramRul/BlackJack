@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 namespace BlackJack.BusinessLogic.Config
 {
@@ -13,7 +14,7 @@ namespace BlackJack.BusinessLogic.Config
         public static void JwtConfigures(this IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
-            var opt = serviceProvider.GetRequiredService<IOptions<AuthenticationOptions>>().Value;
+            var authenticationOptions = serviceProvider.GetRequiredService<IOptions<AuthenticationOptions>>().Value;
 
             services.AddAuthentication(options =>
             {
@@ -26,9 +27,9 @@ namespace BlackJack.BusinessLogic.Config
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = opt.Issuer,
-                    ValidAudience = opt.Issuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(opt.Key)),
+                    ValidIssuer = authenticationOptions.Issuer,
+                    ValidAudience = authenticationOptions.Issuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationOptions.Key)),
                     ClockSkew = TimeSpan.Zero
                 };
             });

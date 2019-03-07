@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BlackJack.BusinessLogic.Interfaces.Services;
-using BlackJack.ViewModels.GameViews;
+﻿using System.Threading.Tasks;
+using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.ViewModels.HistoryViews;
 using Microsoft.AspNetCore.Mvc;
 

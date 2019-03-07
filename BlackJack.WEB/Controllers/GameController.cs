@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BlackJack.BusinessLogic.Interfaces.Services;
+using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.ViewModels.GameViews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +11,13 @@ namespace BlackJack.WEB.Controllers
     {
         private readonly IPlayerService _playerService;
         private readonly IGameService _gameService;
+        private readonly IAccountService _accountService;
 
-        public GameController(IPlayerService playerService, IGameService gameService)
+        public GameController(IPlayerService playerService, IGameService gameService, IAccountService accountService)
         {
             _playerService = playerService;
             _gameService = gameService;
+            _accountService = accountService;
         }
 
         public async Task<IActionResult> Index()

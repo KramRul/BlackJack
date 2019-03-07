@@ -1,4 +1,4 @@
-﻿using BlackJack.DataAccess.Enums;
+﻿using BlackJack.ViewModels.EnumViews;
 using System;
 using System.Collections.Generic;
 
@@ -17,8 +17,8 @@ namespace BlackJack.ViewModels.GameViews
     public class BotStepGetAllStepOfBotsViewItem
     {
         public Guid Id { get; set; }
-        public Suite Suite { get; set; }
-        public Rank Rank { get; set; }
+        public SuiteTypeEnumView Suite { get; set; }
+        public RankTypeEnumView Rank { get; set; }
         public BotGetAllStepOfBotsView Bot { get; set; }
     }
 

@@ -1,4 +1,4 @@
-﻿using BlackJack.BusinessLogic.Interfaces.Services;
+﻿using BlackJack.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

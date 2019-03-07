@@ -1,6 +1,7 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
-using BlackJack.BusinessLogic.Interfaces.Services;
+using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.Interfaces;
+using BlackJack.ViewModels.EnumViews;
 using BlackJack.ViewModels.PlayerViews;
 using System;
 using System.Threading.Tasks;
@@ -50,10 +51,10 @@ namespace BlackJack.BusinessLogic.Services
                         Game = new GameGetAllStepsByPlayerIdPlayerView()
                         {
                             GameId = item.GameId,
-                            GameState = item.Game.GameState
+                            GameState = (GameStateTypeEnumView)item.Game.GameState
                         },
-                        Rank = item.Rank,
-                        Suite = item.Suite
+                        Rank = (RankTypeEnumView)item.Rank,
+                        Suite = (SuiteTypeEnumView)item.Suite
                     });
                 }
             }

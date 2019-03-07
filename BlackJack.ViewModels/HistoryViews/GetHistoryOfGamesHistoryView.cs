@@ -1,4 +1,4 @@
-﻿using BlackJack.DataAccess.Enums;
+﻿using BlackJack.ViewModels.EnumViews;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +18,7 @@ namespace BlackJack.ViewModels.HistoryViews
     {
         public Guid Id { get; set; }
         public string WonName { get; set; }
-        public GameState GameState { get; set; }
+        public GameStateTypeEnumView GameState { get; set; }
         public PlayerGetHistoryOfGamesHistoryView Player { get; set; }
     }
 
