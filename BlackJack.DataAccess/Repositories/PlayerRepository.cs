@@ -10,46 +10,48 @@ namespace BlackJack.DataAccess.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly ApplicationContext _db;
+        private readonly ApplicationContext dataBase;
 
         public PlayerRepository(ApplicationContext context)
         {
-            _db = context;
+            dataBase = context;
         }
 
         public async Task<IEnumerable<Player>> GetAll()
         {
-            var result = await _db.Users.ToListAsync();
+            var result = await dataBase.Users.ToListAsync();
             return result;
         }
 
         public async Task<Player> Get(Guid id)
         {
-            var result = await _db.Users.FindAsync(id.ToString());
+            var result = await dataBase.Users.FindAsync(id.ToString());
             return result;
         }
 
         public async Task<Player> GetByName(string name)
         {
-            var result = await _db.Users.Where(x => x.UserName == name).FirstOrDefaultAsync();
+            var result = await dataBase.Users
+                .Where(x => x.UserName == name)
+                .FirstOrDefaultAsync();
             return result;
         }
 
         public async Task Create(Player player)
         {
-            await _db.Users.AddAsync(player);
+            await dataBase.Users.AddAsync(player);
         }
 
         public void Update(Player player)
         {
-            _db.Entry(player).State = EntityState.Modified;
+            dataBase.Entry(player).State = EntityState.Modified;
         }
 
         public async Task Delete(Guid id)
         {
-            Player player = await _db.Users.FindAsync(id.ToString());
+            Player player = await dataBase.Users.FindAsync(id.ToString());
             if (player != null)
-                _db.Users.Remove(player);
+                dataBase.Users.Remove(player);
         }
     }
 }

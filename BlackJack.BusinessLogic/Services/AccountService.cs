@@ -32,9 +32,12 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<LoginAccountResponseView> Login(LoginAccountView model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null)
+            {
+                throw new CustomServiceException("Player does not exist.");
+            }
 
             var userCheck = await _userManager.CheckPasswordAsync(user, model.Password);
-
             if (!userCheck)
             {
                 throw new CustomServiceException("Invalid username or password.");
@@ -53,7 +56,6 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<RegisterAccountResponseView> Register(RegisterAccountView playerModel)
         {
             var playerExist = await _userManager.FindByNameAsync(playerModel.UserName);
-
             if (playerExist!=null)
             {
                 throw new CustomServiceException("Player allready exist.");
@@ -66,6 +68,7 @@ namespace BlackJack.BusinessLogic.Services
             };
 
             var result = await _userManager.CreateAsync(user, playerModel.Password);
+
             if(!result.Succeeded)
             {
                 throw new CustomServiceException("The user was not registered");

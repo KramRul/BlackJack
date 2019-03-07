@@ -6,7 +6,6 @@ using BlackJack.ViewModels.HistoryViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
@@ -21,7 +20,6 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<GameDetailsOfGameHistoryView> DetailsOfGame(string gameId)
         {
             var game = await Database.Games.Get(Guid.Parse(gameId));
-
             if (game == null)
             {
                 throw new CustomServiceException("Game does not exist");
@@ -40,7 +38,6 @@ namespace BlackJack.BusinessLogic.Services
                     Bet = game.Player.Bet
                 }
             };
-
             return result;
         }
 

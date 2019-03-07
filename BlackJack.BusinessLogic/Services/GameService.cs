@@ -4,11 +4,8 @@ using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Enums;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels.GameViews;
-using BlackJack.ViewModels.PlayerViews;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
@@ -101,11 +98,11 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<StartGameView> Start(string playerName, int countOfBots)
         {
             var player = await Database.Players.GetByName(playerName);
-
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
             }
+
             var gameCheck = await Database.Games.GetActiveGameForPlayer(player.Id);
             if (gameCheck != null)
             {
@@ -132,7 +129,7 @@ namespace BlackJack.BusinessLogic.Services
             {
                 for (int i = 0; i < countOfBots; i++)
                 {
-                    var bot = new Bot() { Balance = 1000, Bet = 0, Name = String.Format("Bot {0}",countOfBotsInDB.ToString())};
+                    var bot = new Bot() { Balance = 1000, Bet = 0, Name = String.Format("Bot {0}", countOfBotsInDB.ToString())};
                     countOfBotsInDB += 1;
                     StepsOfAllBots.Add(CreateBotStep(bot, game));
                     StepsOfAllBots.Add(CreateBotStep(bot, game));
@@ -167,14 +164,12 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             var player = await Database.Players.Get(Guid.Parse(playerId));
-
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
             }
 
             var game = await Database.Games.GetActiveGameForPlayer(playerId);
-
             if (game == null)
             {
                 game = await Database.Games.GetLastActiveGameForPlayer(playerId);
@@ -229,14 +224,12 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<HitGameView> Hit(string playerId)
         {
             var player = await Database.Players.Get(Guid.Parse(playerId));
-
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
             }
 
             var game = await Database.Games.GetActiveGameForPlayer(playerId);
-
             if (game == null)
             {
                 throw new CustomServiceException("Game does not exist");
@@ -336,7 +329,6 @@ namespace BlackJack.BusinessLogic.Services
         public async Task PlaceABet(string playerId, decimal bet)
         {
             var player = await Database.Players.Get(Guid.Parse(playerId));
-
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
@@ -356,14 +348,12 @@ namespace BlackJack.BusinessLogic.Services
         public async Task Stand(string playerId)
         {
             var player = await Database.Players.Get(Guid.Parse(playerId));
-
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
             }
 
             var game = await Database.Games.GetActiveGameForPlayer(playerId);
-
             if (game == null)
             {
                 throw new CustomServiceException("Game does not exist");
@@ -519,7 +509,6 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<GetGameView> Get(Guid gameId)
         {
             var game = await Database.Games.Get(gameId);
-
             if (game == null)
             {
                 throw new CustomServiceException("Game does not exist");

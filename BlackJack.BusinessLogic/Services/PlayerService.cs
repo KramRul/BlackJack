@@ -1,6 +1,5 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
 using BlackJack.BusinessLogic.Interfaces.Services;
-using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels.PlayerViews;
 using System;
@@ -64,7 +63,6 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<GetPlayerByIdPlayerView> GetPlayerById(string playerId)
         {
             var player = await Database.Players.Get(Guid.Parse(playerId));
-
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");

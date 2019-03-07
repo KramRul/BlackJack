@@ -43,7 +43,7 @@ namespace BlackJack.BusinessLogic.Providers
             }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationOptions.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddHours(expiredHours ?? Convert.ToDouble(_authenticationOptions.Lifetime));
 
             var token = new JwtSecurityToken(
@@ -51,7 +51,7 @@ namespace BlackJack.BusinessLogic.Providers
                 _authenticationOptions.Issuer,
                 claims,
                 expires: expires,
-                signingCredentials: creds
+                signingCredentials: credentials
             );
 
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -9,46 +9,46 @@ namespace BlackJack.DataAccess.Repositories
 {
     public class BotRepository: IBotRepository
     {
-        private ApplicationContext db;
+        private ApplicationContext dataBase;
 
         public BotRepository(ApplicationContext context)
         {
-            this.db = context;
+            dataBase = context;
         }
 
         public async Task<IEnumerable<Bot>> GetAll()
         {
-            var result = await db.Bots.ToListAsync();
+            var result = await dataBase.Bots.ToListAsync();
             return result;
         }
 
         public async Task<int> Count()
         {
-            var result = await db.Bots.CountAsync();
+            var result = await dataBase.Bots.CountAsync();
             return result;
         }
 
         public async Task<Bot> Get(Guid id)
         {
-            var result = await db.Bots.FindAsync(id);
+            var result = await dataBase.Bots.FindAsync(id);
             return result;
         }
 
         public async Task Create(Bot bot)
         {
-            await db.Bots.AddAsync(bot);
+            await dataBase.Bots.AddAsync(bot);
         }
 
         public void Update(Bot bot)
         {
-            db.Entry(bot).State = EntityState.Modified;
+            dataBase.Entry(bot).State = EntityState.Modified;
         }
 
         public async Task Delete(Guid id)
         {
-            Bot bot = await db.Bots.FindAsync(id);
+            Bot bot = await dataBase.Bots.FindAsync(id);
             if (bot != null)
-                db.Bots.Remove(bot);
+                dataBase.Bots.Remove(bot);
         }
     }
 }

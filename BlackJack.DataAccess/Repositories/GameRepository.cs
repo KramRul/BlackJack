@@ -10,58 +10,71 @@ namespace BlackJack.DataAccess.Repositories
 {
     public class GameRepository: IGameRepository
     {
-        private ApplicationContext db;
+        private ApplicationContext dataBase;
 
         public GameRepository(ApplicationContext context)
         {
-            this.db = context;
+            dataBase = context;
         }
 
         public async Task<IEnumerable<Game>> GetAll()
         {
-            var result = await db.Games.Include(d => d.Player).ToListAsync();
+            var result = await dataBase.Games.Include(d => d.Player).ToListAsync();
             return result;
         }
 
         public async Task<IEnumerable<Game>> GetGamesForPlayer(string playerId)
         {
-            var result = await db.Games.Include(d => d.Player).Where(p=>p.Player.Id == playerId).ToListAsync();
+            var result = await dataBase.Games
+                .Include(d => d.Player)
+                .Where(p=>p.Player.Id == playerId)
+                .ToListAsync();
             return result;
         }
 
         public async Task<Game> GetActiveGameForPlayer(string playerId)
         {
-            var result = await db.Games.Include(d => d.Player).Where(p => p.Player.Id == playerId).Where(p => p.GameState==Enums.GameState.Unknown).FirstOrDefaultAsync();
+            var result = await dataBase.Games
+                .Include(d => d.Player)
+                .Where(p => p.Player.Id == playerId)
+                .Where(p => p.GameState==Enums.GameState.Unknown)
+                .FirstOrDefaultAsync();
             return result;
         }
 
         public async Task<Game> GetLastActiveGameForPlayer(string playerId)
         {
-            var result = await db.Games.Include(d => d.Player).Where(p => p.Player.Id == playerId).LastOrDefaultAsync();
+            var result = await dataBase.Games
+                .Include(d => d.Player)
+                .Where(p => p.Player.Id == playerId)
+                .LastOrDefaultAsync();
             return result;
         }
 
         public async Task<Game> Get(Guid gameid)
         {
-            var result = await db.Games.Include(p => p.Player).Where(t => t.Id == gameid).ToListAsync();
+            var result = await dataBase.Games
+                .Include(p => p.Player)
+                .Where(t => t.Id == gameid)
+                .ToListAsync();
             return result.First();
         }
 
         public async Task Create(Game game)
         {
-            await db.Games.AddAsync(game);
+            await dataBase.Games.AddAsync(game);
         }
 
         public void Update(Game game)
         {
-            db.Entry(game).State = EntityState.Modified;
+            dataBase.Entry(game).State = EntityState.Modified;
         }
 
         public async Task Delete(Guid id)
         {
-            Game game = await db.Games.FindAsync(id);
+            Game game = await dataBase.Games.FindAsync(id);
             if (game != null)
-                db.Games.Remove(game);
+                dataBase.Games.Remove(game);
         }
     }
 }

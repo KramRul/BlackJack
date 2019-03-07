@@ -10,51 +10,57 @@ namespace BlackJack.DataAccess.Repositories
 {
     public class PlayerStepRepository: IPlayerStepRepository
     {
-        private ApplicationContext db;
+        private ApplicationContext dataBase;
 
         public PlayerStepRepository(ApplicationContext context)
         {
-            this.db = context;
+            dataBase = context;
         }
 
         public async Task<IEnumerable<PlayerStep>> GetAll()
         {            
-            var result = await db.PlayerSteps.Include(p => p.Player).Include(g=>g.Game).ToListAsync();
+            var result = await dataBase.PlayerSteps
+                .Include(p => p.Player)
+                .Include(g=>g.Game)
+                .ToListAsync();
             return result;
         }
 
         public async Task<IEnumerable<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
         {
-            var result = await db.PlayerSteps.Include(p => p.Player).Where(p => p.PlayerId == playerId && p.GameId == gameId).ToListAsync();
+            var result = await dataBase.PlayerSteps
+                .Include(p => p.Player)
+                .Where(p => p.PlayerId == playerId && p.GameId == gameId)
+                .ToListAsync();
             return result;
         }
 
         public async Task<PlayerStep> Get(Guid id)
         {
-            var result = await db.PlayerSteps.FindAsync(id);
+            var result = await dataBase.PlayerSteps.FindAsync(id);
             return result;
         }
 
         public async Task Create(PlayerStep playerStep)
         {
-            await db.PlayerSteps.AddAsync(playerStep);
+            await dataBase.PlayerSteps.AddAsync(playerStep);
         }
 
         public async Task AddRange(List<PlayerStep> playerSteps)
         {
-            await db.PlayerSteps.AddRangeAsync(playerSteps);
+            await dataBase.PlayerSteps.AddRangeAsync(playerSteps);
         }
 
         public void Update(PlayerStep playerStep)
         {
-            db.Entry(playerStep).State = EntityState.Modified;
+            dataBase.Entry(playerStep).State = EntityState.Modified;
         }
 
         public async Task Delete(Guid id)
         {
-            PlayerStep playerStep = await db.PlayerSteps.FindAsync(id);
+            PlayerStep playerStep = await dataBase.PlayerSteps.FindAsync(id);
             if (playerStep != null)
-                db.PlayerSteps.Remove(playerStep);
+                dataBase.PlayerSteps.Remove(playerStep);
         }
     }
 }

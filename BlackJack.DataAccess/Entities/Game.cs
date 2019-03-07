@@ -7,9 +7,7 @@ namespace BlackJack.DataAccess.Entities
     public class Game
     {
         public Guid Id { get; set; }
-
         public GameState GameState { get; set; }
-
         public string WonName { get; set; }
 
         public string PlayerId { get; set; }

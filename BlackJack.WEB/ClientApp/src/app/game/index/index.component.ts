@@ -16,7 +16,6 @@ export class IndexComponent implements OnInit{
   validationErrors: string;
   countOfBots: number;
   playerName: string;
-  isSignedIn: boolean;
 
   constructor(private gameService: GameService, private accountService: AccountService, private router: Router) {
     this.gameService.index(this.modelPlayers).subscribe();
@@ -26,8 +25,7 @@ export class IndexComponent implements OnInit{
     this.gameService.start(this.countOfBots, this.playerName).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(["/game/start"]);
-        //this.router.navigate(["/game/start"], { queryParams: { data: data.player.playerId } });        
+        this.router.navigate(["/game/start"]);      
       }
       , error => this.validationErrors = error
     );
@@ -35,6 +33,5 @@ export class IndexComponent implements OnInit{
 
   ngOnInit()
   {
-    this.isSignedIn = this.accountService.isSignedIn();
   }
 }

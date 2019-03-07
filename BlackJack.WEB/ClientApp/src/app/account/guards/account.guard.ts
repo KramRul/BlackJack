@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router, CanActivateChild } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/shared/services/account.service';
 
 @Injectable({
@@ -16,8 +15,7 @@ export class AccountGuard implements CanActivate, CanActivateChild{
       return true;
     }
 
-    var result = this._router.navigate(['/account/login']);
-    // you can save redirect url so after authing we can move them back to the page they requested
+    this._router.navigate(['/account/login']);
     return false;
   }
 
