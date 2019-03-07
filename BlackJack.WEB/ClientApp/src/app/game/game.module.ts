@@ -8,7 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [GameComponent, IndexComponent, StartComponent],
+  declarations: [
+    GameComponent,
+    IndexComponent,
+    StartComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

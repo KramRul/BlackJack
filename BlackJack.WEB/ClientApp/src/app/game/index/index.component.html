@@ -14,7 +14,6 @@
   <label>Username:</label>
   <input [(ngModel)]="playerName" list="players" class="form-control" />
   <datalist id="players">
-    <!--[(ngModel)]="players"-->
     <option *ngFor="let player of modelPlayers.players">{{player.userName}}</option>
   </datalist>
 </div>

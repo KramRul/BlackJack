@@ -6,6 +6,7 @@ export class GetDetailsGameView {
   game?: StartGameView;
   playerSteps?: GetAllStepsGameView;
   botsSteps?: GetAllStepOfBotsGameView;
+
   constructor() {
     this.game = new StartGameView();
     this.playerSteps = new GetAllStepsGameView();

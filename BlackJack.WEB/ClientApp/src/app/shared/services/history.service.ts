@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { GetHistoryOfGamesHistoryView } from '../entities/history.views/get-history-of-games.history.view';
-import { StartGameResultView } from '../entities/game.views/start-result.game.view';
 import { DetailsOfGameHistoryView } from '../entities/history.views/details-of-game.history.view';
 
 @Injectable({

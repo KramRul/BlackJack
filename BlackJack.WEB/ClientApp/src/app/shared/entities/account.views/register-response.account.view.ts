@@ -1,4 +1,4 @@
-﻿export class RegisterAccountResponseView {
-    AccessToken?: string;
-    UserName?: string;
+export class RegisterAccountResponseView {
+  AccessToken?: string;
+  UserName?: string;
 }

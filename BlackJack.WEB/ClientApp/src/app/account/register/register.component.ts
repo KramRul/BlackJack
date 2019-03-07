@@ -12,9 +12,7 @@ export class RegisterComponent implements OnInit {
   validationErrors: string;
   model: RegisterAccountView = new RegisterAccountView();
 
-  constructor(private accountService: AccountService, private router: Router)
-  {
-
+  constructor(private accountService: AccountService, private router: Router) {
   }
 
   register() {

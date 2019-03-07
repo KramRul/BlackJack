@@ -1,4 +1,4 @@
-﻿export class LoginAccountView {
-    userName?: string;
-    password?: string;
+export class LoginAccountView {
+  userName?: string;
+  password?: string;
 }

@@ -11,7 +11,12 @@ import { RegisterComponent } from './register/register.component';
 import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
-  declarations: [AccountComponent, LoginComponent, RegisterComponent, LogoutComponent],
+  declarations: [
+    AccountComponent,
+    LoginComponent,
+    RegisterComponent,
+    LogoutComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

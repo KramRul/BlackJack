@@ -38,9 +38,7 @@ namespace BlackJack.WEB.Controllers
                 var playerSteps = await _gameService.GetAllSteps(game.Player.Id, game.Id);
                 var botsSteps = await _gameService.GetAllStepOfBots(game.Id);
                 var bots = await _gameService.GetAllBotsInGame(game.Id);
-
                 var steps = await _historyService.GetStepsDetailsOfGame(game, playerSteps, botsSteps, bots);
-
                 var model = new DetailsOfGameHistoryView()
                 {
                     Game = game,

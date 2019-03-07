@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 export class LogoutComponent implements OnInit {
   validationErrors: string;
 
-  constructor(private accountService: AccountService, private router: Router) { }
+  constructor(private accountService: AccountService, private router: Router) {
+  }
 
   ngOnInit() {
   }

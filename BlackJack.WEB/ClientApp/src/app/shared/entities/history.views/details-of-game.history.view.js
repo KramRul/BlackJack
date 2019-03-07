@@ -12,7 +12,6 @@ var DetailsOfGameHistoryView = /** @class */ (function () {
     return DetailsOfGameHistoryView;
 }());
 exports.DetailsOfGameHistoryView = DetailsOfGameHistoryView;
-/*****************************************************************/
 var PlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function () {
     function PlayerAndBotStepsDetailsOfGameHistoryView() {
         this.steps = new Array();
@@ -54,7 +53,6 @@ var BotCardPlayerAndBotStepsDetailsOfGameHistoryView = /** @class */ (function (
     return BotCardPlayerAndBotStepsDetailsOfGameHistoryView;
 }());
 exports.BotCardPlayerAndBotStepsDetailsOfGameHistoryView = BotCardPlayerAndBotStepsDetailsOfGameHistoryView;
-/***************************************************************/
 var GameDetailsOfGameHistoryView = /** @class */ (function () {
     function GameDetailsOfGameHistoryView() {
         this.player = new PlayerDetailsOfGameHistoryView();

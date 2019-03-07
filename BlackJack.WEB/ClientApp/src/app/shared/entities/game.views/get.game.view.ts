@@ -11,7 +11,7 @@ export class GetGameView {
 }
 
 export class PlayerGetGameView {
-  PlayerId?: string;
-  Balance?: number;
-  Bet?: number;
+  playerId?: string;
+  balance?: number;
+  bet?: number;
 }

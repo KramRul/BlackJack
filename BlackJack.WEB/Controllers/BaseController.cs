@@ -42,7 +42,6 @@ namespace BlackJack.WEB.Controllers
             }
             catch(Exception ex)
             {
-                //lloging
                 Console.WriteLine(ex.Message);
                 response.Error = "Server internal error";
                 return BadRequest(response);
@@ -54,14 +53,12 @@ namespace BlackJack.WEB.Controllers
             var response = new GenericResponseView<string>();
             try
             {
-
                 if (!ModelState.IsValid)
                 {
                     var errorResult = new GenericResponseView<string>();
                     errorResult.Error = ModelState.GetFirstErrorFromModelState();
                     return BadRequest(errorResult);
                 }
-
                 await func();
                 return Ok(response);
             }
@@ -72,7 +69,6 @@ namespace BlackJack.WEB.Controllers
             }
             catch (Exception ex)
             {
-                //await _loggerService.LogException(ex);
                 response.Error = "Server internal error";
                 return BadRequest(response);
             }

@@ -3,12 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { HttpConfigInterceptor } from './http-config.interceptor';
 import { SharedModule } from './shared/shared.module';
-import { AccountGuard } from './account/guards/account.guard';
 
 @NgModule({
   declarations: [
@@ -26,11 +24,11 @@ import { AccountGuard } from './account/guards/account.guard';
     useClass: HttpErrorInterceptor,
     multi: true
   },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpConfigInterceptor,
-      multi: true
-    }
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpConfigInterceptor,
+    multi: true
+  }
   ],
   bootstrap: [AppComponent]
 })

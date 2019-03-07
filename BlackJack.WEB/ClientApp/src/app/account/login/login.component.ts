@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   model: RegisterAccountView = new RegisterAccountView();
 
   constructor(private accountService: AccountService, private router: Router) {
-
   }
 
   login() {
@@ -22,5 +21,4 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

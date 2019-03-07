@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces.Services;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Mvc;

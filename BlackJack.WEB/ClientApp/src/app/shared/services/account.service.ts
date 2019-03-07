@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { LoginAccountView } from '../entities/account.views/login.account.view';
 import { RegisterAccountView } from '../entities/account.views/register.account.view';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { LoginAccountResponseView } from '../entities/account.views/login-response.account.view';
 
 @Injectable({
@@ -15,8 +14,7 @@ export class AccountService {
   constructor(private http: HttpClient) {
   }
 
-  isSignedIn()
-  {
+  isSignedIn() {
     if (localStorage.getItem("accessToken") != null)
       return true;
     else
@@ -25,15 +23,14 @@ export class AccountService {
 
   login(model: LoginAccountView) {
     return this.http.post<LoginAccountResponseView>(this.url + "login", model).pipe(
-      map((response: LoginAccountResponseView) =>
-      {
+      map((response: LoginAccountResponseView) => {
         console.log(response);
         localStorage.setItem("accessToken", response.accessToken);
       }));
   }
 
   logout() {
-    return this.http.post(this.url + "logout",null).pipe(
+    return this.http.post(this.url + "logout", null).pipe(
       map((response: any) => {
         console.log(response);
         localStorage.removeItem("accessToken");

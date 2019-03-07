@@ -6,11 +6,13 @@ import { HistoryComponent } from './history.component';
 import { HistoryRoutingModule } from './history-routing.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { ForLoggedPlayersMenuComponent } from '../shared/components/for-logged-players-menu/for-logged-players-menu.component';
-import { ForNonLoggedPlayersMenuComponent } from '../shared/components/for-non-logged-players-menu/for-non-logged-players-menu.component';
 
 @NgModule({
-  declarations: [IndexComponent, GameComponent, HistoryComponent],
+  declarations: [
+    IndexComponent,
+    GameComponent,
+    HistoryComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

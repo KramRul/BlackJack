@@ -14,7 +14,6 @@ export class AccountGuard implements CanActivate, CanActivateChild{
     if (check) {
       return true;
     }
-
     this._router.navigate(['/account/login']);
     return false;
   }

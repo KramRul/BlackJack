@@ -18,7 +18,6 @@ export class DetailsOfGameHistoryView {
   }
 }
 
-/*****************************************************************/
 export class PlayerAndBotStepsDetailsOfGameHistoryView {
   steps?: Array<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>;
 
@@ -29,10 +28,9 @@ export class PlayerAndBotStepsDetailsOfGameHistoryView {
 
 export class StepPlayerAndBotStepsDetailsOfGameHistoryViewItem {
   cards?: Array<CardPlayerAndBotStepsDetailsOfGameHistoryView>;
-  
 
   constructor() {
-    this.cards = new Array <CardPlayerAndBotStepsDetailsOfGameHistoryView>();
+    this.cards = new Array<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
   }
 }
 
@@ -70,7 +68,7 @@ export class BotCardPlayerAndBotStepsDetailsOfGameHistoryView {
   balance?: number;
   bet?: number;
 }
-/***************************************************************/
+
 export class GameDetailsOfGameHistoryView {
   id?: string;
   wonName?: string;

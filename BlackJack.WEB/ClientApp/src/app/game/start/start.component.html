@@ -31,7 +31,6 @@
 <div *ngIf="gameDetails.game.player.bet==0 && gameDetails.playerSteps.playerSteps.length<=2">
   <div class="form-group">
     <input value={{gameDetails.game.player.balance}} name="Balance" id="Balance" hidden />
-    <!--<label value={{gameDetails.game.player.bet}} name="LabelBet" id="LabelBet"></label><br />-->
     <input [(ngModel)]="bet" name="Bet" id="Bet" />
   </div>
   <div>

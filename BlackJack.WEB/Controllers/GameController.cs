@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces.Services;
-using BlackJack.DataAccess.Entities;
 using BlackJack.ViewModels.GameViews;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BlackJack.WEB.Controllers
 {

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../shared/services/game.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GetDetailsGameView } from '../../shared/entities/game.views/get-details.game.view';
-import { Observable } from 'rxjs';
 import { Suite } from '../../shared/enums/suite';
 import { Rank } from '../../shared/enums/rank';
 import { GameState } from '../../shared/enums/game-state';
@@ -19,7 +18,8 @@ export class StartComponent implements OnInit {
   Rank = Rank;
   GameState = GameState;
 
-  constructor(private gameService: GameService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private gameService: GameService, private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.gameService.startGetDetails().subscribe(data => {
@@ -37,7 +37,6 @@ export class StartComponent implements OnInit {
         this.gameDetails.botsSteps = data.botsSteps;
       });
     });
-
   }
 
   hit() {

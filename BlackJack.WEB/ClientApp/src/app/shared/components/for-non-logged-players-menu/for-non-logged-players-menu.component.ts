@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForNonLoggedPlayersMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
-
 }
