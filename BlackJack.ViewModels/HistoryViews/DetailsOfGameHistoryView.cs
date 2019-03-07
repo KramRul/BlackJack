@@ -2,7 +2,6 @@
 using BlackJack.ViewModels.GameViews;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlackJack.ViewModels.HistoryViews
 {
@@ -19,7 +18,6 @@ namespace BlackJack.ViewModels.HistoryViews
         public Guid Id { get; set; }
         public string WonName { get; set; }
         public GameState GameState { get; set; }
-
         public PlayerDetailsOfGameHistoryView Player { get; set; }
     }
 

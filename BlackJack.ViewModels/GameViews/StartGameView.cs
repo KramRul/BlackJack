@@ -1,5 +1,4 @@
-﻿using BlackJack.DataAccess.Entities;
-using BlackJack.DataAccess.Enums;
+﻿using BlackJack.DataAccess.Enums;
 using System;
 
 namespace BlackJack.ViewModels.GameViews
@@ -10,7 +9,6 @@ namespace BlackJack.ViewModels.GameViews
         public string WonName { get; set; }
         public int CountOfBots { get; set; }
         public GameState GameState { get; set; }
-
         public PlayerStartGameView Player { get; set; }
     }
 

@@ -1,7 +1,6 @@
 ﻿using BlackJack.DataAccess.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlackJack.ViewModels.GameViews
 {
@@ -18,9 +17,7 @@ namespace BlackJack.ViewModels.GameViews
     public class GameGetGamesByPlayerIdGameViewItem
     {
         public Guid Id { get; set; }
-
         public GameState GameState { get; set; }
-
         public PlayerGetAllGamesByPlayerIdGameView Player { get; set; }
     }
 
