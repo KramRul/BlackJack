@@ -115,10 +115,12 @@ namespace BlackJack.BusinessLogic.Services
 
             var game = new Game()
             {
-                
+                Id = Guid.NewGuid(),
+                PlayerId = player.Id,
                 Player = player,
                 GameState = (GameState)GameStateTypeEnumView.Unknown
             };
+            await Database.Games.Create(game);
 
             var playerSteps = new List<PlayerStep>
             {
@@ -133,7 +135,14 @@ namespace BlackJack.BusinessLogic.Services
             {
                 for (int i = 0; i < countOfBots; i++)
                 {
-                    var bot = new Bot() { Balance = 1000, Bet = 0, Name = String.Format("Bot {0}", countOfBotsInDB.ToString())};
+                    var bot = new Bot()
+                    {
+                        Id = Guid.NewGuid(),
+                        Balance = 1000,
+                        Bet = 0,
+                        Name = String.Format("Bot {0}", countOfBotsInDB.ToString())
+                    };
+                    await Database.Bots.Create(bot);
                     countOfBotsInDB += 1;
                     StepsOfAllBots.Add(CreateBotStep(bot, game));
                     StepsOfAllBots.Add(CreateBotStep(bot, game));
@@ -141,7 +150,7 @@ namespace BlackJack.BusinessLogic.Services
             }
             await Database.BotSteps.AddRange(StepsOfAllBots);
 
-            await Database.Games.Create(game);
+            //await Database.Games.Create(game);
             Database.Players.Update(player);
             await Database.Save();
             var result = new StartGameView()
@@ -204,10 +213,13 @@ namespace BlackJack.BusinessLogic.Services
             var random = new Random();
             var result = new PlayerStep()
             {
+                Id = Guid.NewGuid(),
+                PlayerId = player.Id,
                 Player = player,
                 Rank = (Rank)random.Next(1, 13),
                 Suite = (Suite)random.Next(1, 4),
-                Game = game
+                Game = game,
+                GameId = game.Id
             };
             return result;
         }
@@ -217,8 +229,11 @@ namespace BlackJack.BusinessLogic.Services
             var random = new Random();
             var result = new BotStep()
             {
-                Bot =bot,
-                Game =game,
+                Id = Guid.NewGuid(),
+                Bot = bot,
+                BotId = bot.Id,
+                GameId = game.Id,
+                Game = game,
                 Rank = (Rank)random.Next(1, 13),
                 Suite = (Suite)random.Next(1, 4)
             };
@@ -242,10 +257,13 @@ namespace BlackJack.BusinessLogic.Services
             var random = new Random();
             var playerStep = new PlayerStep()
             {
+                Id = Guid.NewGuid(),
                 Player = player,
+                PlayerId = player.Id,
                 Rank = (Rank)random.Next(1, 13),
                 Suite = (Suite)random.Next(1, 4),
-                Game = game
+                Game = game,
+                GameId = game.Id
             };
             await Database.PlayerSteps.Create(playerStep);
             await Database.Save();
@@ -399,6 +417,7 @@ namespace BlackJack.BusinessLogic.Services
                     var rnd = new Random();
                     var botStep = new BotStep()
                     {
+                        Id = Guid.NewGuid(),
                         Game = game,
                         GameId = game.Id,
                         Bot = bot,

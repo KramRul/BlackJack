@@ -34,7 +34,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
             using (IDbConnection conn = Connection)
             {
-                string sQuery = "SELECT * FROM[Bots] AS[b]";//LEFT JOIN[AspNetUsers] AS[d.Player] ON[d].[PlayerId] = [d.Player].[Id]
+                string sQuery = "SELECT * FROM Bots b";//LEFT JOIN[AspNetUsers] AS[d.Player] ON[d].[PlayerId] = [d.Player].[Id]
                 conn.Open();
                 var result = await conn.QueryAsync<Bot>(sQuery);
                 return result;
@@ -45,7 +45,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
             using (IDbConnection conn = Connection)
             {
-                string sQuery = "SELECT COUNT(*) FROM[Bots] AS[b]";
+                string sQuery = "SELECT COUNT(*) FROM Bots b";
                 conn.Open();
                 var result = await conn.QueryAsync<int>(sQuery);
                 return result.FirstOrDefault();
@@ -56,7 +56,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
             using (IDbConnection conn = Connection)
             {
-                string sQuery = "SELECT * FROM[Bots] AS[b] WHERE Id = @Id";
+                string sQuery = "SELECT * FROM Bots b WHERE Id = @Id";
                 conn.Open();
                 var result = await conn.QueryAsync<Bot>(sQuery, new { Id = id });
                 return result.FirstOrDefault();
@@ -65,12 +65,11 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task Create(Bot bot)
         {
-            var guid = Guid.NewGuid();
             using (IDbConnection conn = Connection)
             {
-                string sQuery = "INSERT INTO Bots (Id, Name, Balance, Bet) VALUES(@Id, @Name, @Balance, @Bet))";
+                string sQuery = "INSERT INTO Bots (Id, Name, Balance, Bet) VALUES(@Id, @Name, @Balance, @Bet)";
                 conn.Open();
-                await conn.ExecuteAsync(sQuery, new { Id = guid, bot.Name, bot.Balance, bot.Bet });
+                await conn.ExecuteAsync(sQuery, bot);
             }
         }
 

@@ -12,7 +12,7 @@ namespace BlackJack.BusinessLogic.Config
     {
         public static void InjectConfigures(this IServiceCollection services)
         {
-            services.AddTransient<IUnitOfWork, EFUnitOfWork>();
+            services.AddTransient<IUnitOfWork, DapperUnitOfWork>();
             services.AddTransient<IGameService, GameService>();
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IAccountService, AccountService>();

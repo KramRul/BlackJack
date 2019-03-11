@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlackJack.WEB.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190305104113_GameWonId")]
-    partial class GameWonId
+    [Migration("20190311110041_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,8 @@ namespace BlackJack.WEB.Migrations
                     b.Property<decimal>("Balance");
 
                     b.Property<decimal>("Bet");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -66,7 +68,7 @@ namespace BlackJack.WEB.Migrations
 
                     b.Property<string>("PlayerId");
 
-                    b.Property<string>("WonId");
+                    b.Property<string>("WonName");
 
                     b.HasKey("Id");
 

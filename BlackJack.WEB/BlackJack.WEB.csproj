@@ -30,6 +30,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190225124608_Initial.cs" />
+    <Compile Remove="Migrations\20190225124608_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20190305104113_GameWonId.cs" />
+    <Compile Remove="Migrations\20190305104113_GameWonId.Designer.cs" />
+    <Compile Remove="Migrations\20190305123223_BotName.cs" />
+    <Compile Remove="Migrations\20190305123223_BotName.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\src\app\account\account-routing.module.ts" />
     <None Remove="ClientApp\src\app\game\game-routing.module.ts" />
     <None Remove="ClientApp\src\app\history\history-routing.component.ts" />

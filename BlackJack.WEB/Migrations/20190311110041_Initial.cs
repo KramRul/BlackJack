@@ -54,6 +54,7 @@ namespace BlackJack.WEB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Balance = table.Column<decimal>(nullable: false),
                     Bet = table.Column<decimal>(nullable: false)
                 },
@@ -174,6 +175,7 @@ namespace BlackJack.WEB.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     GameState = table.Column<int>(nullable: false),
+                    WonName = table.Column<string>(nullable: true),
                     PlayerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
