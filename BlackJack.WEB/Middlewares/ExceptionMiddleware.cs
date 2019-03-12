@@ -30,7 +30,7 @@ namespace BlackJack.WEB.Middlewares
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);;
+                Console.WriteLine(ex.Message);
                 await httpContext.Response.WriteAsync("Server internal error");
             }
         }

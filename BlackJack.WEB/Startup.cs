@@ -30,7 +30,7 @@ namespace BlackJack.WEB
             services.JwtConfigures();
             services.InjectConfigures();
 
-            services.AddMvc(conf=> 
+            services.AddMvc(conf =>
             {
                 conf.Filters.Add(typeof(ValidateModelStateFilterAttribute));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
