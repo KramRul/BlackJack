@@ -1,11 +1,14 @@
 using BlackJack.BusinessLogic.Config;
 using BlackJack.BusinessLogic.Models;
+using BlackJack.WEB.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 namespace BlackJack.WEB
 {
@@ -28,7 +31,12 @@ namespace BlackJack.WEB
             services.OptionsConfigures(options);
             services.JwtConfigures();
             services.InjectConfigures();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddMvc(conf=> 
+            {
+                conf.Filters.Add(typeof(ValidateModelStateFilterAttribute));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -56,9 +64,9 @@ namespace BlackJack.WEB
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
-                routes.MapSpaFallbackRoute(
+                /*routes.MapSpaFallbackRoute(
                     "spa-fallback",
-                    new { controller = "Game", action = "Index" });
+                    new { controller = "Game", action = "Index" });*/
             });
 
             app.UseSpa(spa =>
@@ -70,6 +78,12 @@ namespace BlackJack.WEB
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            /*app.Run(async (context) =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.SendFileAsync(Path.Combine(env.WebRootPath, "index.html"));
+            });*/
         }
     }
 }

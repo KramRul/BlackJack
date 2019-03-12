@@ -23,16 +23,9 @@ namespace BlackJack.WEB.Controllers
             GenericResponseView<T> response = new GenericResponseView<T>();
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var errorResponse = new GenericResponseView<string>();
-                    errorResponse.Error = ModelState.GetFirstErrorFromModelState();
-                    return BadRequest(errorResponse);
-                }
                 var result = await func();
                 response.Model = result;
-                return Ok(response.Model);
-                
+                return Ok(response.Model);                
             }
             catch (CustomServiceException ex)
             {
@@ -52,12 +45,6 @@ namespace BlackJack.WEB.Controllers
             var response = new GenericResponseView<string>();
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var errorResult = new GenericResponseView<string>();
-                    errorResult.Error = ModelState.GetFirstErrorFromModelState();
-                    return BadRequest(errorResult);
-                }
                 await func();
                 return Ok(response);
             }
