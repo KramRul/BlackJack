@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using BlackJack.BusinessLogic.Common.Exceptions;
 using BlackJack.ViewModels;
-using BlackJack.WEB.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.WEB.Controllers

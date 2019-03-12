@@ -1,15 +1,12 @@
 using BlackJack.BusinessLogic.Config;
-using BlackJack.BusinessLogic.Models;
 using BlackJack.WEB.Filters;
 using BlackJack.WEB.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
 
 namespace BlackJack.WEB
 {
