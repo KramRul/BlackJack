@@ -59,15 +59,6 @@ namespace BlackJack.WEB
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-                /*routes.MapSpaFallbackRoute(
-                    "spa-fallback",
-                    new { controller = "Game", action = "Index" });*/
-            });
 
             app.UseSpa(spa =>
             {
@@ -79,11 +70,12 @@ namespace BlackJack.WEB
                 }
             });
 
-            /*app.Run(async (context) =>
+            app.UseMvc(routes =>
             {
-                context.Response.ContentType = "text/html";
-                await context.Response.SendFileAsync(Path.Combine(env.WebRootPath, "index.html"));
-            });*/
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
         }
     }
 }
