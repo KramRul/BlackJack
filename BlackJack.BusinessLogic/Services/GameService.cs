@@ -357,6 +357,7 @@ namespace BlackJack.BusinessLogic.Services
                     var rnd = new Random();
                     var botStep = new BotStep()
                     {
+                        Id = Guid.NewGuid(),
                         Game = game,
                         GameId = game.Id,
                         Bot = bot,
