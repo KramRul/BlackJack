@@ -6,6 +6,9 @@ using BlackJack.BusinessLogic.Common.Exceptions;
 using BlackJack.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Routing;
 
 namespace BlackJack.WEB.Middlewares
 {
@@ -13,28 +16,27 @@ namespace BlackJack.WEB.Middlewares
     {
         private readonly RequestDelegate _next;
 
+        private static readonly ActionDescriptor EmptyActionDescriptor = new ActionDescriptor();
+
         public ExceptionMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task Invoke<T>(HttpContext httpContext)
+        public async Task Invoke(HttpContext httpContext)
         {
-            GenericResponseView<T> response = new GenericResponseView<T>();
             try
             {
                 await _next(httpContext);
             }
             catch (CustomServiceException ex)
             {
-                /*response.Error = ex.Message;
-                return BadRequest(response);*/
+                await httpContext.Response.WriteAsync(ex.Message);
             }
             catch (Exception ex)
             {
-                /*Console.WriteLine(ex.Message);
-                response.Error = "Server internal error";
-                return BadRequest(response);*/
+                Console.WriteLine(ex.Message);;
+                await httpContext.Response.WriteAsync("Server internal error");
             }
         }
     }

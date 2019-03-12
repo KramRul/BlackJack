@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.WEB.Controllers
 {
-    [Route("/account")]
+    [Route("account")]
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
