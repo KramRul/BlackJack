@@ -49,8 +49,8 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                     "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                     "WHERE b.GameId = @gameId ";
                 conn.Open();
-                var result = await conn.QueryAsync<BotStep, Bot, Bot>(sQuery, (step, bot) => { step.Bot = bot; return step.Bot; }, new { gameId }, splitOn: "BotId");
-                return result;
+                var result = await conn.QueryMultipleAsync(sQuery, new { gameId });
+                return result.Read<Bot>();
             }
         }
 
