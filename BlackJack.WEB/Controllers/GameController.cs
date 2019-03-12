@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.WEB.Controllers
 {
+    [Route("api/[controller]")]
     public class GameController : BaseController
     {
         private readonly IPlayerService _playerService;
@@ -26,7 +27,7 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<IActionResult> Start(int countOfBots, string playerName)
         {
@@ -38,7 +39,7 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<IActionResult> GetDetails()
         {
@@ -71,44 +72,44 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<IActionResult> Hit()
         {
             return await Execute(() => _gameService.Hit(PlayerId));
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> PlaceABet(decimal bet)
         {
             return await Execute(() => _gameService.PlaceABet(PlayerId, bet));
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Stand()
         {
             return await Execute(() => _gameService.Stand(PlayerId));
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllSteps(string playerId, Guid gameId)
         {
             return await Execute(() => _gameService.GetAllSteps(playerId, gameId));
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllStepOfBots(Guid gameId)
         {
             return await Execute(() => _gameService.GetAllStepOfBots(gameId));
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetGamesByPlayerId(string playerId)
         {
             return await Execute(() => _gameService.GetGamesByPlayerId(playerId));
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Get(Guid gameId)
         {
             return await Execute(() => _gameService.Get(gameId));

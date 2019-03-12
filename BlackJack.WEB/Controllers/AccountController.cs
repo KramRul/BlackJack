@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.WEB.Controllers
 {
+    [Route("api/[controller]")]
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
@@ -14,25 +15,25 @@ namespace BlackJack.WEB.Controllers
             _accountService = accountService;
         }
         
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody]RegisterAccountView model)
         {
             return await Execute(()=>_accountService.Register(model));
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody]LoginAccountView model)
         {
             return await Execute(() => _accountService.Login(model));           
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> GetLoggedPlayerName()
         {
             return await Execute(() => _accountService.GetLoggedPlayerName(PlayerId));
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Logout()
         {
             return await Execute(() => _accountService.Logout());

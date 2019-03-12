@@ -56,6 +56,9 @@ namespace BlackJack.WEB
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+                /*routes.MapSpaFallbackRoute(
+                    "spa-fallback",
+                    new { controller = "{controller}", action = "Index" });*/
             });
 
             app.UseSpa(spa =>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.WEB.Controllers
 {
+    [Route("api/[controller]")]
     public class HistoryController : BaseController
     {
         private readonly IHistoryService _historyService;
@@ -16,6 +17,7 @@ namespace BlackJack.WEB.Controllers
             _gameService = gameService;
         }
 
+        [HttpGet("[action]")]
         public async Task<IActionResult> Index()
         {
             var result = await Execute(async () =>
@@ -26,6 +28,7 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
+        [HttpGet("[action]")]
         public async Task<IActionResult> Game(string gameId)
         {
             var result = await Execute(async () =>
