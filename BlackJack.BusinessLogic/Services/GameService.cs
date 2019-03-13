@@ -72,7 +72,7 @@ namespace BlackJack.BusinessLogic.Services
                     Suite = (SuiteTypeEnumView)item.Suite,
                     Bot = new BotGetAllStepOfBotsView()
                     {
-                        Id=item.BotId,
+                        Id = item.BotId,
                         Name = item.Bot.Name,
                         Balance = item.Bot.Balance,
                         Bet = item.Bot.Bet
@@ -108,47 +108,56 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             var gameCheck = await Database.Games.GetActiveGameForPlayer(player.Id);
+            var game = new Game();
             if (gameCheck != null)
             {
-                throw new CustomServiceException("There is active game");
+                //throw new CustomServiceException("There is active game");
+                game = gameCheck;
             }
-
-            var game = new Game()
+            else
             {
-                Id = Guid.NewGuid(),
-                PlayerId = player.Id,
-                Player = player,
-                GameState = (GameState)GameStateTypeEnumView.Unknown
-            };
-            await Database.Games.Create(game);
-
-            var playerSteps = new List<PlayerStep>
-            {
-                CreatePlayerStep(player, game),
-                CreatePlayerStep(player, game)
-            };
-            await Database.PlayerSteps.AddRange(playerSteps);
-
-            var StepsOfAllBots = new List<BotStep>();
-            var countOfBotsInDB = await Database.Bots.Count() + 1;
-            if (countOfBots > 0)
-            {
-                for (int i = 0; i < countOfBots; i++)
+                game = new Game()
                 {
-                    var bot = new Bot()
-                    {
-                        Id = Guid.NewGuid(),
-                        Balance = 1000,
-                        Bet = 0,
-                        Name = String.Format("Bot {0}", countOfBotsInDB.ToString())
-                    };
-                    await Database.Bots.Create(bot);
-                    countOfBotsInDB += 1;
-                    StepsOfAllBots.Add(CreateBotStep(bot, game));
-                    StepsOfAllBots.Add(CreateBotStep(bot, game));
-                }
+                    Id = Guid.NewGuid(),
+                    PlayerId = player.Id,
+                    Player = player,
+                    GameState = (GameState)GameStateTypeEnumView.Unknown
+                };
+
+                await Database.Games.Create(game);
+
+                var playerSteps = new List<PlayerStep>
+                {
+                    CreatePlayerStep(player, game),
+                    CreatePlayerStep(player, game)
+                };
+                await Database.PlayerSteps.AddRange(playerSteps);
             }
-            await Database.BotSteps.AddRange(StepsOfAllBots);
+
+            var botCheck = await Database.BotSteps.GetAllBotsByGameId(gameCheck.Id);
+            if (botCheck == null || botCheck.Count == 0)
+            {
+                var StepsOfAllBots = new List<BotStep>();
+                var countOfBotsInDB = await Database.Bots.Count() + 1;
+                if (countOfBots > 0)
+                {
+                    for (int i = 0; i < countOfBots; i++)
+                    {
+                        var bot = new Bot()
+                        {
+                            Id = Guid.NewGuid(),
+                            Balance = 1000,
+                            Bet = 0,
+                            Name = String.Format("Bot {0}", countOfBotsInDB.ToString())
+                        };
+                        await Database.Bots.Create(bot);
+                        countOfBotsInDB += 1;
+                        StepsOfAllBots.Add(CreateBotStep(bot, game));
+                        StepsOfAllBots.Add(CreateBotStep(bot, game));
+                    }
+                }
+                await Database.BotSteps.AddRange(StepsOfAllBots);
+            }
 
             //await Database.Games.Create(game);
             Database.Players.Update(player);
@@ -295,7 +304,7 @@ namespace BlackJack.BusinessLogic.Services
                 Rank = (RankTypeEnumView)playerStep.Rank,
                 Suite = (SuiteTypeEnumView)playerStep.Suite
             };
-        }       
+        }
 
         public async Task PlaceABet(string playerId, decimal bet)
         {
@@ -361,7 +370,7 @@ namespace BlackJack.BusinessLogic.Services
                         Game = game,
                         GameId = game.Id,
                         Bot = bot,
-                        BotId =bot.Id,
+                        BotId = bot.Id,
                         Rank = (Rank)rnd.Next(1, 13),
                         Suite = (Suite)rnd.Next(1, 4)
                     };
@@ -445,7 +454,7 @@ namespace BlackJack.BusinessLogic.Services
                     {
                         maxAmount = item.Value;
                         nameOfWonBot = item.Key;
-                    }                       
+                    }
                 }
             }
 

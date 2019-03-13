@@ -40,7 +40,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        public async Task<IEnumerable<Bot>> GetAllBotsByGameId(Guid gameId)
+        public async Task<List<Bot>> GetAllBotsByGameId(Guid gameId)
         {
             using (IDbConnection conn = Connection)
             {
@@ -50,7 +50,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                     "WHERE b.GameId = @gameId ";
                 conn.Open();
                 var result = await conn.QueryMultipleAsync(sQuery, new { gameId });
-                return result.Read<Bot>();
+                return result.Read<Bot>().ToList();
             }
         }
 
