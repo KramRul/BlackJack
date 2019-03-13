@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlackJack.DataAccess.Interfaces
+namespace BlackJack.DataAccess.Repositories.Interfaces
 {
     public interface IBaseRepository<T> where T : class
     {

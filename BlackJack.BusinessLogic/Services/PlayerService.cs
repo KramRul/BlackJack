@@ -1,9 +1,10 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
 using BlackJack.BusinessLogic.Services.Interfaces;
-using BlackJack.DataAccess.Interfaces;
+using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.EnumViews;
 using BlackJack.ViewModels.PlayerViews;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
@@ -19,45 +20,41 @@ namespace BlackJack.BusinessLogic.Services
         {
             var result = new GetAllPlayersPlayerView();
             var players = await Database.Players.GetAll();
-            foreach (var player in players)
+
+            result.Players = players.Select(player => new PlayerGetAllPlayersPlayerViewItem()
             {
-                result.Players.Add(new PlayerGetAllPlayersPlayerViewItem()
-                {
-                    PlayerId = player.Id,
-                    UserName = player.UserName,
-                    Balance = player.Balance,
-                    Bet = player.Bet
-                });
-            };
+                PlayerId = player.Id,
+                UserName = player.UserName,
+                Balance = player.Balance,
+                Bet = player.Bet
+            }).ToList();
+            
             return result;
         }
 
         public async Task<GetAllStepsByPlayerIdPlayerView> GetAllStepsByPlayerId(string playerId)
         {
             var result = new GetAllStepsByPlayerIdPlayerView();
-            foreach (var item in await Database.PlayerSteps.GetAll())
+            var playerSteps = await Database.PlayerSteps.GetAllStepsByPlayerId(playerId);
+
+            result.PlayerSteps = playerSteps.Select(step => new PlayerStepGetAllStepsByPlayerIdPlayerViewItem()
             {
-                if (item.PlayerId == playerId)
+                Id = step.Id,
+                Player = new PlayerGetAllStepsByPlayerIdPlayerView()
                 {
-                    result.PlayerSteps.Add(new PlayerStepGetAllStepsByPlayerIdPlayerViewItem()
-                    {
-                        Id = item.Id,
-                        Player = new PlayerGetAllStepsByPlayerIdPlayerView()
-                        {
-                            PlayerId = item.PlayerId,
-                            Balance = item.Player.Balance,
-                            Bet = item.Player.Bet
-                        },
-                        Game = new GameGetAllStepsByPlayerIdPlayerView()
-                        {
-                            GameId = item.GameId,
-                            GameState = (GameStateTypeEnumView)item.Game.GameState
-                        },
-                        Rank = (RankTypeEnumView)item.Rank,
-                        Suite = (SuiteTypeEnumView)item.Suite
-                    });
-                }
-            }
+                    PlayerId = step.PlayerId,
+                    Balance = step.Player.Balance,
+                    Bet = step.Player.Bet
+                },
+                Game = new GameGetAllStepsByPlayerIdPlayerView()
+                {
+                    GameId = step.GameId,
+                    GameState = (GameStateTypeEnumView)step.Game.GameState
+                },
+                Rank = (RankTypeEnumView)step.Rank,
+                Suite = (SuiteTypeEnumView)step.Suite
+            }).ToList();
+            
             return result;
         }
 

@@ -1,6 +1,4 @@
-﻿using BlackJack.BusinessLogic.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
 using System.Text;
@@ -11,11 +9,10 @@ namespace BlackJack.BusinessLogic.Config
 {
     public static class JwtConfig
     {
-        public static void JwtConfigures(this IServiceCollection services)
+        public static void JwtConfigures(this IServiceCollection services, IConfiguration configuration)
         {
-            var serviceProvider = services.BuildServiceProvider();
-            var authenticationOptions = serviceProvider.GetRequiredService<IOptions<AuthenticationOptions>>().Value;
-
+            //var serviceProvider = services.BuildServiceProvider();
+            //var authenticationOptions = serviceProvider.GetRequiredService<IOptions<AuthenticationOptions>>().Value;
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -27,9 +24,9 @@ namespace BlackJack.BusinessLogic.Config
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = authenticationOptions.Issuer,
-                    ValidAudience = authenticationOptions.Issuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationOptions.Key)),
+                    ValidIssuer = configuration["JWTOptions:Issuer"],
+                    ValidAudience = configuration["JWTOptions:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTOptions:Key"])),
                     ClockSkew = TimeSpan.Zero
                 };
             });

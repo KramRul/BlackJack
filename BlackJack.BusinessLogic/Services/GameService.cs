@@ -2,27 +2,33 @@
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Enums;
-using BlackJack.DataAccess.Interfaces;
+using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.EnumViews;
 using BlackJack.ViewModels.GameViews;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
 {
     public class GameService : BaseService, IGameService
     {
-        private readonly IAdditionalRanksService _additionalRanksService;
+        private readonly IRanksHelper _ranksHelper;
 
-        public GameService(IUnitOfWork unitOfWork, IAdditionalRanksService additionalRanksService)
+        public GameService(IUnitOfWork unitOfWork, IRanksHelper ranksHelper)
             : base(unitOfWork)
         {
-            _additionalRanksService = additionalRanksService;
+            _ranksHelper = ranksHelper;
         }
 
         public async Task<GetAllStepsGameView> GetAllSteps(string playerId, Guid gameID)
         {
+            if (string.IsNullOrEmpty(playerId))
+            {
+                throw new CustomServiceException("Player cannot be null");
+            }
+
             var model = new GetAllStepsGameView();
             var player = await Database.Players.Get(Guid.Parse(playerId));
             if (player == null)
@@ -30,32 +36,27 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player does not exist");
             }
 
-            var playerSteps = await Database.PlayerSteps.GetAll();
+            var playerSteps = await Database.PlayerSteps.GetAllStepsByPlayerIdAndGameId(playerId, gameID);
 
-            foreach (var item in playerSteps)
+            model.PlayerSteps = playerSteps.Select(step => new PlayerStepGetAllStepsGameViewItem()
             {
-                if (item.PlayerId == playerId && item.GameId == gameID)
+                Id = step.Id,
+                Player = new PlayerGetAllStepsGameView()
                 {
-                    model.PlayerSteps.Add(new PlayerStepGetAllStepsGameViewItem()
-                    {
-                        Id = item.Id,
-                        Player = new PlayerGetAllStepsGameView()
-                        {
-                            PlayerId = item.PlayerId,
-                            Balance = item.Player.Balance,
-                            UserName = item.Player.UserName,
-                            Bet = item.Player.Bet
-                        },
-                        Game = new GameGetAllStepsGameView()
-                        {
-                            GameId = item.GameId,
-                            GameState = (GameStateTypeEnumView)item.Game.GameState
-                        },
-                        Rank = (RankTypeEnumView)item.Rank,
-                        Suite = (SuiteTypeEnumView)item.Suite
-                    });
-                }
-            }
+                    PlayerId = step.PlayerId,
+                    Balance = step.Player.Balance,
+                    UserName = step.Player.UserName,
+                    Bet = step.Player.Bet
+                },
+                Game = new GameGetAllStepsGameView()
+                {
+                    GameId = step.GameId,
+                    GameState = (GameStateTypeEnumView)step.Game.GameState
+                },
+                Rank = (RankTypeEnumView)step.Rank,
+                Suite = (SuiteTypeEnumView)step.Suite
+            }).ToList();
+
             return model;
         }
 
@@ -63,22 +64,21 @@ namespace BlackJack.BusinessLogic.Services
         {
             var model = new GetAllStepOfBotsGameView();
             var botSteps = await Database.BotSteps.GetAllStepsByGameId(gameId);
-            foreach (var item in botSteps)
+
+            model.BotSteps = botSteps.Select(x => new BotStepGetAllStepOfBotsViewItem()
             {
-                model.BotSteps.Add(new BotStepGetAllStepOfBotsViewItem()
+                Id = x.Id,
+                Rank = (RankTypeEnumView)x.Rank,
+                Suite = (SuiteTypeEnumView)x.Suite,
+                Bot = new BotGetAllStepOfBotsView()
                 {
-                    Id = item.Id,
-                    Rank = (RankTypeEnumView)item.Rank,
-                    Suite = (SuiteTypeEnumView)item.Suite,
-                    Bot = new BotGetAllStepOfBotsView()
-                    {
-                        Id = item.BotId,
-                        Name = item.Bot.Name,
-                        Balance = item.Bot.Balance,
-                        Bet = item.Bot.Bet
-                    }
-                });
-            }
+                    Id = x.BotId,
+                    Name = x.Bot.Name,
+                    Balance = x.Bot.Balance,
+                    Bet = x.Bot.Bet
+                }
+            }).ToList();
+
             return model;
         }
 
@@ -86,21 +86,25 @@ namespace BlackJack.BusinessLogic.Services
         {
             var model = new GetAllBotsInGameGameView();
             var bots = await Database.BotSteps.GetAllBotsByGameId(gameId);
-            foreach (var item in bots)
+
+            model.Bots = bots.Select(bot => new BotGetAllBotsInGameGameViewItem()
             {
-                model.Bots.Add(new BotGetAllBotsInGameGameViewItem()
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                    Balance = item.Balance,
-                    Bet = item.Bet
-                });
-            }
+                Id = bot.Id,
+                Name = bot.Name,
+                Balance = bot.Balance,
+                Bet = bot.Bet
+            }).ToList();
+            
             return model;
         }
 
         public async Task<StartGameView> Start(string playerName, int countOfBots)
         {
+            if (string.IsNullOrEmpty(playerName))
+            {
+                throw new CustomServiceException("Player name cannot be null");
+            }
+
             var player = await Database.Players.GetByName(playerName);
             if (player == null)
             {
@@ -178,9 +182,41 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<GetDetailsResponseGameView> GetDetails(string playerId)
+        public async Task<GetDetailsGameView> GetDetails(string playerId)
         {
-            if (playerId == null)
+            if (string.IsNullOrEmpty(playerId))
+            {
+                throw new CustomServiceException("Player is unautorized");
+            }
+
+            var game = await GetGameDetails(playerId);
+            var playerSteps = await GetAllSteps(playerId, game.Id);
+            var botsSteps = await GetAllStepOfBots(game.Id);
+            var model = new GetDetailsGameView()
+            {
+                Game = new StartGameView()
+                {
+                    Id = game.Id,
+                    WonName = game.WonName,
+                    Player = new PlayerStartGameView()
+                    {
+                        PlayerId = game.Player.PlayerId,
+                        UserName = game.Player.UserName,
+                        Balance = game.Player.Balance,
+                        Bet = game.Player.Bet
+                    },
+                    GameState = game.GameState,
+                    CountOfBots = game.CountOfBots
+                },
+                PlayerSteps = playerSteps,
+                BotsSteps = botsSteps
+            };
+            return model;
+        }
+
+        public async Task<GetDetailsResponseGameView> GetGameDetails(string playerId)
+        {
+            if (string.IsNullOrEmpty(playerId))
             {
                 throw new CustomServiceException("Player is unautorized");
             }
@@ -251,6 +287,11 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<HitGameView> Hit(string playerId)
         {
+            if (string.IsNullOrEmpty(playerId))
+            {
+                throw new CustomServiceException("Player cannot be null");
+            }
+
             var player = await Database.Players.Get(Guid.Parse(playerId));
             if (player == null)
             {
@@ -285,7 +326,7 @@ namespace BlackJack.BusinessLogic.Services
                 ranks.Add(step.Rank);
             }
 
-            if (_additionalRanksService.TotalValue(ranks) > 21)
+            if (_ranksHelper.TotalValue(ranks) > 21)
             {
                 player.Balance -= player.Bet;
                 var bots = await Database.BotSteps.GetAllBotsByGameId(game.Id);
@@ -308,6 +349,11 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task PlaceABet(string playerId, decimal bet)
         {
+            if (string.IsNullOrEmpty(playerId))
+            {
+                throw new CustomServiceException("Player cannot be null");
+            }
+
             var player = await Database.Players.Get(Guid.Parse(playerId));
             if (player == null)
             {
@@ -327,6 +373,11 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task Stand(string playerId)
         {
+            if (string.IsNullOrEmpty(playerId))
+            {
+                throw new CustomServiceException("Player cannot be null");
+            }
+
             var player = await Database.Players.Get(Guid.Parse(playerId));
             if (player == null)
             {
@@ -361,7 +412,7 @@ namespace BlackJack.BusinessLogic.Services
                     botRanks.Add(step.Rank);
                 }
 
-                while (_additionalRanksService.TotalValue(botRanks) <= 20)
+                while (_ranksHelper.TotalValue(botRanks) <= 20)
                 {
                     var rnd = new Random();
                     var botStep = new BotStep()
@@ -378,13 +429,13 @@ namespace BlackJack.BusinessLogic.Services
                     await Database.BotSteps.Create(botStep);
                     await Database.Save();
                 }
-                if (_additionalRanksService.TotalValue(botRanks) > 21 || _additionalRanksService.TotalValue(playerRanks) > _additionalRanksService.TotalValue(botRanks))
+                if (_ranksHelper.TotalValue(botRanks) > 21 || _ranksHelper.TotalValue(playerRanks) > _ranksHelper.TotalValue(botRanks))
                 {
                     player.Balance += player.Bet;
                     game.WonName = player.UserName;
                     game.GameState = GameState.PlayerWon;
                 }
-                else if (_additionalRanksService.TotalValue(botRanks) == _additionalRanksService.TotalValue(playerRanks))
+                else if (_ranksHelper.TotalValue(botRanks) == _ranksHelper.TotalValue(playerRanks))
                 {
                     game.GameState = GameState.Draw;
                     game.WonName = player.UserName;
@@ -422,7 +473,7 @@ namespace BlackJack.BusinessLogic.Services
                     botRanks.Add(step.Rank);
                 }
 
-                while (_additionalRanksService.TotalValue(botRanks) <= 20)
+                while (_ranksHelper.TotalValue(botRanks) <= 20)
                 {
                     var rnd = new Random();
                     var botStep = new BotStep()
@@ -440,7 +491,7 @@ namespace BlackJack.BusinessLogic.Services
                     await Database.Save();
                 }
 
-                amountOfCardsOfBots.Add(bot.Name.ToString(), _additionalRanksService.TotalValue(botRanks));
+                amountOfCardsOfBots.Add(bot.Name.ToString(), _ranksHelper.TotalValue(botRanks));
             }
 
             var maxAmount = 0;
@@ -468,23 +519,18 @@ namespace BlackJack.BusinessLogic.Services
             var result = new GetGamesByPlayerIdGameView();
             var games = await Database.Games.GetGamesForPlayer(playerId);
 
-            foreach (var game in games)
+            result.Games = games.Select(game => new GameGetGamesByPlayerIdGameViewItem()
             {
-                if (game.Player.Id == playerId)
+                Id = game.Id,
+                GameState = (GameStateTypeEnumView)game.GameState,
+                Player = new PlayerGetAllGamesByPlayerIdGameView()
                 {
-                    result.Games.Add(new GameGetGamesByPlayerIdGameViewItem()
-                    {
-                        Id = game.Id,
-                        GameState = (GameStateTypeEnumView)game.GameState,
-                        Player = new PlayerGetAllGamesByPlayerIdGameView()
-                        {
-                            PlayerId = game.Player.Id,
-                            Balance = game.Player.Balance,
-                            Bet = game.Player.Bet
-                        }
-                    });
+                    PlayerId = game.Player.Id,
+                    Balance = game.Player.Balance,
+                    Bet = game.Player.Bet
                 }
-            }
+            }).ToList();
+            
             return result;
         }
 

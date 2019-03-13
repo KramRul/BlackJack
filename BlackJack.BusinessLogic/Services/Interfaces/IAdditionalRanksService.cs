@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BlackJack.BusinessLogic.Services.Interfaces
 {
-    public interface IAdditionalRanksService
+    public interface IRanksHelper
     {
         int TotalValue(IEnumerable<Rank> steps);
     }

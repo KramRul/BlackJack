@@ -1,7 +1,8 @@
-﻿using System;
+﻿using BlackJack.DataAccess.Repositories.Interfaces;
+using System;
 using System.Threading.Tasks;
 
-namespace BlackJack.DataAccess.Interfaces
+namespace BlackJack.DataAccess.UnitOfWorks.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

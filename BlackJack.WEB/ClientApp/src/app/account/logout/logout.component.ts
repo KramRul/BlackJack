@@ -17,6 +17,7 @@ export class LogoutComponent implements OnInit {
   }
 
   logout() {
-    this.accountService.logout().subscribe(data => this.router.navigateByUrl("/"), error => this.validationErrors = error);
+    this.accountService.logout();
+    this.router.navigateByUrl("/");
   }
 }

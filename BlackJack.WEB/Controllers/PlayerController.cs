@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.WEB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class PlayerController : BaseController
     {
         private readonly IPlayerService _playerService;
@@ -14,19 +14,19 @@ namespace BlackJack.WEB.Controllers
             _playerService = playerService;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public async Task<IActionResult> GetAllPlayers()
         {
             return await Execute(() => _playerService.GetAllPlayers());
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public async Task<IActionResult> GetAllStepsByPlayerId(string playerId)
         {
             return await Execute(() => _playerService.GetAllStepsByPlayerId(playerId));
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public async Task<IActionResult> GetPlayerById(string playerId)
         {
             return await Execute(() => _playerService.GetPlayerById(playerId));

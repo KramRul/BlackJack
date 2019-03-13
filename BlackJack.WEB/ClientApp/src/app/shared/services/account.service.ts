@@ -30,11 +30,11 @@ export class AccountService {
   }
 
   logout() {
-    return this.http.post(this.url + "logout", null).pipe(
-      map((response: any) => {
-        console.log(response);
+    //return this.http.post(this.url + "logout", null).pipe(
+    //  map((response: any) => {
+    //    console.log(response);
         localStorage.removeItem("accessToken");
-      }));
+      //}));
   }
 
   getLoggedPlayerName() {

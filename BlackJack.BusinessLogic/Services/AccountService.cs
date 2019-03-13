@@ -3,7 +3,7 @@ using BlackJack.BusinessLogic.Models;
 using BlackJack.BusinessLogic.Providers.Interfaces;
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.Entities;
-using BlackJack.DataAccess.Interfaces;
+using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -15,15 +15,13 @@ namespace BlackJack.BusinessLogic.Services
     {
         private readonly UserManager<Player> _userManager;
         private readonly SignInManager<Player> _signInManager;
-        private readonly IOptions<AuthenticationOptions> _authenticationOptions;
         private readonly IJwtProvider _jwtProvider;
 
-        public AccountService(UserManager<Player> userManager, SignInManager<Player> signInManager, IOptions<AuthenticationOptions> authenticationOptions, IJwtProvider jwtProvider, IUnitOfWork unitOfWork)
+        public AccountService(UserManager<Player> userManager, SignInManager<Player> signInManager, IJwtProvider jwtProvider, IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _authenticationOptions = authenticationOptions;
             _jwtProvider = jwtProvider;
         }
 
@@ -78,11 +76,6 @@ namespace BlackJack.BusinessLogic.Services
                 AccessToken = encodedJwt,
                 UserName = user.UserName
             };
-        }
-
-        public async Task Logout()
-        {
-            await _signInManager.SignOutAsync();
         }
 
         public async Task<string> GetLoggedPlayerName(string playerId)

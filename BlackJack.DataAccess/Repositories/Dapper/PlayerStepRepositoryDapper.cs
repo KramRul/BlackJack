@@ -1,7 +1,6 @@
 ﻿using BlackJack.DataAccess.Entities;
-using BlackJack.DataAccess.Interfaces;
+using BlackJack.DataAccess.Repositories.Interfaces;
 using Dapper;
-using DapperExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -51,10 +50,25 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             {
                 string sQuery = "SELECT DISTINCT * " +
                     "FROM PlayerSteps p " +
+                    "INNER JOIN Games games ON p.GameId = games.Id " +
                     "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
                     "WHERE (p.PlayerId = @playerId) AND (p.GameId = @gameId)";
                 conn.Open();
-                var result = await conn.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) => { step.Player = player; return step; }, new { playerId, gameId });
+                var result = await conn.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) => { step.Player = player; step.Game = game; return step; }, new { playerId, gameId });
+                return result.ToList();
+            }
+        }
+
+        public async Task<List<PlayerStep>> GetAllStepsByPlayerId(string playerId)
+        {
+            using (IDbConnection conn = Connection)
+            {
+                string sQuery = "SELECT DISTINCT * " +
+                    "FROM PlayerSteps p " +
+                    "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
+                    "WHERE (p.PlayerId = @playerId)";
+                conn.Open();
+                var result = await conn.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) => { step.Player = player; return step; }, new { playerId });
                 return result.ToList();
             }
         }

@@ -1,32 +1,30 @@
-﻿using BlackJack.DataAccess.Interfaces;
-using BlackJack.DataAccess.Repositories.Dapper;
-using Microsoft.Extensions.Configuration;
+﻿using BlackJack.DataAccess.Repositories.EntityFramework;
+using BlackJack.DataAccess.Repositories.Interfaces;
+using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace BlackJack.DataAccess
+namespace BlackJack.DataAccess.UnitOfWorks
 {
-    public class DapperUnitOfWork : IUnitOfWork
+    public class EFUnitOfWork : IUnitOfWork
     {
         private ApplicationContext dataBase;
-        private GameRepositoryDapper gameRepository;
-        private PlayerRepositoryDapper playerRepository;
-        private BotRepositoryDapper botRepository;
-        private PlayerStepRepositoryDapper playerStepRepository;
-        private BotStepRepositoryDapper botStepRepository;
-        private readonly IConfiguration _config;
+        private GameRepository gameRepository;
+        private PlayerRepository playerRepository;
+        private BotRepository botRepository;
+        private PlayerStepRepository playerStepRepository;
+        private BotStepRepository botStepRepository;
 
-        public DapperUnitOfWork(ApplicationContext context, IConfiguration config)
+        public EFUnitOfWork(ApplicationContext context)
         {
             dataBase = context;
-            _config = config;
         }
         public IGameRepository Games
         {
             get
             {
                 if (gameRepository == null)
-                    gameRepository = new GameRepositoryDapper(dataBase, _config);
+                    gameRepository = new GameRepository(dataBase);
                 return gameRepository;
             }
         }
@@ -36,7 +34,7 @@ namespace BlackJack.DataAccess
             get
             {
                 if (playerRepository == null)
-                    playerRepository = new PlayerRepositoryDapper(dataBase, _config);
+                    playerRepository = new PlayerRepository(dataBase);
                 return playerRepository;
             }
         }
@@ -46,7 +44,7 @@ namespace BlackJack.DataAccess
             get
             {
                 if (botRepository == null)
-                    botRepository = new BotRepositoryDapper(dataBase, _config);
+                    botRepository = new BotRepository(dataBase);
                 return botRepository;
             }
         }
@@ -56,7 +54,7 @@ namespace BlackJack.DataAccess
             get
             {
                 if (playerStepRepository == null)
-                    playerStepRepository = new PlayerStepRepositoryDapper(dataBase, _config);
+                    playerStepRepository = new PlayerStepRepository(dataBase);
                 return playerStepRepository;
             }
         }
@@ -66,7 +64,7 @@ namespace BlackJack.DataAccess
             get
             {
                 if (botStepRepository == null)
-                    botStepRepository = new BotStepRepositoryDapper(dataBase, _config);
+                    botStepRepository = new BotStepRepository(dataBase);
                 return botStepRepository;
             }
         }

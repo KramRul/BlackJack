@@ -1,4 +1,4 @@
-﻿using BlackJack.DataAccess.Interfaces;
+﻿using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 
 namespace BlackJack.BusinessLogic.Services
 {

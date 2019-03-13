@@ -28,25 +28,23 @@ namespace BlackJack.WEB.Middlewares
             }
             catch (CustomServiceException ex)
             {
-                httpContext.Response.ContentType = "application/json";
-                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                await httpContext.Response.WriteAsync(new ErrorDetails()
-                {
-                    StatusCode = httpContext.Response.StatusCode,
-                    Message = ex.Message
-                }.ToString());
+                await ResponseWriteAsync(httpContext, ex.Message);
             }
             catch (Exception ex)
             {
-                httpContext.Response.ContentType = "application/json";
-                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                Console.WriteLine(ex.Message);
-                await httpContext.Response.WriteAsync(new ErrorDetails()
-                {
-                    StatusCode = httpContext.Response.StatusCode,
-                    Message = "Server internal error"
-                }.ToString());
+                await ResponseWriteAsync(httpContext, "Server internal error");
             }
+        }
+
+        private async Task ResponseWriteAsync(HttpContext httpContext, string message)
+        {
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            await httpContext.Response.WriteAsync(new ErrorDetails()
+            {
+                StatusCode = httpContext.Response.StatusCode,
+                Message = message
+            }.ToString());
         }
     }
 

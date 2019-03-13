@@ -1,6 +1,6 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
 using BlackJack.BusinessLogic.Services.Interfaces;
-using BlackJack.DataAccess.Interfaces;
+using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.EnumViews;
 using BlackJack.ViewModels.GameViews;
 using BlackJack.ViewModels.HistoryViews;
@@ -47,21 +47,19 @@ namespace BlackJack.BusinessLogic.Services
             var result = new GetHistoryOfGamesHistoryView();
             var games = await Database.Games.GetAll();
 
-            foreach (var game in games)
+            result.Games = games.Select(game => new GameGetHistoryOfGamesHistoryViewItem()
             {
-                result.Games.Add(new GameGetHistoryOfGamesHistoryViewItem()
+                Id = game.Id,
+                GameState = (GameStateTypeEnumView)game.GameState,
+                Player = new PlayerGetHistoryOfGamesHistoryView()
                 {
-                    Id = game.Id,
-                    GameState = (GameStateTypeEnumView)game.GameState,
-                    Player = new PlayerGetHistoryOfGamesHistoryView()
-                    {
-                        PlayerId = game.PlayerId,
-                        UserName = game.Player.UserName,
-                        Balance = game.Player.Balance,
-                        Bet = game.Player.Bet
-                    }
-                });
-            }
+                    PlayerId = game.PlayerId,
+                    UserName = game.Player.UserName,
+                    Balance = game.Player.Balance,
+                    Bet = game.Player.Bet
+                }
+            }).ToList();
+            
             return result;
         }
 

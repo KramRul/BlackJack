@@ -1,4 +1,5 @@
 using BlackJack.BusinessLogic.Config;
+using BlackJack.BusinessLogic.Models;
 using BlackJack.WEB.Filters;
 using BlackJack.WEB.Middlewares;
 using Microsoft.AspNetCore.Builder;
@@ -20,14 +21,11 @@ namespace BlackJack.WEB
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            var options = Configuration.GetSection("JWTOptions");
-
-            services.DataBaseConfigures(connection);
+        { 
+            services.DataBaseConfigures(Configuration);
             services.IdentityConfigures();
-            services.OptionsConfigures(options);
-            services.JwtConfigures();
+            services.OptionsConfigures(Configuration);
+            services.JwtConfigures(Configuration);
             services.InjectConfigures();
 
             services.AddMvc(conf =>

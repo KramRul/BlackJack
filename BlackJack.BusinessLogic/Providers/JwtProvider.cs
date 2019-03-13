@@ -18,12 +18,11 @@ namespace BlackJack.BusinessLogic.Providers
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<Player> _userManager;
-        private readonly AuthenticationOptions _authenticationOptions;
 
-        public JwtProvider(UserManager<Player> userManager, IOptions<AuthenticationOptions> authenticationOptions)
+        public JwtProvider(UserManager<Player> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
-            _authenticationOptions = authenticationOptions.Value;
+            _configuration = configuration;
         }
 
         public async Task<string> GenerateJwtToken(string email, Player user, double? expiredHours = null)
@@ -42,13 +41,13 @@ namespace BlackJack.BusinessLogic.Providers
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationOptions.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTOptions:Key"]));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddHours(expiredHours ?? Convert.ToDouble(_authenticationOptions.Lifetime));
+            var expires = DateTime.Now.AddHours(expiredHours ?? Convert.ToDouble(_configuration["JWTOptions:Lifetime"]));
 
             var token = new JwtSecurityToken(
-                _authenticationOptions.Issuer,
-                _authenticationOptions.Issuer,
+                _configuration["JWTOptions:Issuer"],
+                _configuration["JWTOptions:Issuer"],
                 claims,
                 expires: expires,
                 signingCredentials: credentials
@@ -64,7 +63,6 @@ namespace BlackJack.BusinessLogic.Providers
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var convertToken = tokenHandler.ReadToken(token);
-
             return "";
         }
     }
