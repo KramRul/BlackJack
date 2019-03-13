@@ -6,11 +6,11 @@
   <tbody>
     <tr *ngFor="let gameItem of gamesHistory.games; let i = index">
       <td>{{i}}</td>
-      <td>{{gameItem.id}}</td>
-      <td>{{GameState[gameItem.gameState]}}</td>
-      <td>{{gameItem.player.userName}}</td>
-      <td>{{gameItem.player.balance}}</td>
-      <td>{{gameItem.player.bet}}</td>
+      <td>{{gameItem?.id}}</td>
+      <td>{{GameState[gameItem?.gameState]}}</td>
+      <td>{{gameItem?.player.userName}}</td>
+      <td>{{gameItem?.player.balance}}</td>
+      <td>{{gameItem?.player.bet}}</td>
       <td>
         <input type="button" class="btn btn-sm btn-primary" value="Details" (click)="game(gameItem.id)" />
       </td>
