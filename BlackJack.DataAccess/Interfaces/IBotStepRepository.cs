@@ -9,7 +9,7 @@ namespace BlackJack.DataAccess.Interfaces
     {
         Task AddRange(List<BotStep> botSteps);
         Task<List<Bot>> GetAllBotsByGameId(Guid gameId);
-        Task<IEnumerable<BotStep>> GetAllStepsByBotId(Guid botId);
-        Task<IEnumerable<BotStep>> GetAllStepsByGameId(Guid gameId);
+        Task<List<BotStep>> GetAllStepsByBotId(Guid botId);
+        Task<List<BotStep>> GetAllStepsByGameId(Guid gameId);
     }
 }

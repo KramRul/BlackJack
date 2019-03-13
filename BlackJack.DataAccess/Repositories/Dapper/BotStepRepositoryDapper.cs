@@ -29,14 +29,14 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             _config = config;
         }
 
-        public async Task<IEnumerable<BotStep>> GetAll()
+        public async Task<List<BotStep>> GetAll()
         {
             using (IDbConnection conn = Connection)
             {
                 string sQuery = "SELECT * FROM BotSteps b";
                 conn.Open();
                 var result = await conn.QueryAsync<BotStep>(sQuery);
-                return result;
+                return result.ToList();
             }
         }
 
@@ -54,7 +54,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        public async Task<IEnumerable<BotStep>> GetAllStepsByGameId(Guid gameId)
+        public async Task<List<BotStep>> GetAllStepsByGameId(Guid gameId)
         {
             using (IDbConnection conn = Connection)
             {
@@ -64,11 +64,11 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                     "WHERE b.GameId = @gameId";
                 conn.Open();
                 var result = await conn.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) => { step.Bot = bot; return step; }, new { gameId });
-                return result;
+                return result.ToList();
             }
         }
 
-        public async Task<IEnumerable<BotStep>> GetAllStepsByBotId(Guid botId)
+        public async Task<List<BotStep>> GetAllStepsByBotId(Guid botId)
         {
             using (IDbConnection conn = Connection)
             {
@@ -78,7 +78,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                     "WHERE b.BotId = @botId";
                 conn.Open();
                 var result = await conn.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) => { step.Bot = bot; return step; }, new { botId });
-                return result;
+                return result.ToList();
             }
         }
 

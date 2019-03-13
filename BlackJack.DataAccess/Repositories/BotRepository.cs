@@ -16,7 +16,7 @@ namespace BlackJack.DataAccess.Repositories
             dataBase = context;
         }
 
-        public async Task<IEnumerable<Bot>> GetAll()
+        public async Task<List<Bot>> GetAll()
         {
             var result = await dataBase.Bots.ToListAsync();
             return result;

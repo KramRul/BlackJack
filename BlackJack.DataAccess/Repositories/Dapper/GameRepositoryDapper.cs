@@ -30,18 +30,18 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             _config = config;
         }
 
-        public async Task<IEnumerable<Game>> GetAll()
+        public async Task<List<Game>> GetAll()
         {
             var guid = Guid.NewGuid();
             using (IDbConnection conn = Connection)
             {
                 string sQuery = "SELECT * FROM dbo.Games g LEFT JOIN dbo.AspNetUsers aspUser ON g.PlayerId = aspUser.Id";
                 var result = await conn.QueryAsync<Game, Player, Game>(sQuery, (game, player) => { game.Player = player; return game; });
-                return result;
+                return result.ToList();
             }
         }
 
-        public async Task<IEnumerable<Game>> GetGamesForPlayer(string playerId)
+        public async Task<List<Game>> GetGamesForPlayer(string playerId)
         {
             using (IDbConnection conn = Connection)
             {
@@ -51,7 +51,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                     "WHERE g.PlayerId = @playerId";
                 conn.Open();
                 var result = await conn.QueryAsync<Game, Player, Game>(sQuery, (game, player) => { game.Player = player; return game; }, new { playerId });
-                return result;
+                return result.ToList();
             }
         }
 

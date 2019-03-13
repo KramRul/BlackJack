@@ -30,14 +30,14 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             _config = config;
         }
 
-        public async Task<IEnumerable<Bot>> GetAll()
+        public async Task<List<Bot>> GetAll()
         {
             using (IDbConnection conn = Connection)
             {
                 string sQuery = "SELECT * FROM Bots b";
                 conn.Open();
                 var result = await conn.QueryAsync<Bot>(sQuery);
-                return result;
+                return result.ToList();
             }
         }
 

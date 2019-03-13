@@ -17,13 +17,13 @@ namespace BlackJack.DataAccess.Repositories
             dataBase = context;
         }
 
-        public async Task<IEnumerable<Game>> GetAll()
+        public async Task<List<Game>> GetAll()
         {
             var result = await dataBase.Games.Include(d => d.Player).ToListAsync();
             return result;
         }
 
-        public async Task<IEnumerable<Game>> GetGamesForPlayer(string playerId)
+        public async Task<List<Game>> GetGamesForPlayer(string playerId)
         {
             var result = await dataBase.Games
                 .Include(d => d.Player)

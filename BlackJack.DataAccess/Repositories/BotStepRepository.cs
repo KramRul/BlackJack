@@ -17,7 +17,7 @@ namespace BlackJack.DataAccess.Repositories
             dataBase = context;
         }
 
-        public async Task<IEnumerable<BotStep>> GetAll()
+        public async Task<List<BotStep>> GetAll()
         {
             var result = await dataBase.BotSteps.ToListAsync();
             return result;
@@ -33,7 +33,7 @@ namespace BlackJack.DataAccess.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<BotStep>> GetAllStepsByGameId(Guid gameId)
+        public async Task<List<BotStep>> GetAllStepsByGameId(Guid gameId)
         {
             var result = await dataBase.BotSteps
                 .Include(b => b.Bot)
@@ -42,7 +42,7 @@ namespace BlackJack.DataAccess.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<BotStep>> GetAllStepsByBotId(Guid botId)
+        public async Task<List<BotStep>> GetAllStepsByBotId(Guid botId)
         {
             var result = await dataBase.BotSteps
                 .Include(b => b.Bot)

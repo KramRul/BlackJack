@@ -6,7 +6,7 @@ namespace BlackJack.DataAccess.Interfaces
 {
     public interface IGameRepository: IBaseRepository<Game>
     {
-        Task<IEnumerable<Game>> GetGamesForPlayer(string playerId);
+        Task<List<Game>> GetGamesForPlayer(string playerId);
         Task<Game> GetActiveGameForPlayer(string playerId);
         Task<Game> GetLastActiveGameForPlayer(string playerId);
     }

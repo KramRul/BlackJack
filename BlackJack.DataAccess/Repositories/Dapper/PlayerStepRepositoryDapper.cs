@@ -31,7 +31,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             _config = config;
         }
 
-        public async Task<IEnumerable<PlayerStep>> GetAll()
+        public async Task<List<PlayerStep>> GetAll()
         {
             using (IDbConnection conn = Connection)
             {
@@ -41,11 +41,11 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                     "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id";
                 conn.Open();
                 var result = await conn.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) => { step.Player = player; step.Game = game; return step; });
-                return result;
+                return result.ToList();
             }
         }
 
-        public async Task<IEnumerable<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
+        public async Task<List<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
         {
             using (IDbConnection conn = Connection)
             {
@@ -55,7 +55,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                     "WHERE (p.PlayerId = @playerId) AND (p.GameId = @gameId)";
                 conn.Open();
                 var result = await conn.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) => { step.Player = player; return step; }, new { playerId, gameId });
-                return result;
+                return result.ToList();
             }
         }
 

@@ -17,7 +17,7 @@ namespace BlackJack.DataAccess.Repositories
             dataBase = context;
         }
 
-        public async Task<IEnumerable<PlayerStep>> GetAll()
+        public async Task<List<PlayerStep>> GetAll()
         {            
             var result = await dataBase.PlayerSteps
                 .Include(p => p.Player)
@@ -26,7 +26,7 @@ namespace BlackJack.DataAccess.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
+        public async Task<List<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
         {
             var result = await dataBase.PlayerSteps
                 .Include(p => p.Player)

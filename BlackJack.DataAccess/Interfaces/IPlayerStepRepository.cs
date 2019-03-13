@@ -9,6 +9,6 @@ namespace BlackJack.DataAccess.Interfaces
     {
         Task AddRange(List<PlayerStep> playerSteps);
 
-        Task<IEnumerable<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId);
+        Task<List<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId);
     }
 }
