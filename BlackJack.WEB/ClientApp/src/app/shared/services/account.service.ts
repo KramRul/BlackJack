@@ -9,7 +9,7 @@ import { LoginAccountResponseView } from '../entities/account.views/login-respon
   providedIn: 'root'
 })
 export class AccountService {
-  private url = "/account/";
+  private url = "api/account/";
 
   constructor(private http: HttpClient) {
   }

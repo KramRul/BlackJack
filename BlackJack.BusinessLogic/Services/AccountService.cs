@@ -19,7 +19,7 @@ namespace BlackJack.BusinessLogic.Services
         private readonly IJwtProvider _jwtProvider;
 
         public AccountService(UserManager<Player> userManager, SignInManager<Player> signInManager, IOptions<AuthenticationOptions> authenticationOptions, IJwtProvider jwtProvider, IUnitOfWork unitOfWork)
-            :base(unitOfWork)
+            : base(unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -54,7 +54,7 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<RegisterAccountResponseView> Register(RegisterAccountView playerModel)
         {
             var playerExist = await _userManager.FindByNameAsync(playerModel.UserName);
-            if (playerExist!=null)
+            if (playerExist != null)
             {
                 throw new CustomServiceException("Player allready exist.");
             }
@@ -67,7 +67,7 @@ namespace BlackJack.BusinessLogic.Services
 
             var result = await _userManager.CreateAsync(user, playerModel.Password);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 throw new CustomServiceException("The user was not registered");
             }

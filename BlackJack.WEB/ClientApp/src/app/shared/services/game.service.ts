@@ -9,7 +9,7 @@ import { GetDetailsGameView } from '../entities/game.views/get-details.game.view
   providedIn: 'root'
 })
 export class GameService {
-  private url = "/game/";
+  private url = "api/game/";
 
   constructor(private http: HttpClient) {
   }

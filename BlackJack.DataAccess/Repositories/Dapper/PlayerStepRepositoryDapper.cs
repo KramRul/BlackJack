@@ -83,23 +83,15 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        /*public async Task AddRange(List<PlayerStep> playerSteps)
-        {
-            using (IDbConnection conn = Connection)
-            {
-                conn.Open();
-                await conn.InsertAsync<PlayerStep>(playerSteps);
-            }
-        }*/
         public async Task AddRange(List<PlayerStep> playerSteps)
         {
-            foreach(var step in playerSteps)
-            using (IDbConnection conn = Connection)
-            {
-                string sQuery = "INSERT INTO PlayerSteps (Id, GameId, PlayerId, Rank, Suite) VALUES(@Id, @GameId, @PlayerId, @Rank, @Suite)";
-                conn.Open();
-                await conn.ExecuteAsync(sQuery, step);
-            }
+            foreach (var step in playerSteps)
+                using (IDbConnection conn = Connection)
+                {
+                    string sQuery = "INSERT INTO PlayerSteps (Id, GameId, PlayerId, Rank, Suite) VALUES(@Id, @GameId, @PlayerId, @Rank, @Suite)";
+                    conn.Open();
+                    await conn.ExecuteAsync(sQuery, step);
+                }
         }
         public async void Update(PlayerStep playerStep)
         {

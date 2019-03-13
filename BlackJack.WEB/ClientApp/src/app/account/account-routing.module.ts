@@ -4,11 +4,12 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AccountGuard } from './guards/account.guard';
 
 const routes: Routes = [
   {
     path: '', component: AccountComponent, children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: '', redirectTo: 'logout', pathMatch: 'full', canActivateChild: [AccountGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'logout', component: LogoutComponent }

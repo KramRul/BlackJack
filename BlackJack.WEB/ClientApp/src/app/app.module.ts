@@ -13,7 +13,7 @@ import { SharedModule } from './shared/shared.module';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     AppRoutingModule,
     SharedModule,

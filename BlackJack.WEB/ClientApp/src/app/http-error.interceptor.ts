@@ -21,10 +21,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             errorMessage = `Error: ${error.error.message}`;
           } else {
             // server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}\nError: ${error.error.text}\n ${error.error.error}`;
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.Message}\nError: ${error.message}\n ${error}`;
           }
           console.error(errorMessage);
-          return throwError(error.error.text);
+          return throwError(error.error.Message);
         })
       )
   }

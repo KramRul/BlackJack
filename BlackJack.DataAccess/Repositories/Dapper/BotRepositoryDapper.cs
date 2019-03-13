@@ -34,7 +34,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
             using (IDbConnection conn = Connection)
             {
-                string sQuery = "SELECT * FROM Bots b";//LEFT JOIN[AspNetUsers] AS[d.Player] ON[d].[PlayerId] = [d.Player].[Id]
+                string sQuery = "SELECT * FROM Bots b";
                 conn.Open();
                 var result = await conn.QueryAsync<Bot>(sQuery);
                 return result;

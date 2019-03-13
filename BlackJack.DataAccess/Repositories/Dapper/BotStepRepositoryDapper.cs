@@ -33,7 +33,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
             using (IDbConnection conn = Connection)
             {
-                string sQuery = "SELECT * FROM BotSteps b";//LEFT JOIN[AspNetUsers] AS[d.Player] ON[d].[PlayerId] = [d.Player].[Id]
+                string sQuery = "SELECT * FROM BotSteps b";
                 conn.Open();
                 var result = await conn.QueryAsync<BotStep>(sQuery);
                 return result;
@@ -45,7 +45,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             using (IDbConnection conn = Connection)
             {
                 string sQuery = "SELECT DISTINCT bots.* " +
-                    "FROM BotSteps b " +                
+                    "FROM BotSteps b " +
                     "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                     "WHERE b.GameId = @gameId ";
                 conn.Open();
@@ -107,13 +107,13 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task AddRange(List<BotStep> botSteps)
         {
-            foreach(var step in botSteps)
-            using (IDbConnection conn = Connection)
-            {
-                string sQuery = "INSERT INTO BotSteps (Id, BotId, GameId, Rank, Suite) VALUES(@Id, @BotId, @GameId, @Rank, @Suite)";
-                conn.Open();
-                await conn.ExecuteAsync(sQuery, step);
-            }
+            foreach (var step in botSteps)
+                using (IDbConnection conn = Connection)
+                {
+                    string sQuery = "INSERT INTO BotSteps (Id, BotId, GameId, Rank, Suite) VALUES(@Id, @BotId, @GameId, @Rank, @Suite)";
+                    conn.Open();
+                    await conn.ExecuteAsync(sQuery, step);
+                }
         }
 
         public async void Update(BotStep botStep)

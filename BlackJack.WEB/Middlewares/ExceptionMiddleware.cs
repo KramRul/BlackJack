@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Common.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Abstractions;
+using Newtonsoft.Json;
 
 namespace BlackJack.WEB.Middlewares
 {
@@ -26,12 +28,24 @@ namespace BlackJack.WEB.Middlewares
             }
             catch (CustomServiceException ex)
             {
-                await httpContext.Response.WriteAsync(ex.Message);
+                httpContext.Response.ContentType = "application/json";
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await httpContext.Response.WriteAsync(new ErrorDetails()
+                {
+                    StatusCode = httpContext.Response.StatusCode,
+                    Message = ex.Message
+                }.ToString());
             }
             catch (Exception ex)
             {
+                httpContext.Response.ContentType = "application/json";
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 Console.WriteLine(ex.Message);
-                await httpContext.Response.WriteAsync("Server internal error");
+                await httpContext.Response.WriteAsync(new ErrorDetails()
+                {
+                    StatusCode = httpContext.Response.StatusCode,
+                    Message = "Server internal error"
+                }.ToString());
             }
         }
     }
@@ -41,6 +55,17 @@ namespace BlackJack.WEB.Middlewares
         public static IApplicationBuilder UseExceptionMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<ExceptionMiddleware>();
+        }
+    }
+
+    public class ErrorDetails
+    {
+        public int StatusCode { get; set; }
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

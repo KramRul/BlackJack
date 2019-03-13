@@ -8,7 +8,7 @@ import { DetailsOfGameHistoryView } from '../entities/history.views/details-of-g
   providedIn: 'root'
 })
 export class HistoryService {
-  private url = "/history/";
+  private url = "api/history/";
 
   constructor(private http: HttpClient) {
   }

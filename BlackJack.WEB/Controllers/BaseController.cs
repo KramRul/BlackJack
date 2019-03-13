@@ -19,45 +19,31 @@ namespace BlackJack.WEB.Controllers
         public async Task<IActionResult> Execute<T>(Func<Task<T>> func)
         {
             GenericResponseView<T> response = new GenericResponseView<T>();
-            //try
-            //{
-                var result = await func();
-                response.Model = result;
-                return Ok(response.Model);
-            //}
-            //catch (CustomServiceException ex)
-            //{
-            //    response.Error = ex.Message;
-            //    return BadRequest(response);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    response.Error = "Server internal error";
-            //    return BadRequest(response);
-            //}
+            var result = await func();
+            response.Model = result;
+            return Ok(response.Model);
         }
 
         protected async Task<IActionResult> Execute(Func<Task> func)
         {
             var response = new GenericResponseView<string>();
-            //try
-            //{
-                await func();
-                return Ok(response);
-            //}
-            //catch (CustomServiceException ex)
-            //{
-            //    response.Error = ex.Message;
-            //    return BadRequest(response);
-            //}
-            //catch (Exception ex)
-            //{
-            //    response.Error = "Server internal error";
-            //    return BadRequest(response);
-            //}
+            await func();
+            return Ok(response);
         }
     }
-
-    
 }
+//try
+//{
+//    await func();
+//    return Ok(response);
+//}
+//catch (CustomServiceException ex)
+//{
+//    response.Error = ex.Message;
+//    return BadRequest(response);
+//}
+//catch (Exception ex)
+//{
+//    response.Error = "Server internal error";
+//    return BadRequest(response);
+//}

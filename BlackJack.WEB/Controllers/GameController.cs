@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.WEB.Controllers
 {
-    [Route("/game")]
+    [Route("api/[controller]")]
     public class GameController : BaseController
     {
         private readonly IPlayerService _playerService;
@@ -21,14 +21,14 @@ namespace BlackJack.WEB.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet("index")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Index()
         {
             var result = await Execute(() => _playerService.GetAllPlayers());
             return result;
         }
 
-        [HttpGet("start")]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<IActionResult> Start(int countOfBots, string playerName)
         {
@@ -40,7 +40,7 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
-        [HttpGet("getDetails")]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<IActionResult> GetDetails()
         {
@@ -53,7 +53,7 @@ namespace BlackJack.WEB.Controllers
                 {
                     Game = new StartGameView()
                     {
-                        Id= game.Id,
+                        Id = game.Id,
                         WonName = game.WonName,
                         Player = new PlayerStartGameView()
                         {
@@ -73,44 +73,44 @@ namespace BlackJack.WEB.Controllers
             return result;
         }
 
-        [HttpGet("hit")]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<IActionResult> Hit()
         {
             return await Execute(() => _gameService.Hit(PlayerId));
         }
 
-        [HttpGet("placeABet")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> PlaceABet(decimal bet)
         {
             return await Execute(() => _gameService.PlaceABet(PlayerId, bet));
         }
 
-        [HttpGet("stand")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Stand()
         {
             return await Execute(() => _gameService.Stand(PlayerId));
         }
 
-        [HttpGet("getAllSteps")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllSteps(string playerId, Guid gameId)
         {
             return await Execute(() => _gameService.GetAllSteps(playerId, gameId));
         }
 
-        [HttpGet("getAllStepOfBots")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllStepOfBots(Guid gameId)
         {
             return await Execute(() => _gameService.GetAllStepOfBots(gameId));
         }
 
-        [HttpGet("getGamesByPlayerId")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetGamesByPlayerId(string playerId)
         {
             return await Execute(() => _gameService.GetGamesByPlayerId(playerId));
         }
 
-        [HttpGet("get")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Get(Guid gameId)
         {
             return await Execute(() => _gameService.Get(gameId));

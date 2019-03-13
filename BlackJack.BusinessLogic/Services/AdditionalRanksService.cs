@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BlackJack.BusinessLogic.Services
 {
-    public class AdditionalRanksService: IAdditionalRanksService
+    public class AdditionalRanksService : IAdditionalRanksService
     {
         public int TotalValue(IEnumerable<Rank> steps)
         {

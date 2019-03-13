@@ -7,6 +7,7 @@ import { GameComponent } from './game/game.component';
 const routes: Routes = [
   {
     path: '', component: HistoryComponent, children: [
+      { path: '', redirectTo: 'index', pathMatch: 'full' },
       { path: 'index', component: IndexComponent },
       { path: 'game', component: GameComponent }
     ]
