@@ -94,7 +94,7 @@ namespace BlackJack.BusinessLogic.Services
                 Balance = bot.Balance,
                 Bet = bot.Bet
             }).ToList();
-            
+
             return model;
         }
 
@@ -138,7 +138,12 @@ namespace BlackJack.BusinessLogic.Services
                 await Database.PlayerSteps.AddRange(playerSteps);
             }
 
-            var botCheck = await Database.BotSteps.GetAllBotsByGameId(gameCheck.Id);
+            var botCheck = new List<Bot>();
+            if (gameCheck != null)
+                botCheck = await Database.BotSteps.GetAllBotsByGameId(gameCheck.Id);
+            else
+                botCheck = await Database.BotSteps.GetAllBotsByGameId(game.Id);
+
             if (botCheck == null || botCheck.Count == 0)
             {
                 var StepsOfAllBots = new List<BotStep>();
@@ -530,7 +535,7 @@ namespace BlackJack.BusinessLogic.Services
                     Bet = game.Player.Bet
                 }
             }).ToList();
-            
+
             return result;
         }
 

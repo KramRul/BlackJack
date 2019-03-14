@@ -12,22 +12,10 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class GameRepositoryDapper : IGameRepository
+    public class GameRepositoryDapper : BaseRepositoryDapper, IGameRepository
     {
-        private ApplicationContext dataBase;
-        private readonly IConfiguration _config;
-        public IDbConnection Connection
+        public GameRepositoryDapper(IConfiguration config) : base(config)
         {
-            get
-            {
-                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            }
-        }
-
-        public GameRepositoryDapper(ApplicationContext context, IConfiguration config)
-        {
-            dataBase = context;
-            _config = config;
         }
 
         public async Task<List<Game>> GetAll()
@@ -99,31 +87,24 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task Create(Game game)
         {
-            var guid = Guid.NewGuid();
-            using (IDbConnection conn = Connection)
+            await Create<Game>(new Game()
             {
-                string sQuery = "INSERT INTO Games (Id, GameState, WonName, PlayerId) VALUES(@Id, @GameState, @WonName, @PlayerId)";
-                conn.Open();
-                await conn.ExecuteAsync(sQuery, game);
-            }
+                Id = game.Id,
+                GameState = game.GameState,
+                WonName = game.WonName,
+                PlayerId = game.PlayerId,
+                Player = game.Player
+            });
         }
 
-        public async void Update(Game game)
+        public async Task Update(Game game)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "UPDATE Games SET GameState = @GameState, WonName = @WonName, PlayerId = @PlayerId WHERE Id = @Id";
-                await conn.ExecuteAsync(sQuery, game);
-            }
+            await Update<Game>(game);
         }
 
         public async Task Delete(Guid id)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "DELETE FROM Games WHERE Id = @id";
-                await conn.ExecuteAsync(sQuery, new { id });
-            }
+            await Delete<Game>(new Game() { Id = id });
         }
     }
 }

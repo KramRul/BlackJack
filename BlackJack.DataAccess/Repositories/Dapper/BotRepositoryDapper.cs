@@ -1,33 +1,19 @@
 ﻿using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Repositories.Interfaces;
 using Dapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class BotRepositoryDapper: IBotRepository
+    public class BotRepositoryDapper: BaseRepositoryDapper, IBotRepository
     {
-        private ApplicationContext dataBase;
-        private readonly IConfiguration _config;
-        public IDbConnection Connection
+        public BotRepositoryDapper(IConfiguration config):base(config)
         {
-            get
-            {
-                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            }
-        }
-
-        public BotRepositoryDapper(ApplicationContext context, IConfiguration config)
-        {
-            dataBase = context;
-            _config = config;
         }
 
         public async Task<List<Bot>> GetAll()
@@ -65,30 +51,23 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task Create(Bot bot)
         {
-            using (IDbConnection conn = Connection)
+            await Create<Bot>(new Bot()
             {
-                string sQuery = "INSERT INTO Bots (Id, Name, Balance, Bet) VALUES(@Id, @Name, @Balance, @Bet)";
-                conn.Open();
-                await conn.ExecuteAsync(sQuery, bot);
-            }
+                Id = bot.Id,
+                Name = bot.Name,
+                Balance = bot.Balance,
+                Bet = bot.Bet
+            });
         }
 
-        public async void Update(Bot bot)
+        public async Task Update(Bot bot)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "UPDATE Bots SET Name = @Name, Balance = @Balance, Bet = @Bet WHERE Id = @Id";
-                await conn.ExecuteAsync(sQuery, bot);
-            }
+            await Update<Bot>(bot);
         }
 
         public async Task Delete(Guid id)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "DELETE FROM Bots WHERE Id = @id";
-                await conn.ExecuteAsync(sQuery, new { id });
-            }
+            await Delete<Bot>(new Bot { Id = id });
         }
     }
 }

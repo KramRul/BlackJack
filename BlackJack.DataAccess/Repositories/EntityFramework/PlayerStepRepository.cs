@@ -60,7 +60,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             await dataBase.PlayerSteps.AddRangeAsync(playerSteps);
         }
 
-        public void Update(PlayerStep playerStep)
+        public async Task Update(PlayerStep playerStep)
         {
             dataBase.Entry(playerStep).State = EntityState.Modified;
         }

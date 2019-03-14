@@ -1,33 +1,19 @@
 ﻿using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Repositories.Interfaces;
 using Dapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class PlayerRepositoryDapper : IPlayerRepository
+    public class PlayerRepositoryDapper : BaseRepositoryDapper, IPlayerRepository
     {
-        private readonly ApplicationContext dataBase;
-        private readonly IConfiguration _config;
-        public IDbConnection Connection
+        public PlayerRepositoryDapper(IConfiguration config) : base(config)
         {
-            get
-            {
-                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            }
-        }
-
-        public PlayerRepositoryDapper(ApplicationContext context, IConfiguration config)
-        {
-            dataBase = context;
-            _config = config;
         }
 
         public async Task<List<Player>> GetAll()
@@ -69,31 +55,23 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task Create(Player player)
         {
-            var guid = Guid.NewGuid();
-            using (IDbConnection conn = Connection)
+            await Create<Player>(new Player()
             {
-                string sQuery = "INSERT INTO AspNetUsers (Id, Balance, Bet) VALUES(@Id, @Balance, @Bet)";
-                conn.Open();
-                await conn.ExecuteAsync(sQuery, player);
-            }
+                Id = player.Id,
+                Balance = player.Balance,
+                Bet = player.Bet,
+                UserName = player.UserName
+            });
         }
 
-        public async void Update(Player player)
+        public async Task Update(Player player)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "UPDATE AspNetUsers SET Balance = @Balance, Bet = @Bet WHERE Id = @Id";
-                await conn.ExecuteAsync(sQuery, player);
-            }
+            await Update<Player>(player);
         }
 
         public async Task Delete(Guid id)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "DELETE FROM AspNetUsers WHERE Id = @id";
-                await conn.ExecuteAsync(sQuery, new { id });
-            }
+            await Delete<Player>(new Player() { Id = id.ToString() });
         }
     }
 }

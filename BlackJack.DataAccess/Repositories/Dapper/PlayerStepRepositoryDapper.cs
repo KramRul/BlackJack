@@ -12,22 +12,10 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class PlayerStepRepositoryDapper : IPlayerStepRepository
+    public class PlayerStepRepositoryDapper : BaseRepositoryDapper, IPlayerStepRepository
     {
-        private ApplicationContext dataBase;
-        private readonly IConfiguration _config;
-        public IDbConnection Connection
+        public PlayerStepRepositoryDapper(IConfiguration config) : base(config)
         {
-            get
-            {
-                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            }
-        }
-
-        public PlayerStepRepositoryDapper(ApplicationContext context, IConfiguration config)
-        {
-            dataBase = context;
-            _config = config;
         }
 
         public async Task<List<PlayerStep>> GetAll()
@@ -89,40 +77,30 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task Create(PlayerStep playerStep)
         {
-            using (IDbConnection conn = Connection)
+            await Create<PlayerStep>(new PlayerStep()
             {
-                string sQuery = "INSERT INTO PlayerSteps (Id, GameId, PlayerId, Rank, Suite) VALUES(@Id, @GameId, @PlayerId, @Rank, @Suite)";
-                conn.Open();
-                await conn.ExecuteAsync(sQuery, playerStep);
-            }
+                Id = playerStep.Id,
+                Rank = playerStep.Rank,
+                Suite = playerStep.Suite,
+                PlayerId = playerStep.PlayerId,
+                Player = playerStep.Player,
+                GameId = playerStep.GameId,
+                Game = playerStep.Game
+            });
         }
 
         public async Task AddRange(List<PlayerStep> playerSteps)
         {
-            foreach (var step in playerSteps)
-                using (IDbConnection conn = Connection)
-                {
-                    string sQuery = "INSERT INTO PlayerSteps (Id, GameId, PlayerId, Rank, Suite) VALUES(@Id, @GameId, @PlayerId, @Rank, @Suite)";
-                    conn.Open();
-                    await conn.ExecuteAsync(sQuery, step);
-                }
+            await AddRange<PlayerStep>(playerSteps);
         }
-        public async void Update(PlayerStep playerStep)
+        public async Task Update(PlayerStep playerStep)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "UPDATE PlayerSteps SET Rank = @Rank, Suite = @Suite WHERE Id = @Id";
-                await conn.ExecuteAsync(sQuery, playerStep);
-            }
+            await Update<PlayerStep>(playerStep);
         }
 
         public async Task Delete(Guid id)
         {
-            using (IDbConnection conn = Connection)
-            {
-                var sQuery = "DELETE FROM PlayerSteps WHERE Id = @id";
-                await conn.ExecuteAsync(sQuery, new { id });
-            }
+            await Delete<PlayerStep>(new PlayerStep() { Id = id });
         }
     }
 }
