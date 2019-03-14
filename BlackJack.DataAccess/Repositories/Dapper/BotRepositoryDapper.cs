@@ -40,13 +40,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task<Bot> Get(Guid id)
         {
-            using (IDbConnection conn = Connection)
-            {
-                string sQuery = "SELECT * FROM Bots b WHERE Id = @Id";
-                conn.Open();
-                var result = await conn.QueryAsync<Bot>(sQuery, new { Id = id });
-                return result.FirstOrDefault();
-            }
+            return await Get<Bot>(id.ToString());
         }
 
         public async Task Create(Bot bot)

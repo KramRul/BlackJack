@@ -12,9 +12,6 @@ namespace BlackJack.BusinessLogic.Config
         {
             services.Scan(scan => scan
                 .FromCallingAssembly()
-                    /*.AddClasses(classes => classes.AssignableTo<IUnitOfWork>())
-                        .AsImplementedInterfaces()
-                        .WithTransientLifetime()*/
                     .AddClasses(classes => classes.AssignableTo<IGameService>())
                         .AsImplementedInterfaces()
                         .WithTransientLifetime()

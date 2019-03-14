@@ -2,7 +2,7 @@
 using BlackJack.DataAccess.Enums;
 using System.Collections.Generic;
 
-namespace BlackJack.BusinessLogic.Services
+namespace BlackJack.BusinessLogic.Common
 {
     public class RanksHelper : IRanksHelper
     {

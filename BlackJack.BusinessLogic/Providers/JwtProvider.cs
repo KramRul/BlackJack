@@ -8,8 +8,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
-using BlackJack.BusinessLogic.Models;
-using Microsoft.Extensions.Options;
 using BlackJack.BusinessLogic.Providers.Interfaces;
 
 namespace BlackJack.BusinessLogic.Providers

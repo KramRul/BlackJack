@@ -1,12 +1,10 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
-using BlackJack.BusinessLogic.Models;
 using BlackJack.BusinessLogic.Providers.Interfaces;
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services

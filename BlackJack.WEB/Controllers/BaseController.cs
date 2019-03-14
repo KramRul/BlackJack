@@ -40,18 +40,3 @@ namespace BlackJack.WEB.Controllers
         }
     }
 }
-//try
-//{
-//    await func();
-//    return Ok(response);
-//}
-//catch (CustomServiceException ex)
-//{
-//    response.Error = ex.Message;
-//    return BadRequest(response);
-//}
-//catch (Exception ex)
-//{
-//    response.Error = "Server internal error";
-//    return BadRequest(response);
-//}

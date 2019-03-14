@@ -11,8 +11,6 @@ namespace BlackJack.BusinessLogic.Config
     {
         public static void JwtConfigures(this IServiceCollection services, IConfiguration configuration)
         {
-            //var serviceProvider = services.BuildServiceProvider();
-            //var authenticationOptions = serviceProvider.GetRequiredService<IOptions<AuthenticationOptions>>().Value;
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

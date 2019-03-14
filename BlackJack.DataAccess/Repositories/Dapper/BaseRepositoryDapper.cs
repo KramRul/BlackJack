@@ -24,6 +24,15 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             _config = config;
         }
 
+        public async Task<T> Get<T>(string id) where T : class
+        {
+            using (IDbConnection conn = Connection)
+            {
+                conn.Open();
+                return await conn.GetAsync<T>(id);
+            }
+        }
+
         public async Task Create<T>(T element) where T : class
         {
             using (IDbConnection conn = Connection)
