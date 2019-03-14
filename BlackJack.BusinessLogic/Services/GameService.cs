@@ -169,7 +169,7 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             //await Database.Games.Create(game);
-            Database.Players.Update(player);
+            await Database.Players.Update(player);
             await Database.Save();
             var result = new StartGameView()
             {
@@ -339,8 +339,8 @@ namespace BlackJack.BusinessLogic.Services
                 game.WonName = wonName;
                 game.GameState = GameState.BotWon;
             }
-            Database.Games.Update(game);
-            Database.Players.Update(player);
+            await Database.Games.Update(game);
+            await Database.Players.Update(player);
             await Database.Save();
 
             return new HitGameView()
@@ -371,7 +371,7 @@ namespace BlackJack.BusinessLogic.Services
             {
                 player.Bet = bet;
                 player.Balance -= bet;
-                Database.Players.Update(player);
+                await Database.Players.Update(player);
                 await Database.Save();
             }
         }
@@ -453,12 +453,12 @@ namespace BlackJack.BusinessLogic.Services
                 }
             }
 
-            Database.Games.Update(game);
-            Database.Players.Update(player);
+            await Database.Games.Update(game);
+            await Database.Players.Update(player);
 
             foreach (var bot in bots)
             {
-                Database.Bots.Update(bot);
+                await Database.Bots.Update(bot);
             }
             await Database.Save();
         }
