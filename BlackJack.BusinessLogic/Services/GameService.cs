@@ -129,6 +129,7 @@ namespace BlackJack.BusinessLogic.Services
                 };
 
                 await Database.Games.Create(game);
+                await Database.Save();
 
                 var playerSteps = new List<PlayerStep>
                 {
@@ -136,6 +137,7 @@ namespace BlackJack.BusinessLogic.Services
                     CreatePlayerStep(player, game)
                 };
                 await Database.PlayerSteps.AddRange(playerSteps);
+                await Database.Save();
             }
 
             var botCheck = new List<Bot>();
@@ -160,6 +162,7 @@ namespace BlackJack.BusinessLogic.Services
                             Name = String.Format("Bot {0}", countOfBotsInDB.ToString())
                         };
                         await Database.Bots.Create(bot);
+                        await Database.Save();
                         countOfBotsInDB += 1;
                         StepsOfAllBots.Add(CreateBotStep(bot, game));
                         StepsOfAllBots.Add(CreateBotStep(bot, game));
