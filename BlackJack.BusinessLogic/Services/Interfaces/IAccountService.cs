@@ -9,6 +9,6 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
 
         Task<LoginAccountResponseView> Login(LoginAccountView playerModel);
 
-        Task<string> GetLoggedPlayerName(string playerId);
+        Task<string> GetLoggedPlayerName(string playerName);
     }
 }

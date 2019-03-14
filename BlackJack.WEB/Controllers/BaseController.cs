@@ -16,6 +16,14 @@ namespace BlackJack.WEB.Controllers
             }
         }
 
+        protected string PlayerName
+        {
+            get
+            {
+                return User.FindFirst(ClaimTypes.Name).Value;
+            }
+        }
+
         public async Task<IActionResult> Execute<T>(Func<Task<T>> func)
         {
             GenericResponseView<T> response = new GenericResponseView<T>();

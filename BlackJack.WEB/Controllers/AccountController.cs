@@ -30,7 +30,7 @@ namespace BlackJack.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> GetLoggedPlayerName()
         {
-            return await Execute(() => _accountService.GetLoggedPlayerName(PlayerId));
+            return await Execute(() => _accountService.GetLoggedPlayerName(PlayerName));
         }
     }
 }

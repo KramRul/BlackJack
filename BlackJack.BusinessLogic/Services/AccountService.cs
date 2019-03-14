@@ -78,14 +78,13 @@ namespace BlackJack.BusinessLogic.Services
             };
         }
 
-        public async Task<string> GetLoggedPlayerName(string playerId)
+        public async Task<string> GetLoggedPlayerName(string playerName)
         {
-            var user = await _userManager.FindByIdAsync(playerId);
-            if (user == null)
+            if (string.IsNullOrEmpty(playerName))
             {
                 throw new CustomServiceException("Player does not exist.");
             }
-            return user.UserName;
+            return playerName;
         }
     }
 }
