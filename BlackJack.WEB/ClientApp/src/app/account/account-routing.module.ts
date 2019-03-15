@@ -4,11 +4,11 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account.component';
 import { LogoutComponent } from './logout/logout.component';
-import { AccountGuard } from './guards/account.guard';
+import { NonLoggedGuard } from './guards/non-logged.guard';
 
 const routes: Routes = [
   {
-    path: '', component: AccountComponent, canActivateChild: [AccountGuard], children: [
+    path: '', component: AccountComponent, canActivateChild: [NonLoggedGuard], children: [
       { path: '', redirectTo: 'logout', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
@@ -18,6 +18,7 @@ const routes: Routes = [
 ]
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [NonLoggedGuard]
 })
 export class AccountRoutingModule { }

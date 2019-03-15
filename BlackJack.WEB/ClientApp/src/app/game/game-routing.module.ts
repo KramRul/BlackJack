@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { GameComponent } from './game.component';
 import { IndexComponent } from './index/index.component';
 import { StartComponent } from './start/start.component';
-import { AccountGuard } from '../account/guards/account.guard';
+import { LoggedGuard } from '../account/guards/logged.guard';
 
 const routes: Routes = [
   {
-    path: '', component: GameComponent, canActivate: [AccountGuard], children: [
+    path: '', component: GameComponent, canActivate: [LoggedGuard], children: [
       { path: '', redirectTo: 'index', pathMatch: 'full'},
       { path: 'index', component: IndexComponent },
       { path: 'start', component: StartComponent }
@@ -17,6 +17,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [AccountGuard]
+  providers: [LoggedGuard]
 })
 export class GameRoutingModule { }
