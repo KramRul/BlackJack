@@ -13,6 +13,17 @@ namespace BlackJack.BusinessLogic.Config
         public static void InjectConfigures(this IServiceCollection services)
         {
             services.Scan(scan => scan
+                .FromCallingAssembly()
+                .FromApplicationDependencies(a => a.FullName.StartsWith("BlackJack"))
+                .AddClasses(classes => classes.Where(type => type.Name.Contains("Service") || type.Name.Contains("Helper") || type.Name.Contains("Provider")))
+                .AsImplementedInterfaces()
+            );
+            services.AddTransient<IBaseUnitOfWork, DapperUnitOfWork>();
+        }
+    }
+}
+/*
+ * services.Scan(scan => scan
                 .FromExecutingAssembly()
                 .FromAssemblies(
                 typeof(IAccountService).Assembly,
@@ -26,10 +37,7 @@ namespace BlackJack.BusinessLogic.Config
                 .AddClasses(publicOnly: true)
                 .AsImplementedInterfaces()
             );
-            services.AddTransient<IBaseUnitOfWork, DapperUnitOfWork>();
-        }
-    }
-}
+ */
 /*services.Scan(scan => scan
                 .FromExecutingAssembly()
                 .FromApplicationDependencies(a => a.FullName.StartsWith("BlackJack"))
