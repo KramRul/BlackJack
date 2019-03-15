@@ -12,3 +12,6 @@ C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.pdb
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.dll
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\obj\Debug\netcoreapp2.2\BlackJack.BusinessLogic.pdb
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\Microsoft.CodeAnalysis.Workspaces.pdb
+C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.BusinessLogic\bin\Debug\netcoreapp2.2\Microsoft.CodeAnalysis.Workspaces.xml

@@ -4,6 +4,8 @@ using System;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.Extensions.Options;
 
 namespace BlackJack.BusinessLogic.Config
 {
@@ -11,6 +13,7 @@ namespace BlackJack.BusinessLogic.Config
     {
         public static void JwtConfigures(this IServiceCollection services, IConfiguration configuration)
         {
+            var _options = configuration.GetSection("JWTOptions").Get<JWTOptions>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -22,9 +25,9 @@ namespace BlackJack.BusinessLogic.Config
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = configuration["JWTOptions:Issuer"],
-                    ValidAudience = configuration["JWTOptions:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTOptions:Key"])),
+                    ValidIssuer = _options.Issuer,
+                    ValidAudience = _options.Issuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key)),
                     ClockSkew = TimeSpan.Zero
                 };
             });

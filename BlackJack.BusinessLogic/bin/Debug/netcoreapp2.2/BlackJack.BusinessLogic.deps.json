@@ -16,7 +16,8 @@
           "Microsoft.Extensions.Options.ConfigurationExtensions": "2.2.0",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Scrutor": "3.0.2",
-          "System.IdentityModel.Tokens.Jwt": "5.4.0"
+          "System.IdentityModel.Tokens.Jwt": "5.4.0",
+          "Microsoft.CodeAnalysis.Workspaces": "2.8.0.0"
         },
         "runtime": {
           "BlackJack.BusinessLogic.dll": {}
@@ -1794,6 +1795,14 @@
         "runtime": {
           "BlackJack.ViewModels.dll": {}
         }
+      },
+      "Microsoft.CodeAnalysis.Workspaces/2.8.0.0": {
+        "runtime": {
+          "Microsoft.CodeAnalysis.Workspaces.dll": {
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.0.62830"
+          }
+        }
       }
     }
   },
@@ -2888,6 +2897,11 @@
     },
     "BlackJack.ViewModels/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.CodeAnalysis.Workspaces/2.8.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

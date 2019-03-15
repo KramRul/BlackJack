@@ -7,8 +7,8 @@ import { AccountGuard } from '../account/guards/account.guard';
 
 const routes: Routes = [
   {
-    path: '', component: GameComponent, canActivate: [AccountGuard],children: [
-      { path: '', redirectTo: 'index', pathMatch: 'full', canActivateChild: [AccountGuard]},
+    path: '', component: GameComponent, canActivate: [AccountGuard], children: [
+      { path: '', redirectTo: 'index', pathMatch: 'full'},
       { path: 'index', component: IndexComponent },
       { path: 'start', component: StartComponent }
     ]

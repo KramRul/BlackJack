@@ -5,7 +5,7 @@ import { AccountService } from 'src/app/shared/services/account.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AccountGuard implements CanActivate, CanActivateChild{
+export class AccountGuard implements CanActivate, CanActivateChild {
   constructor(private _accountService: AccountService, private _router: Router) {
   }
 
@@ -18,7 +18,17 @@ export class AccountGuard implements CanActivate, CanActivateChild{
     return false;
   }
 
-  canActivateChild( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    return this.canActivate(route, state);
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    var pathChenk = route.routeConfig.path;
+    console.log(route.routeConfig.path);
+    //console.log(route.children[0].routeConfig);
+    var check = this._accountService.isSignedIn();
+    if (check && pathChenk != 'logout') {
+      return false;
+    };
+    if (check && pathChenk == 'logout') {
+      return true;
+    }
+    return true;
   }
 }

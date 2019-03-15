@@ -8,8 +8,8 @@ import { AccountGuard } from './guards/account.guard';
 
 const routes: Routes = [
   {
-    path: '', component: AccountComponent, children: [
-      { path: '', redirectTo: 'logout', pathMatch: 'full', canActivateChild: [AccountGuard] },
+    path: '', component: AccountComponent, canActivateChild: [AccountGuard], children: [
+      { path: '', redirectTo: 'logout', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'logout', component: LogoutComponent }

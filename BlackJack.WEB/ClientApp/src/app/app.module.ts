@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { HttpConfigInterceptor } from './http-config.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { AccountGuard } from './account/guards/account.guard';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SharedModule } from './shared/shared.module';
     provide: HTTP_INTERCEPTORS,
     useClass: HttpConfigInterceptor,
     multi: true
-  }
+    },
+    AccountGuard
   ],
   bootstrap: [AppComponent]
 })
