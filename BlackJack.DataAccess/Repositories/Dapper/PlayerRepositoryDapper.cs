@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class PlayerRepositoryDapper : BaseRepositoryDapper, IPlayerRepository
+    public class PlayerRepositoryDapper : BaseRepositoryDapper<Player>, IPlayerRepository
     {
         public PlayerRepositoryDapper(IConfiguration config) : base(config)
         {
@@ -53,25 +53,9 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        public async Task Create(Player player)
-        {
-            await Create<Player>(new Player()
-            {
-                Id = player.Id,
-                Balance = player.Balance,
-                Bet = player.Bet,
-                UserName = player.UserName
-            });
-        }
-
-        public async Task Update(Player player)
-        {
-            await Update<Player>(player);
-        }
-
         public async Task Delete(Guid id)
         {
-            await Delete<Player>(new Player() { Id = id.ToString() });
+            await Delete(new Player() { Id = id.ToString() });
         }
     }
 }

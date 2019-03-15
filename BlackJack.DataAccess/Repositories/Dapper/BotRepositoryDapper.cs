@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class BotRepositoryDapper : BaseRepositoryDapper, IBotRepository
+    public class BotRepositoryDapper : BaseRepositoryDapper<Bot>, IBotRepository
     {
         public BotRepositoryDapper(IConfiguration config) : base(config)
         {
@@ -40,28 +40,12 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public async Task<Bot> Get(Guid id)
         {
-            return await Get<Bot>(id.ToString());
-        }
-
-        public async Task Create(Bot bot)
-        {
-            await Create<Bot>(new Bot()
-            {
-                Id = bot.Id,
-                Name = bot.Name,
-                Balance = bot.Balance,
-                Bet = bot.Bet
-            });
-        }
-
-        public async Task Update(Bot bot)
-        {
-            await Update<Bot>(bot);
+            return await Get(id.ToString());
         }
 
         public async Task Delete(Guid id)
         {
-            await Delete<Bot>(new Bot { Id = id });
+            await Delete(new Bot { Id = id });
         }
     }
 }

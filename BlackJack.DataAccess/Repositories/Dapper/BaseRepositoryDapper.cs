@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class BaseRepositoryDapper
+    public class BaseRepositoryDapper<T> where T : class
     {
         private readonly IConfiguration _config;
 
@@ -24,7 +24,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             _config = config;
         }
 
-        public async Task<T> Get<T>(string id) where T : class
+        public async Task<T> Get(string id) 
         {
             using (IDbConnection conn = Connection)
             {
@@ -33,16 +33,16 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        public async Task Create<T>(T element) where T : class
+        public async Task Create(T element)
         {
             using (IDbConnection conn = Connection)
             {
                 conn.Open();
-                await conn.InsertAsync<T>(element);
+                await conn.InsertAsync(element);
             }
         }
 
-        public async Task AddRange<T>(List<T> elements) where T : class
+        public async Task AddRange(List<T> elements)
         {
             using (IDbConnection conn = Connection)
             {
@@ -51,7 +51,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        public async Task Update<T>(T element) where T : class
+        public async Task Update(T element)
         {
             using (IDbConnection conn = Connection)
             {
@@ -60,7 +60,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        public async Task Delete<T>(T element) where T : class
+        public async Task Delete(T element)
         {
             using (IDbConnection conn = Connection)
             {
