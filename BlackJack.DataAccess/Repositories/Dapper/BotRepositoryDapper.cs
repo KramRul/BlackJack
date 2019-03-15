@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Dapper
 {
-    public class BotRepositoryDapper: BaseRepositoryDapper, IBotRepository
+    public class BotRepositoryDapper : BaseRepositoryDapper, IBotRepository
     {
-        public BotRepositoryDapper(IConfiguration config):base(config)
+        public BotRepositoryDapper(IConfiguration config) : base(config)
         {
         }
 

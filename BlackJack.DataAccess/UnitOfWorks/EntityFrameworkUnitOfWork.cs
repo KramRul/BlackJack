@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.UnitOfWorks
 {
-    public class EFUnitOfWork : IUnitOfWork
+    public class EntityFrameworkUnitOfWork : IEntityFrameworkUnitOfWork
     {
-        private ApplicationContext dataBase;
+        private ApplicationContext _dataBase;
         private GameRepository gameRepository;
         private PlayerRepository playerRepository;
         private BotRepository botRepository;
         private PlayerStepRepository playerStepRepository;
         private BotStepRepository botStepRepository;
 
-        public EFUnitOfWork(ApplicationContext context)
+        public EntityFrameworkUnitOfWork(ApplicationContext context)
         {
-            dataBase = context;
+            _dataBase = context;
         }
         public IGameRepository Games
         {
             get
             {
                 if (gameRepository == null)
-                    gameRepository = new GameRepository(dataBase);
+                    gameRepository = new GameRepository(_dataBase);
                 return gameRepository;
             }
         }
@@ -34,7 +34,7 @@ namespace BlackJack.DataAccess.UnitOfWorks
             get
             {
                 if (playerRepository == null)
-                    playerRepository = new PlayerRepository(dataBase);
+                    playerRepository = new PlayerRepository(_dataBase);
                 return playerRepository;
             }
         }
@@ -44,7 +44,7 @@ namespace BlackJack.DataAccess.UnitOfWorks
             get
             {
                 if (botRepository == null)
-                    botRepository = new BotRepository(dataBase);
+                    botRepository = new BotRepository(_dataBase);
                 return botRepository;
             }
         }
@@ -54,7 +54,7 @@ namespace BlackJack.DataAccess.UnitOfWorks
             get
             {
                 if (playerStepRepository == null)
-                    playerStepRepository = new PlayerStepRepository(dataBase);
+                    playerStepRepository = new PlayerStepRepository(_dataBase);
                 return playerStepRepository;
             }
         }
@@ -64,34 +64,9 @@ namespace BlackJack.DataAccess.UnitOfWorks
             get
             {
                 if (botStepRepository == null)
-                    botStepRepository = new BotStepRepository(dataBase);
+                    botStepRepository = new BotStepRepository(_dataBase);
                 return botStepRepository;
             }
-        }
-
-        public async Task Save()
-        {
-            await dataBase.SaveChangesAsync();
-        }
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    dataBase.Dispose();
-                }
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

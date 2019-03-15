@@ -11,7 +11,7 @@ namespace BlackJack.BusinessLogic.Services
 {
     public class PlayerService : BaseService, IPlayerService
     {
-        public PlayerService(IUnitOfWork unitOfWork)
+        public PlayerService(IBaseUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

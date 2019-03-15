@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
-    public class BotStepRepository : IBotStepRepository
+    public class BotStepRepository : BaseRepository, IBotStepRepository
     {
-        private ApplicationContext dataBase;
-
-        public BotStepRepository(ApplicationContext context)
+        public BotStepRepository(ApplicationContext context) : base(context)
         {
-            dataBase = context;
         }
 
         public async Task<List<BotStep>> GetAll()
@@ -60,16 +57,19 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         public async Task Create(BotStep botStep)
         {
             await dataBase.BotSteps.AddAsync(botStep);
+            await Save();
         }
 
         public async Task AddRange(List<BotStep> botSteps)
         {
             await dataBase.BotSteps.AddRangeAsync(botSteps);
+            await Save();
         }
 
         public async Task Update(BotStep botStep)
         {
             dataBase.Entry(botStep).State = EntityState.Modified;
+            await Save();
         }
 
         public async Task Delete(Guid id)
@@ -77,6 +77,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             BotStep botStep = await dataBase.BotSteps.FindAsync(id);
             if (botStep != null)
                 dataBase.BotSteps.Remove(botStep);
+            await Save();
         }
     }
 }

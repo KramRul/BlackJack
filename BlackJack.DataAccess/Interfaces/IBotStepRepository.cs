@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Interfaces
 {
-    public interface IBotStepRepository: IBaseRepository<BotStep>
+    public interface IBotStepRepository : IBaseRepository<BotStep>
     {
         Task AddRange(List<BotStep> botSteps);
         Task<List<Bot>> GetAllBotsByGameId(Guid gameId);

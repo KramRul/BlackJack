@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Interfaces
 {
-    public interface IGameRepository: IBaseRepository<Game>
+    public interface IGameRepository : IBaseRepository<Game>
     {
         Task<List<Game>> GetGamesForPlayer(string playerId);
         Task<Game> GetActiveGameForPlayer(string playerId);

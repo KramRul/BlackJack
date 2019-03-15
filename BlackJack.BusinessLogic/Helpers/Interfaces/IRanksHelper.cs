@@ -1,7 +1,7 @@
 ﻿using BlackJack.DataAccess.Enums;
 using System.Collections.Generic;
 
-namespace BlackJack.BusinessLogic.Services.Interfaces
+namespace BlackJack.BusinessLogic.Helpers.Interfaces
 {
     public interface IRanksHelper
     {

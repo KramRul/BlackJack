@@ -17,7 +17,7 @@ namespace BlackJack.BusinessLogic.Config
                     filter.Where(implementation => implementation.Name.Equals($"I{service.Name}", StringComparison.OrdinalIgnoreCase)))
                 .WithTransientLifetime()
             );
-            services.AddTransient<IUnitOfWork, DapperUnitOfWork>();
+            services.AddTransient<IBaseUnitOfWork, DapperUnitOfWork>();
         }
     }
 }

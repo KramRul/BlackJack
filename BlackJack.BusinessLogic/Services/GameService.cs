@@ -1,4 +1,5 @@
 ﻿using BlackJack.BusinessLogic.Common.Exceptions;
+using BlackJack.BusinessLogic.Helpers.Interfaces;
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.Enums;
@@ -16,7 +17,7 @@ namespace BlackJack.BusinessLogic.Services
     {
         private readonly IRanksHelper _ranksHelper;
 
-        public GameService(IUnitOfWork unitOfWork, IRanksHelper ranksHelper)
+        public GameService(IBaseUnitOfWork unitOfWork, IRanksHelper ranksHelper)
             : base(unitOfWork)
         {
             _ranksHelper = ranksHelper;
@@ -129,7 +130,6 @@ namespace BlackJack.BusinessLogic.Services
                 };
 
                 await Database.Games.Create(game);
-                await Database.Save();
 
                 var playerSteps = new List<PlayerStep>
                 {
@@ -137,7 +137,6 @@ namespace BlackJack.BusinessLogic.Services
                     CreatePlayerStep(player, game)
                 };
                 await Database.PlayerSteps.AddRange(playerSteps);
-                await Database.Save();
             }
 
             var botCheck = new List<Bot>();
@@ -162,7 +161,6 @@ namespace BlackJack.BusinessLogic.Services
                             Name = String.Format("Bot {0}", countOfBotsInDB.ToString())
                         };
                         await Database.Bots.Create(bot);
-                        await Database.Save();
                         countOfBotsInDB += 1;
                         StepsOfAllBots.Add(CreateBotStep(bot, game));
                         StepsOfAllBots.Add(CreateBotStep(bot, game));
@@ -173,7 +171,6 @@ namespace BlackJack.BusinessLogic.Services
 
             //await Database.Games.Create(game);
             await Database.Players.Update(player);
-            await Database.Save();
             var result = new StartGameView()
             {
                 Id = game.Id,
@@ -324,7 +321,6 @@ namespace BlackJack.BusinessLogic.Services
                 GameId = game.Id
             };
             await Database.PlayerSteps.Create(playerStep);
-            await Database.Save();
 
             var playerSteps = await Database.PlayerSteps.GetAllStepsByPlayerIdAndGameId(playerId, game.Id);
 
@@ -344,7 +340,6 @@ namespace BlackJack.BusinessLogic.Services
             }
             await Database.Games.Update(game);
             await Database.Players.Update(player);
-            await Database.Save();
 
             return new HitGameView()
             {
@@ -375,7 +370,6 @@ namespace BlackJack.BusinessLogic.Services
                 player.Bet = bet;
                 player.Balance -= bet;
                 await Database.Players.Update(player);
-                await Database.Save();
             }
         }
 
@@ -435,7 +429,6 @@ namespace BlackJack.BusinessLogic.Services
                     };
                     botRanks.Add(botStep.Rank);
                     await Database.BotSteps.Create(botStep);
-                    await Database.Save();
                 }
                 if (_ranksHelper.TotalValue(botRanks) > 21 || _ranksHelper.TotalValue(playerRanks) > _ranksHelper.TotalValue(botRanks))
                 {
@@ -463,7 +456,6 @@ namespace BlackJack.BusinessLogic.Services
             {
                 await Database.Bots.Update(bot);
             }
-            await Database.Save();
         }
 
         private async Task<string> CheckingCardsOfBots(IEnumerable<Bot> bots, Game game)
@@ -496,7 +488,6 @@ namespace BlackJack.BusinessLogic.Services
                     };
                     botRanks.Add(botStep.Rank);
                     await Database.BotSteps.Create(botStep);
-                    await Database.Save();
                 }
 
                 amountOfCardsOfBots.Add(bot.Name.ToString(), _ranksHelper.TotalValue(botRanks));

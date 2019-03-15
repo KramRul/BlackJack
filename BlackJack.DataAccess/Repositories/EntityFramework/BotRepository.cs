@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
-    public class BotRepository: IBotRepository
+    public class BotRepository: BaseRepository, IBotRepository
     {
-        private ApplicationContext dataBase;
-
-        public BotRepository(ApplicationContext context)
+        public BotRepository(ApplicationContext context): base(context)
         {
-            dataBase = context;
         }
 
         public async Task<List<Bot>> GetAll()
@@ -37,11 +34,13 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         public async Task Create(Bot bot)
         {
             await dataBase.Bots.AddAsync(bot);
+            await Save();
         }
 
         public async Task Update(Bot bot)
         {
             dataBase.Entry(bot).State = EntityState.Modified;
+            await Save();
         }
 
         public async Task Delete(Guid id)
@@ -49,6 +48,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             Bot bot = await dataBase.Bots.FindAsync(id);
             if (bot != null)
                 dataBase.Bots.Remove(bot);
+            await Save();
         }
     }
 }

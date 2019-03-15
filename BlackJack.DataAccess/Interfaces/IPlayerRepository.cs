@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.Interfaces
 {
-    public interface IPlayerRepository: IBaseRepository<Player>
+    public interface IPlayerRepository : IBaseRepository<Player>
     {
         Task<Player> GetByName(string name);
     }

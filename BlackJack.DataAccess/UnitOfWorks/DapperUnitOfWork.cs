@@ -2,14 +2,11 @@
 using BlackJack.DataAccess.Repositories.Interfaces;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.UnitOfWorks
 {
-    public class DapperUnitOfWork : IUnitOfWork
+    public class DapperUnitOfWork : IDapperUnitOfWork
     {
-        private ApplicationContext dataBase;
         private GameRepositoryDapper gameRepository;
         private PlayerRepositoryDapper playerRepository;
         private BotRepositoryDapper botRepository;
@@ -17,9 +14,8 @@ namespace BlackJack.DataAccess.UnitOfWorks
         private BotStepRepositoryDapper botStepRepository;
         private readonly IConfiguration _config;
 
-        public DapperUnitOfWork(ApplicationContext context, IConfiguration config)
+        public DapperUnitOfWork(IConfiguration config)
         {
-            dataBase = context;
             _config = config;
         }
         public IGameRepository Games
@@ -70,31 +66,6 @@ namespace BlackJack.DataAccess.UnitOfWorks
                     botStepRepository = new BotStepRepositoryDapper(_config);
                 return botStepRepository;
             }
-        }
-
-        public async Task Save()
-        {
-            await dataBase.SaveChangesAsync();
-        }
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    dataBase.Dispose();
-                }
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

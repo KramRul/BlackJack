@@ -13,7 +13,7 @@ namespace BlackJack.BusinessLogic.Services
 {
     public class HistoryService : BaseService, IHistoryService
     {
-        public HistoryService(IUnitOfWork unitOfWork)
+        public HistoryService(IBaseUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

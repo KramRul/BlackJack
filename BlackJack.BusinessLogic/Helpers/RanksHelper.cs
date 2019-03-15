@@ -1,8 +1,8 @@
-﻿using BlackJack.BusinessLogic.Services.Interfaces;
+﻿using BlackJack.BusinessLogic.Helpers.Interfaces;
 using BlackJack.DataAccess.Enums;
 using System.Collections.Generic;
 
-namespace BlackJack.BusinessLogic.Common
+namespace BlackJack.BusinessLogic.Helpers
 {
     public class RanksHelper : IRanksHelper
     {
