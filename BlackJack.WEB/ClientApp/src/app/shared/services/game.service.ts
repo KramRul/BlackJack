@@ -30,8 +30,8 @@ export class GameService {
       }));
   }
 
-  startGetDetails() {
-    return this.http.get<GetDetailsGameView>(this.url + "getDetails").pipe(
+  startGetDetails(gameId: string) {
+    return this.http.get<GetDetailsGameView>(this.url + "getDetails" + "?" + 'gameId=' + gameId).pipe(
       map((response: GetDetailsGameView) => {
         console.log(response);
         return response;

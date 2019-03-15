@@ -41,11 +41,11 @@ namespace BlackJack.WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetDetails()
+        public async Task<IActionResult> GetDetails(string gameId)
         {
             var result = await Execute(async () =>
             {
-                var model = await _gameService.GetDetails(PlayerId);              
+                var model = await _gameService.GetDetails(PlayerId, gameId);              
                 return model;
             });
             return result;

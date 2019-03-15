@@ -190,14 +190,14 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<GetDetailsGameView> GetDetails(string playerId)
+        public async Task<GetDetailsGameView> GetDetails(string playerId, string gameId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
                 throw new CustomServiceException("Player is unautorized");
             }
 
-            var game = await GetGameDetails(playerId);
+            var game = await GetGameDetails(playerId, gameId);
             var playerSteps = await GetAllSteps(playerId, game.Id);
             var botsSteps = await GetAllStepOfBots(game.Id);
             var model = new GetDetailsGameView()
@@ -222,7 +222,7 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetDetailsResponseGameView> GetGameDetails(string playerId)
+        public async Task<GetDetailsResponseGameView> GetGameDetails(string playerId, string gameId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
@@ -238,7 +238,7 @@ namespace BlackJack.BusinessLogic.Services
             var game = await Database.Games.GetActiveGameForPlayer(playerId);
             if (game == null)
             {
-                game = await Database.Games.GetLastActiveGameForPlayer(playerId);
+                game = await Database.Games.Get(Guid.Parse(gameId));
                 if (game == null)
                 {
                     throw new CustomServiceException("Game does not exist");

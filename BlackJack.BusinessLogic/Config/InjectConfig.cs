@@ -35,3 +35,13 @@ namespace BlackJack.BusinessLogic.Config
         }
     }
 }
+/*
+ services.Scan(scan => scan
+                .FromExecutingAssembly()
+                .FromApplicationDependencies(a => a.FullName.StartsWith("BlackJack"))
+                .AddClasses(publicOnly: true)
+                .AsMatchingInterface((service, filter) =>
+                    filter.Where(implementation => implementation.Name.Equals($"I{service.Name}", StringComparison.OrdinalIgnoreCase)))
+                .WithTransientLifetime()
+            );
+            */
