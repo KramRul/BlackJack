@@ -52,10 +52,5 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 return result.FirstOrDefault();
             }
         }
-
-        public async Task Delete(Guid id)
-        {
-            await Delete(new Player() { Id = id.ToString() });
-        }
     }
 }
