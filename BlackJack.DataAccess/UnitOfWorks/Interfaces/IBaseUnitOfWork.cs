@@ -1,6 +1,4 @@
 ﻿using BlackJack.DataAccess.Repositories.Interfaces;
-using System;
-using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.UnitOfWorks.Interfaces
 {

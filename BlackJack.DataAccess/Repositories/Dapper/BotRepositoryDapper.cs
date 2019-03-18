@@ -16,7 +16,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
         }
 
-        public async Task<List<Bot>> GetAll()
+        public new async Task<List<Bot>> GetAll()
         {
             using (IDbConnection conn = Connection)
             {
@@ -36,11 +36,6 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 var result = await conn.QueryAsync<int>(sQuery);
                 return result.FirstOrDefault();
             }
-        }
-
-        public async Task<Bot> Get(Guid id)
-        {
-            return await Get(id.ToString());
         }
 
         public async Task Delete(Guid id)

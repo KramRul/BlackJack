@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
-    public class PlayerStepRepository: BaseRepository, IPlayerStepRepository
+    public class PlayerStepRepository : BaseRepository<PlayerStep>, IPlayerStepRepository
     {
         public PlayerStepRepository(ApplicationContext context) : base(context)
         {
         }
 
-        public async Task<List<PlayerStep>> GetAll()
-        {            
+        public new async Task<List<PlayerStep>> GetAll()
+        {
             var result = await dataBase.PlayerSteps
                 .Include(p => p.Player)
-                .Include(g=>g.Game)
+                .Include(g => g.Game)
                 .ToListAsync();
             return result;
         }
@@ -41,27 +41,9 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-            public async Task<PlayerStep> Get(Guid id)
-        {
-            var result = await dataBase.PlayerSteps.FindAsync(id);
-            return result;
-        }
-
-        public async Task Create(PlayerStep playerStep)
-        {
-            await dataBase.PlayerSteps.AddAsync(playerStep);
-            await Save();
-        }
-
         public async Task AddRange(List<PlayerStep> playerSteps)
         {
             await dataBase.PlayerSteps.AddRangeAsync(playerSteps);
-            await Save();
-        }
-
-        public async Task Update(PlayerStep playerStep)
-        {
-            dataBase.Entry(playerStep).State = EntityState.Modified;
             await Save();
         }
 

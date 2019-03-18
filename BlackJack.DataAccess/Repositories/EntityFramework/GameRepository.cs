@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
-    public class GameRepository: BaseRepository, IGameRepository
+    public class GameRepository: BaseRepository<Game>, IGameRepository
     {
         public GameRepository(ApplicationContext context) : base(context)
         {
         }
 
-        public async Task<List<Game>> GetAll()
+        public new async Task<List<Game>> GetAll()
         {
             var result = await dataBase.Games.Include(d => d.Player).ToListAsync();
             return result;
@@ -48,33 +48,13 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<Game> Get(Guid gameid)
+        public new async Task<Game> Get(Guid gameid)
         {
             var result = await dataBase.Games
                 .Include(p => p.Player)
                 .Where(t => t.Id == gameid)
                 .ToListAsync();
             return result.First();
-        }
-
-        public async Task Create(Game game)
-        {
-            await dataBase.Games.AddAsync(game);
-            await Save();
-        }
-
-        public async Task Update(Game game)
-        {
-            dataBase.Entry(game).State = EntityState.Modified;
-            await Save();
-        }
-
-        public async Task Delete(Guid id)
-        {
-            Game game = await dataBase.Games.FindAsync(id);
-            if (game != null)
-                dataBase.Games.Remove(game);
-            await Save();
         }
     }
 }

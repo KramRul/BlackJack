@@ -8,16 +8,10 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
-    public class BotStepRepository : BaseRepository, IBotStepRepository
+    public class BotStepRepository : BaseRepository<BotStep>, IBotStepRepository
     {
         public BotStepRepository(ApplicationContext context) : base(context)
         {
-        }
-
-        public async Task<List<BotStep>> GetAll()
-        {
-            var result = await dataBase.BotSteps.ToListAsync();
-            return result;
         }
 
         public async Task<List<Bot>> GetAllBotsByGameId(Guid gameId)
@@ -48,35 +42,9 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<BotStep> Get(Guid id)
-        {
-            var result = await dataBase.BotSteps.FindAsync(id);
-            return result;
-        }
-
-        public async Task Create(BotStep botStep)
-        {
-            await dataBase.BotSteps.AddAsync(botStep);
-            await Save();
-        }
-
         public async Task AddRange(List<BotStep> botSteps)
         {
             await dataBase.BotSteps.AddRangeAsync(botSteps);
-            await Save();
-        }
-
-        public async Task Update(BotStep botStep)
-        {
-            dataBase.Entry(botStep).State = EntityState.Modified;
-            await Save();
-        }
-
-        public async Task Delete(Guid id)
-        {
-            BotStep botStep = await dataBase.BotSteps.FindAsync(id);
-            if (botStep != null)
-                dataBase.BotSteps.Remove(botStep);
             await Save();
         }
     }

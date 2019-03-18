@@ -16,7 +16,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
         }
 
-        public async Task<List<BotStep>> GetAll()
+        public new async Task<List<BotStep>> GetAll()
         {
             using (IDbConnection conn = Connection)
             {
@@ -67,11 +67,6 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 var result = await conn.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) => { step.Bot = bot; return step; }, new { botId });
                 return result.ToList();
             }
-        }
-
-        public async Task<BotStep> Get(Guid id)
-        {
-            return await Get(id.ToString());
         }
 
         public async Task Delete(Guid id)

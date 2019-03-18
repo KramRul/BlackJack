@@ -16,7 +16,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
         }
 
-        public async Task<List<Player>> GetAll()
+        public new async Task<List<Player>> GetAll()
         {
             using (IDbConnection conn = Connection)
             {
@@ -27,7 +27,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             }
         }
 
-        public async Task<Player> Get(Guid id)
+        public new async Task<Player> Get(Guid id)
         {
             using (IDbConnection conn = Connection)
             {

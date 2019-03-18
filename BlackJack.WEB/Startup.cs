@@ -1,5 +1,4 @@
 using BlackJack.BusinessLogic.Config;
-using BlackJack.BusinessLogic.Models;
 using BlackJack.WEB.Filters;
 using BlackJack.WEB.Middlewares;
 using Microsoft.AspNetCore.Builder;

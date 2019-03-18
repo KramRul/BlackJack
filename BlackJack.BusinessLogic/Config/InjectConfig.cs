@@ -1,10 +1,6 @@
-﻿using BlackJack.BusinessLogic.Helpers.Interfaces;
-using BlackJack.BusinessLogic.Providers.Interfaces;
-using BlackJack.BusinessLogic.Services.Interfaces;
-using BlackJack.DataAccess.UnitOfWorks;
+﻿using BlackJack.DataAccess.UnitOfWorks;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace BlackJack.BusinessLogic.Config
 {

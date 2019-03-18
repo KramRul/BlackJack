@@ -8,19 +8,13 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
-    public class PlayerRepository : BaseRepository, IPlayerRepository
+    public class PlayerRepository : BaseRepository<Player>, IPlayerRepository
     {
         public PlayerRepository(ApplicationContext context) : base(context)
         {
         }
 
-        public async Task<List<Player>> GetAll()
-        {
-            var result = await dataBase.Users.ToListAsync();
-            return result;
-        }
-
-        public async Task<Player> Get(Guid id)
+        public new async Task<Player> Get(Guid id)
         {
             var result = await dataBase.Users.FindAsync(id.ToString());
             return result;
@@ -34,15 +28,9 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task Create(Player player)
+        public new async Task Create(Player player)
         {
             await dataBase.Users.AddAsync(player);
-            await Save();
-        }
-
-        public async Task Update(Player player)
-        {
-            dataBase.Entry(player).State = EntityState.Modified;
             await Save();
         }
 

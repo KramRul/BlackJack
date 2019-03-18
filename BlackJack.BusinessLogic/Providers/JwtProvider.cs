@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using BlackJack.BusinessLogic.Providers.Interfaces;
+using BlackJack.BusinessLogic.Config;
 
 namespace BlackJack.BusinessLogic.Providers
 {
@@ -40,13 +41,14 @@ namespace BlackJack.BusinessLogic.Providers
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTOptions:Key"]));
+            var _options = _configuration.GetSection("JWTOptions").Get<JWTOptions>();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddHours(expiredHours ?? Convert.ToDouble(_configuration["JWTOptions:Lifetime"]));
+            var expires = DateTime.Now.AddHours(expiredHours ?? Convert.ToDouble(_options.Lifetime));
 
             var token = new JwtSecurityToken(
-                _configuration["JWTOptions:Issuer"],
-                _configuration["JWTOptions:Issuer"],
+                _options.Issuer,
+                _options.Issuer,
                 claims,
                 expires: expires,
                 signingCredentials: credentials

@@ -1,8 +1,6 @@
 ﻿using BlackJack.DataAccess.Repositories.EntityFramework;
 using BlackJack.DataAccess.Repositories.Interfaces;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
-using System;
-using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.UnitOfWorks
 {
