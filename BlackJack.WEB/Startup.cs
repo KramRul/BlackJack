@@ -26,6 +26,7 @@ namespace BlackJack.WEB
             services.OptionsConfigures(Configuration);
             services.JwtConfigures(Configuration);
             services.InjectConfigures();
+            services.SwaggerConfigures();
 
             services.AddMvc(conf =>
             {
@@ -55,6 +56,13 @@ namespace BlackJack.WEB
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseMvc(routes =>
             {
