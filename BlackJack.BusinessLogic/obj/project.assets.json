@@ -1430,6 +1430,18 @@
           "lib/netstandard2.0/Swashbuckle.AspNetCore.dll": {}
         }
       },
+      "Swashbuckle.AspNetCore.Annotations/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Swashbuckle.AspNetCore.SwaggerGen": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Swashbuckle.AspNetCore.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Swashbuckle.AspNetCore.Annotations.dll": {}
+        }
+      },
       "Swashbuckle.AspNetCore.Swagger/4.0.1": {
         "type": "package",
         "dependencies": {
@@ -4685,6 +4697,19 @@
         "lib/netstandard2.0/Swashbuckle.AspNetCore.dll",
         "swashbuckle.aspnetcore.4.0.1.nupkg.sha512",
         "swashbuckle.aspnetcore.nuspec"
+      ]
+    },
+    "Swashbuckle.AspNetCore.Annotations/4.0.1": {
+      "sha512": "Eke+OE1T+ogLsSmVFdhFPaVlsCBvGfkO/qpOgmD8pBns5vUMaI3pHjKq4sg9FfK8lLK/cxFbLx8Q+/iGogJ+Xw==",
+      "type": "package",
+      "path": "swashbuckle.aspnetcore.annotations/4.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Swashbuckle.AspNetCore.Annotations.dll",
+        "lib/netstandard2.0/Swashbuckle.AspNetCore.Annotations.xml",
+        "swashbuckle.aspnetcore.annotations.4.0.1.nupkg.sha512",
+        "swashbuckle.aspnetcore.annotations.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore.Swagger/4.0.1": {
@@ -8804,6 +8829,7 @@
       "Microsoft.NETCore.App >= 2.2.0",
       "Scrutor >= 3.0.2",
       "Swashbuckle.AspNetCore >= 4.0.1",
+      "Swashbuckle.AspNetCore.Annotations >= 4.0.1",
       "System.IdentityModel.Tokens.Jwt >= 5.4.0"
     ]
   },
@@ -8886,6 +8912,10 @@
             "version": "[3.0.2, )"
           },
           "Swashbuckle.AspNetCore": {
+            "target": "Package",
+            "version": "[4.0.1, )"
+          },
+          "Swashbuckle.AspNetCore.Annotations": {
             "target": "Package",
             "version": "[4.0.1, )"
           },

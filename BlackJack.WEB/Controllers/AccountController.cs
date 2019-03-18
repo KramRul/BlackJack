@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace BlackJack.WEB.Controllers
 {
@@ -16,18 +17,24 @@ namespace BlackJack.WEB.Controllers
         }
         
         [HttpPost]
+        [SwaggerResponse(200, "Player was register", typeof(RegisterAccountResponseView))]
+        [SwaggerResponse(500)]
         public async Task<IActionResult> Register([FromBody]RegisterAccountView model)
         {
             return await Execute(()=>_accountService.Register(model));
         }
 
         [HttpPost]
+        [SwaggerResponse(200, "Player was logged", typeof(LoginAccountResponseView))]
+        [SwaggerResponse(500)]
         public async Task<IActionResult> Login([FromBody]LoginAccountView model)
         {
             return await Execute(() => _accountService.Login(model));           
         }
 
         [HttpPost]
+        [SwaggerResponse(200, "", typeof(string))]
+        [SwaggerResponse(500)]
         public async Task<IActionResult> GetLoggedPlayerName()
         {
             return await Execute(() => _accountService.GetLoggedPlayerName(PlayerName));

@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.ViewModels.HistoryViews;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace BlackJack.WEB.Controllers
 {
@@ -18,6 +19,8 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
+        [SwaggerResponse(200, "History of games", typeof(GetHistoryOfGamesHistoryView))]
+        [SwaggerResponse(500)]
         public async Task<IActionResult> Index()
         {
             var result = await Execute(async () =>
@@ -29,6 +32,8 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
+        [SwaggerResponse(200, "Details of game", typeof(DetailsOfGameHistoryView))]
+        [SwaggerResponse(500)]
         public async Task<IActionResult> Game(string gameId)
         {
             var result = await Execute(async () =>

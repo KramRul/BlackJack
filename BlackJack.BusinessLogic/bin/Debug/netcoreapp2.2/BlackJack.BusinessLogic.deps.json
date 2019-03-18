@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "9dab92974a79ca9f39cb19486db7e3812c3b7648"
+    "signature": "36d863ad776c6189d4afcfd8e02e2c0164964124"
   },
   "compilationOptions": {},
   "targets": {
@@ -17,6 +17,7 @@
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Scrutor": "3.0.2",
           "Swashbuckle.AspNetCore": "4.0.1",
+          "Swashbuckle.AspNetCore.Annotations": "4.0.1",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "Microsoft.CodeAnalysis.Workspaces": "2.8.0.0"
         },
@@ -1104,6 +1105,17 @@
         },
         "runtime": {
           "lib/netstandard2.0/Swashbuckle.AspNetCore.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.0.1.0"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore.Annotations/4.0.1": {
+        "dependencies": {
+          "Swashbuckle.AspNetCore.SwaggerGen": "4.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Swashbuckle.AspNetCore.Annotations.dll": {
             "assemblyVersion": "4.0.1.0",
             "fileVersion": "4.0.1.0"
           }
@@ -2681,6 +2693,13 @@
       "sha512": "sha512-Zq6lkFieuFPNDwXwQ+e8i5zy2VMrexcRFU8mQORxqIc8r7Y+qKX63vg57yL1HeGCINHQGGzxGfw2rP63IeEqhg==",
       "path": "swashbuckle.aspnetcore/4.0.1",
       "hashPath": "swashbuckle.aspnetcore.4.0.1.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.Annotations/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Eke+OE1T+ogLsSmVFdhFPaVlsCBvGfkO/qpOgmD8pBns5vUMaI3pHjKq4sg9FfK8lLK/cxFbLx8Q+/iGogJ+Xw==",
+      "path": "swashbuckle.aspnetcore.annotations/4.0.1",
+      "hashPath": "swashbuckle.aspnetcore.annotations.4.0.1.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore.Swagger/4.0.1": {
       "type": "package",
