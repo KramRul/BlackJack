@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
-    public class BaseRepository<T> : IBaseRepository<T>, IDisposable where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         public ApplicationContext dataBase;
         public DbSet<T> _dbSet;
@@ -50,26 +50,6 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         public async Task Save()
         {
             await dataBase.SaveChangesAsync();
-        }
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    dataBase.Dispose();
-                }
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

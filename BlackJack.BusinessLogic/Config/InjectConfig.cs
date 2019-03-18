@@ -18,27 +18,3 @@ namespace BlackJack.BusinessLogic.Config
         }
     }
 }
-/*
- * services.Scan(scan => scan
-                .FromExecutingAssembly()
-                .FromAssemblies(
-                typeof(IAccountService).Assembly,
-                typeof(IGameService).Assembly,
-                typeof(IHistoryService).Assembly,
-                typeof(IPlayerService).Assembly,
-                typeof(IRanksHelper).Assembly,
-                typeof(IJwtProvider).Assembly
-                )
-                .FromApplicationDependencies(a => a.FullName.StartsWith("BlackJack"))
-                .AddClasses(publicOnly: true)
-                .AsImplementedInterfaces()
-            );
- */
-/*services.Scan(scan => scan
-                .FromExecutingAssembly()
-                .FromApplicationDependencies(a => a.FullName.StartsWith("BlackJack"))
-                .AddClasses(publicOnly: true)
-                .AsMatchingInterface((service, filter) =>
-                    filter.Where(implementation => implementation.Name.Equals($"I{service.Name}", StringComparison.OrdinalIgnoreCase)))
-                .WithTransientLifetime()
-            );*/

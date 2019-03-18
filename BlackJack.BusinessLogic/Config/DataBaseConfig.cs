@@ -1,4 +1,5 @@
 ﻿using BlackJack.DataAccess;
+using BlackJack.DataAccess.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ namespace BlackJack.BusinessLogic.Config
         public static void DataBaseConfigures(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("BlackJack.WEB")));
+            options.UseSqlServer(configuration.ConnectionString(), b => b.MigrationsAssembly("BlackJack.WEB")));
         }
     }
 }

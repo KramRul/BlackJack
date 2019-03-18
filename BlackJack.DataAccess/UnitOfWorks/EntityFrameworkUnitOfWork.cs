@@ -1,6 +1,7 @@
 ﻿using BlackJack.DataAccess.Repositories.EntityFramework;
 using BlackJack.DataAccess.Repositories.Interfaces;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
+using System;
 
 namespace BlackJack.DataAccess.UnitOfWorks
 {
@@ -65,6 +66,27 @@ namespace BlackJack.DataAccess.UnitOfWorks
                     botStepRepository = new BotStepRepository(_dataBase);
                 return botStepRepository;
             }
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _dataBase.Dispose();
+                    _dataBase = null;
+                }
+                this.disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

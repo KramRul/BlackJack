@@ -1,8 +1,9 @@
 ﻿using BlackJack.DataAccess.Repositories.Interfaces;
+using System;
 
 namespace BlackJack.DataAccess.UnitOfWorks.Interfaces
 {
-    public interface IBaseUnitOfWork
+    public interface IBaseUnitOfWork : IDisposable
     {
         IPlayerRepository Players { get; }
         IGameRepository Games { get; }
