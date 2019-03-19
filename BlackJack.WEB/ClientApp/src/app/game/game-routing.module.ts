@@ -6,9 +6,9 @@ import { StartComponent } from './start/start.component';
 import { LoggedGuard } from '../account/guards/logged.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
   {
-    path: '', component: GameComponent, canActivate: [LoggedGuard], children: [
-      { path: '', redirectTo: 'index', pathMatch: 'full'},
+    path: '', component: GameComponent, canActivate: [LoggedGuard], children: [     
       { path: 'index', component: IndexComponent },
       { path: 'start', component: StartComponent }
     ]

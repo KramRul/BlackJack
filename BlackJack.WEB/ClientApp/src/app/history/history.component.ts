@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent {
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 }

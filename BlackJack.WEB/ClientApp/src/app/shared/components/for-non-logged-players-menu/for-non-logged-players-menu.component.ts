@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './for-non-logged-players-menu.component.html',
   styleUrls: ['./for-non-logged-players-menu.component.css']
 })
-export class ForNonLoggedPlayersMenuComponent implements OnInit {
+export class ForNonLoggedPlayersMenuComponent {
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 }

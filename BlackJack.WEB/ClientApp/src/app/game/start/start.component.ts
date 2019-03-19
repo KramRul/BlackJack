@@ -12,49 +12,49 @@ import { GameState } from '../../shared/enums/game-state';
   styleUrls: ['./start.component.css']
 })
 export class StartComponent implements OnInit {
-  gameDetails?: GetDetailsGameView = new GetDetailsGameView();
-  bet?: number;
-  Suite = Suite;
-  Rank = Rank;
-  GameState = GameState;
+  public model: GetDetailsGameView = new GetDetailsGameView();
+  public bet: number;
+  public Suite = Suite;
+  public Rank = Rank;
+  public GameState = GameState;
 
   constructor(private gameService: GameService, private router: Router, private route: ActivatedRoute) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.gameService.startGetDetails("").subscribe(data => {
-      this.gameDetails.game = data.game;
-      this.gameDetails.playerSteps = data.playerSteps;
-      this.gameDetails.botsSteps = data.botsSteps;
+      this.model.game = data.game;
+      this.model.playerSteps = data.playerSteps;
+      this.model.botsSteps = data.botsSteps;
     });
   }
 
-  placeABet() {
+  placeABet(): void {
     this.gameService.placeABet(this.bet).subscribe(() => {
       this.gameService.startGetDetails("").subscribe(data => {
-        this.gameDetails.game = data.game;
-        this.gameDetails.playerSteps = data.playerSteps;
-        this.gameDetails.botsSteps = data.botsSteps;
+        this.model.game = data.game;
+        this.model.playerSteps = data.playerSteps;
+        this.model.botsSteps = data.botsSteps;
       });
     });
   }
 
-  hit() {
+  hit(): void {
     this.gameService.hit().subscribe(() => {
-      this.gameService.startGetDetails(this.gameDetails.game.id).subscribe(data => {
-        this.gameDetails.game = data.game;
-        this.gameDetails.playerSteps = data.playerSteps;
-        this.gameDetails.botsSteps = data.botsSteps;
+      this.gameService.startGetDetails(this.model.game.id).subscribe(data => {
+        this.model.game = data.game;
+        this.model.playerSteps = data.playerSteps;
+        this.model.botsSteps = data.botsSteps;
       });
     });    
   }
 
-  stand() {
+  stand(): void {
     this.gameService.stand().subscribe(() => {
-      this.gameService.startGetDetails(this.gameDetails.game.id).subscribe(data => {
-        this.gameDetails.game = data.game;
-        this.gameDetails.playerSteps = data.playerSteps;
-        this.gameDetails.botsSteps = data.botsSteps;
+      this.gameService.startGetDetails(this.model.game.id).subscribe(data => {
+        this.model.game = data.game;
+        this.model.playerSteps = data.playerSteps;
+        this.model.botsSteps = data.botsSteps;
       });
     });   
   }

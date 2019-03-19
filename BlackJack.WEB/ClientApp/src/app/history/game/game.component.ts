@@ -12,20 +12,20 @@ import { GameState } from '../../shared/enums/game-state';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit { 
-  gameDetails?: DetailsOfGameHistoryView = new DetailsOfGameHistoryView();
-  Suite = Suite;
-  Rank = Rank;
-  GameState = GameState;
+  public model: DetailsOfGameHistoryView = new DetailsOfGameHistoryView();
+  public Suite = Suite;
+  public Rank = Rank;
+  public GameState = GameState;
 
   constructor(private historyService: HistoryService, private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     var gameId = this.route.snapshot.queryParamMap.get('data');
     this.historyService.game(gameId).subscribe(data => {
-      this.gameDetails.game = data.game;
-      this.gameDetails.botsSteps = data.botsSteps;
-      this.gameDetails.playerSteps = data.playerSteps;
-      this.gameDetails.playerAndBotSteps = data.playerAndBotSteps;
+      this.model.game = data.game;
+      this.model.botsSteps = data.botsSteps;
+      this.model.playerSteps = data.playerSteps;
+      this.model.playerAndBotSteps = data.playerAndBotSteps;
     });
   }
 }

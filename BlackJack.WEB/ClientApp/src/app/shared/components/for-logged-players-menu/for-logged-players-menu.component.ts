@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './for-logged-players-menu.component.html',
   styleUrls: ['./for-logged-players-menu.component.css']
 })
-export class ForLoggedPlayersMenuComponent implements OnInit {
+export class ForLoggedPlayersMenuComponent {
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 }

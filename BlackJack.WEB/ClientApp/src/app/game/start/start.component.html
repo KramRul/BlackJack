@@ -1,16 +1,23 @@
 <app-for-logged-players-menu></app-for-logged-players-menu>
-<h2>Start Game</h2>
-<h2>User: {{gameDetails?.game.player.userName}}</h2>
+<div class="p-2 m-2 bg-secondary text-white d-flex align-items-center flex-column bd-highlight justify-content-center">
+  <h2 class="h2">Start Game</h2>
+  <h2 class="h2">User: {{model?.game.player.userName}}</h2>
+</div>
 <hr />
-<div>Balance: <input value={{gameDetails?.game.player.balance}} name="PlayerBalance" id="PlayerBalance" class="form-group" disabled /> Bet: <input value={{gameDetails?.game.player.bet}} name="PlayerBet" id="PlayerBet" class="form-group" disabled /></div>
-<div>Game State: <input value={{GameState[gameDetails?.game.gameState]}} name="GameState" id="GameState" class="form-group" disabled /> </div>
+<div class="d-xl-flex justify-content-center">
+  <div class="alert alert-primary">
+    Balance: <label name="PlayerBalance" id="PlayerBalance" class="p-2 m-2 rounded-lg bg-light text-dark">{{model?.game.player.balance}}</label>
+    Bet: <label name="PlayerBet" id="PlayerBet" class="p-2 m-2 rounded-lg bg-light text-dark">{{model?.game.player.bet}}</label>
+  </div>
+  <div class="alert alert-primary">Game State: <label name="GameState" id="GameState" class="p-2 m-2 rounded-lg bg-light text-dark">{{GameState[model?.game.gameState]}}</label></div>
+</div>
 <hr />
-<div class="form-group" *ngIf="gameDetails.game.wonName!='' && gameDetails.game.wonName!=null">
-  <input type="text" class="form-control is-valid" disabled value="{{gameDetails?.game.wonName}} WON">
+<div class="form-group" *ngIf="model.game.wonName!='' && model.game.wonName!=null">
+  <input type="text" class="form-control is-valid" disabled value="{{model?.game.wonName}} WON">
 </div>
 <table class="table">
   <tr><th></th><th>Bot Name</th><th>Suite</th><th>Rank</th></tr>
-  <tr *ngFor="let botStep of gameDetails.botsSteps.botSteps; let i = index">
+  <tr *ngFor="let botStep of model.botsSteps.botSteps; let i = index">
     <td>{{i}}</td>
     <td>{{botStep?.bot.name}}</td>
     <td>{{Suite[botStep?.suite]}}</td>
@@ -20,7 +27,7 @@
 <hr />
 <table class="table" id="TablePlayerStepsInGame">
   <tr><th></th><th>Player Name</th><th>Suite</th><th>Rank</th></tr>
-  <tr *ngFor="let playerStep of gameDetails.playerSteps.playerSteps; let i = index">
+  <tr *ngFor="let playerStep of model.playerSteps.playerSteps; let i = index">
     <td>{{i}}</td>
     <td>{{playerStep?.player.userName}}</td>
     <td>{{Suite[playerStep?.suite]}}</td>
@@ -28,16 +35,16 @@
   </tr>
 </table>
 <hr />
-<div *ngIf="gameDetails.game.player.bet==0 && gameDetails.playerSteps.playerSteps.length<=2">
+<div *ngIf="model.game.player.bet==0 && model.playerSteps.playerSteps.length<=2">
   <div class="form-group">
-    <input value={{gameDetails?.game.player.balance}} name="Balance" id="Balance" hidden />
+    <input value={{model?.game.player.balance}} name="Balance" id="Balance" hidden />
     <input [(ngModel)]="bet" name="Bet" id="Bet" />
   </div>
   <div>
     <input id="formPlaceAbet" type="button" value="Bet" class="btn btn-secondary btn-lg" (click)="placeABet()" />
   </div>
 </div>
-<div class="form-group" *ngIf="gameDetails.game.player.bet!=0 && gameDetails.game.gameState==0">
-  <input type="button" class="btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" (click)="hit()" />
-  <input type="button" class="btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" (click)="stand()" />
+<div class="form-group d-flex justify-content-center" *ngIf="model.game.player.bet!=0 && model.game.gameState==0">
+  <input type="button" class="pr-5 pl-5 mr-3 ml-3 btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" (click)="hit()" />
+  <input type="button" class="pr-5 pl-5 mr-3 ml-3 btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" (click)="stand()" />
 </div>

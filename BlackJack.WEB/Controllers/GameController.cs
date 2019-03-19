@@ -33,11 +33,11 @@ namespace BlackJack.WEB.Controllers
         [Authorize]
         [SwaggerResponse(200, "The game was started", typeof(StartGameView))]
         [SwaggerResponse(500)]
-        public async Task<IActionResult> Start(int countOfBots, string playerName)
+        public async Task<IActionResult> Start(int countOfBots)
         {
             var result = await Execute(async () =>
             {
-                var game = await _gameService.Start(playerName, countOfBots);
+                var game = await _gameService.Start(PlayerName, countOfBots);
                 return game;
             });
             return result;

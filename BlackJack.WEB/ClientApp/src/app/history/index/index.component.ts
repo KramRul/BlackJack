@@ -10,18 +10,18 @@ import { GameState } from '../../shared/enums/game-state';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  GameState = GameState;
-  gamesHistory?: GetHistoryOfGamesHistoryView = new GetHistoryOfGamesHistoryView();
+  public GameState = GameState;
+  public model: GetHistoryOfGamesHistoryView = new GetHistoryOfGamesHistoryView();
 
   constructor(private historyService: HistoryService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.historyService.index().subscribe(data => {
-      this.gamesHistory.games = data.games;
+      this.model.games = data.games;
     });
   }
 
-  game(gameId: string) {
+  game(gameId: string): void {
     this.router.navigate(["/history/game"], { queryParams: { data: gameId } });
   }
 }

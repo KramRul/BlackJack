@@ -3,6 +3,8 @@ import { GetAllPlayersPlayerView } from 'src/app/shared/entities/player.views/ge
 import { GameService } from 'src/app/shared/services/game.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/services/account.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
   selector: 'app-index',
@@ -11,30 +13,30 @@ import { AccountService } from 'src/app/shared/services/account.service';
 })
 export class IndexComponent implements OnInit{
   //modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
-  validationErrors: string;
-  countOfBots: number;
-  playerName: string;
+  public countOfBots: number;
+  public playerName: string;
 
-  constructor(private gameService: GameService, private accountService: AccountService, private router: Router) {
+  constructor(private gameService: GameService, private accountService: AccountService, private notifyService: NotificationService, private router: Router) {
     //this.gameService.index(this.modelPlayers).subscribe();
-    console.log(localStorage.getItem("accessToken"));
+    console.log(new LocalStorageService<string>().getItem("accessToken"));
   }
 
-  start() {
-    this.gameService.start(this.countOfBots, this.playerName).subscribe(
+  start(): void {
+    this.gameService.start(this.countOfBots).subscribe(
       data => {
         console.log(data);
         this.router.navigate(["/game/start"]);      
       }
-      , error => this.validationErrors = error
+      , error => this.notifyService.showError(error)
     );
   }
 
-  ngOnInit() {
+  ngOnInit():void {
     this.accountService.getLoggedPlayerName().subscribe(data => {
       console.log(data);
       this.playerName = data;
     }
-      , error => this.validationErrors = error);
+      , error => this.notifyService.showError(error)
+    );
   }
 }

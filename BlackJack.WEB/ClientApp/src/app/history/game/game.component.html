@@ -8,19 +8,19 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{gameDetails?.game.id}}</td>
-      <td>{{GameState[gameDetails?.game.gameState]}}</td>
-      <td>{{gameDetails?.game.wonName}}</td>
-      <td>{{gameDetails?.game.player.userName}}</td>
-      <td>{{gameDetails?.game.player.balance}}</td>
-      <td>{{gameDetails?.game.player.bet}}</td>
+      <td>{{model?.game.id}}</td>
+      <td>{{GameState[model?.game.gameState]}}</td>
+      <td>{{model?.game.wonName}}</td>
+      <td>{{model?.game.player.userName}}</td>
+      <td>{{model?.game.player.balance}}</td>
+      <td>{{model?.game.player.bet}}</td>
     </tr>
   </tbody>
 </table>
 <div>
   <hr />
 </div>
-<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=1">
+<table class="table table-bordered" *ngIf="model.playerAndBotSteps.steps.length>=1">
   <caption style="caption-side: top">STEP 1</caption>
   <thead class="thead-light">
     <tr>
@@ -33,7 +33,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let card of gameDetails.playerAndBotSteps.steps[0].cards; let i = index">
+    <tr *ngFor="let card of model.playerAndBotSteps.steps[0].cards; let i = index">
       <td>{{i}}</td>
       <td>{{Suite[card?.suite]}}</td>
       <td>{{Rank[card?.rank]}}</td>
@@ -52,7 +52,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=2">
+<table class="table table-bordered" *ngIf="model.playerAndBotSteps.steps.length>=2">
   <caption style="caption-side: top">STEP 2</caption>
   <thead class="thead-light">
     <tr>
@@ -65,7 +65,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let card of gameDetails.playerAndBotSteps.steps[1].cards; let i = index">
+    <tr *ngFor="let card of model.playerAndBotSteps.steps[1].cards; let i = index">
       <td>{{i}}</td>
       <td>{{Suite[card?.suite]}}</td>
       <td>{{Rank[card?.rank]}}</td>
@@ -84,7 +84,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=3">
+<table class="table table-bordered" *ngIf="model.playerAndBotSteps.steps.length>=3">
   <caption style="caption-side: top">STEP 3</caption>
   <thead class="thead-light">
     <tr>
@@ -97,7 +97,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let card of gameDetails.playerAndBotSteps.steps[2].cards; let i = index">
+    <tr *ngFor="let card of model.playerAndBotSteps.steps[2].cards; let i = index">
       <td>{{i}}</td>
       <td>{{Suite[card?.suite]}}</td>
       <td>{{Rank[card?.rank]}}</td>
@@ -116,7 +116,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=4">
+<table class="table table-bordered" *ngIf="model.playerAndBotSteps.steps.length>=4">
   <caption style="caption-side: top">STEP 4</caption>
   <thead class="thead-light">
     <tr>
@@ -129,7 +129,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let card of gameDetails.playerAndBotSteps.steps[3].cards; let i = index">
+    <tr *ngFor="let card of model.playerAndBotSteps.steps[3].cards; let i = index">
       <td>{{i}}</td>
       <td>{{Suite[card?.suite]}}</td>
       <td>{{Rank[card?.rank]}}</td>
@@ -148,7 +148,7 @@
     </tr>
   </tbody>
 </table>
-<table class="table table-bordered" *ngIf="gameDetails.playerAndBotSteps.steps.length>=5">
+<table class="table table-bordered" *ngIf="model.playerAndBotSteps.steps.length>=5">
   <caption style="caption-side: top">STEP 5</caption>
   <thead class="thead-light">
     <tr>
@@ -161,7 +161,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let card of gameDetails.playerAndBotSteps.steps[4].cards; let i = index">
+    <tr *ngFor="let card of model.playerAndBotSteps.steps[4].cards; let i = index">
       <td>{{i}}</td>
       <td>{{Suite[card?.suite]}}</td>
       <td>{{Rank[card?.rank]}}</td>

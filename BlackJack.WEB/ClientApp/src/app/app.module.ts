@@ -7,14 +7,17 @@ import { AppComponent } from './app.component';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { HttpConfigInterceptor } from './http-config.interceptor';
 import { SharedModule } from './shared/shared.module';
-import { AccountGuard } from './account/guards/account.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
@@ -29,8 +32,7 @@ import { AccountGuard } from './account/guards/account.guard';
     provide: HTTP_INTERCEPTORS,
     useClass: HttpConfigInterceptor,
     multi: true
-    },
-    AccountGuard
+    }
   ],
   bootstrap: [AppComponent]
 })

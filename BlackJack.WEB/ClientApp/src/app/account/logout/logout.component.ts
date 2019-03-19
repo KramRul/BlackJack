@@ -7,13 +7,8 @@ import { Router } from '@angular/router';
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.css']
 })
-export class LogoutComponent implements OnInit {
-  validationErrors: string;
-
+export class LogoutComponent {
   constructor(private accountService: AccountService, private router: Router) {
-  }
-
-  ngOnInit() {
   }
 
   logout() {

@@ -7,9 +7,9 @@ import { LogoutComponent } from './logout/logout.component';
 import { NonLoggedGuard } from './guards/non-logged.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'logout', pathMatch: 'full' },
   {
-    path: '', component: AccountComponent, canActivateChild: [NonLoggedGuard], children: [
-      { path: '', redirectTo: 'logout', pathMatch: 'full' },
+    path: '', component: AccountComponent, canActivateChild: [NonLoggedGuard], children: [      
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'logout', component: LogoutComponent }
