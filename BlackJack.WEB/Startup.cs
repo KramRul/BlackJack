@@ -25,7 +25,7 @@ namespace BlackJack.WEB
             services.IdentityConfigures();
             services.OptionsConfigures(Configuration);
             services.JwtConfigures(Configuration);
-            services.InjectConfigures();
+            services.InjectConfigures(Configuration);
             services.SwaggerConfigures();
 
             services.AddMvc(conf =>

@@ -19,7 +19,6 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
             string sQuery = "SELECT * FROM dbo.Games g LEFT JOIN dbo.AspNetUsers aspUser ON g.PlayerId = aspUser.Id";
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) => { game.Player = player; return game; });
-            _connection.Close();
             return result.ToList();
         }
 
@@ -29,9 +28,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM Games g " +
                 "INNER JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
                 "WHERE g.PlayerId = @playerId";
-            _connection.Open();
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) => { game.Player = player; return game; }, new { playerId });
-            _connection.Close();
             return result.ToList();
 
         }
@@ -42,9 +39,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM Games AS g " +
                 "LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
                 "WHERE (g.PlayerId = @playerId) AND (g.GameState = 0)";
-            _connection.Open();
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) => { game.Player = player; return game; }, new { playerId });
-            _connection.Close();
             return result.FirstOrDefault();
         }
 
@@ -54,9 +49,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM Games AS g " +
                 "LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
                 "WHERE (g.PlayerId = @playerId)";
-            _connection.Open();
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) => { game.Player = player; return game; }, new { playerId });
-            _connection.Close();
             return result.LastOrDefault();
         }
 
@@ -66,9 +59,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM Games AS g " +
                 "LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
                 "WHERE (g.Id = @gameid)";
-            _connection.Open();
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) => { game.Player = player; return game; }, new { gameid });
-            _connection.Close();
             return result.FirstOrDefault();
         }
     }

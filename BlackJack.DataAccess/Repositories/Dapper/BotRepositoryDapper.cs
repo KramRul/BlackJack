@@ -16,10 +16,8 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         public async Task<int> Count()
         {
             string sQuery = "SELECT COUNT(*) FROM Bots b";
-            _connection.Open();
             var result = await _connection.QueryAsync<int>(sQuery);          
             var count = result.FirstOrDefault();
-            _connection.Close();
             return count;
         }
     }

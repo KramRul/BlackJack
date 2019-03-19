@@ -5,7 +5,6 @@ using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace BlackJack.DataAccess.UnitOfWorks
 {
@@ -19,10 +18,10 @@ namespace BlackJack.DataAccess.UnitOfWorks
         private readonly IConfiguration _config;
         private IDbConnection _connection;
 
-        public DapperUnitOfWork(IConfiguration config)
+        public DapperUnitOfWork(IConfiguration config, IDbConnection connection)
         {
             _config = config;
-            _connection = new SqlConnection(_config.ConnectionString());
+            _connection = connection;
         }
         public IGameRepository Games
         {
@@ -82,6 +81,7 @@ namespace BlackJack.DataAccess.UnitOfWorks
             {
                 if (disposing)
                 {
+                    _connection.Close();
                     _connection.Dispose();
                     _connection = null;
                 }

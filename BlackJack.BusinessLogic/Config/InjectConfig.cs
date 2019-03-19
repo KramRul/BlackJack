@@ -1,12 +1,16 @@
-﻿using BlackJack.DataAccess.UnitOfWorks;
+﻿using BlackJack.DataAccess.Config;
+using BlackJack.DataAccess.UnitOfWorks;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace BlackJack.BusinessLogic.Config
 {
     public static class InjectConfig
     {
-        public static void InjectConfigures(this IServiceCollection services)
+        public static void InjectConfigures(this IServiceCollection services, IConfiguration config)
         {
             services.Scan(scan => scan
                 .FromCallingAssembly()
@@ -15,6 +19,8 @@ namespace BlackJack.BusinessLogic.Config
                 .AsImplementedInterfaces()
             );
             services.AddTransient<IBaseUnitOfWork, DapperUnitOfWork>();
+            services.AddTransient<IDbConnection>(db => new SqlConnection(
+                    config.ConnectionString()));
         }
     }
 }

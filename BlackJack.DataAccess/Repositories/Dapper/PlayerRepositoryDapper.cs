@@ -18,9 +18,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         public new async Task<List<Player>> GetAll()
         {
             string sQuery = "SELECT * FROM AspNetUsers b";
-            _connection.Open();
             var result = await _connection.QueryAsync<Player>(sQuery);
-            _connection.Close();
             return result.ToList();
         }
 
@@ -29,9 +27,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             string sQuery = "SELECT TOP(1) * " +
                 "FROM AspNetUsers e " +
                 "WHERE (e.Id = @id)";
-            _connection.Open();
             var result = await _connection.QueryAsync<Player>(sQuery, new { id });
-            _connection.Close();
             return result.FirstOrDefault();
         }
 
@@ -40,9 +36,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             string sQuery = "SELECT TOP(1) * " +
                 "FROM AspNetUsers e " +
                 "WHERE (e.UserName = @name)";
-            _connection.Open();
             var result = await _connection.QueryAsync<Player>(sQuery, new { name });
-            _connection.Close();
             return result.FirstOrDefault();
         }
     }

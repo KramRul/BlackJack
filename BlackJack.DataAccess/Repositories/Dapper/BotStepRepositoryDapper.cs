@@ -21,10 +21,8 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM BotSteps b " +
                 "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                 "WHERE b.GameId = @gameId ";
-            _connection.Open();
             var result = await _connection.QueryMultipleAsync(sQuery, new { gameId });           
             var bots = result.Read<Bot>().ToList();
-            _connection.Close();
             return bots;
         }
 
@@ -34,10 +32,8 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM BotSteps b " +
                 "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                 "WHERE b.GameId = @gameId";
-            _connection.Open();
             var result = await _connection.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) => { step.Bot = bot; return step; }, new { gameId });           
             var steps = result.ToList();
-            _connection.Close();
             return steps;
         }
 
@@ -47,10 +43,8 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM BotSteps b " +
                 "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                 "WHERE b.BotId = @botId";
-            _connection.Open();
             var result = await _connection.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) => { step.Bot = bot; return step; }, new { botId });
             var steps = result.ToList();
-            _connection.Close();
             return steps;
         }
     }

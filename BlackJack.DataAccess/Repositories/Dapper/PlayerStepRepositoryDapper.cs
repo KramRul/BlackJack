@@ -21,9 +21,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM PlayerSteps p " +
                 "INNER JOIN Games games ON p.GameId = games.Id " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id";
-            _connection.Open();
             var result = await _connection.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) => { step.Player = player; step.Game = game; return step; });
-            _connection.Close();
             return result.ToList();
         }
 
@@ -34,9 +32,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "INNER JOIN Games games ON p.GameId = games.Id " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
                 "WHERE (p.PlayerId = @playerId) AND (p.GameId = @gameId)";
-            _connection.Open();
             var result = await _connection.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) => { step.Player = player; step.Game = game; return step; }, new { playerId, gameId });
-            _connection.Close();
             return result.ToList();
         }
 
@@ -46,9 +42,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM PlayerSteps p " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
                 "WHERE (p.PlayerId = @playerId)";
-            _connection.Open();
             var result = await _connection.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) => { step.Player = player; return step; }, new { playerId });
-            _connection.Close();
             return result.ToList();
         }
 
@@ -58,9 +52,7 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM PlayerSteps p " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
                 "WHERE (p.Id = @id)";
-            _connection.Open();
             var result = await _connection.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) => { step.Player = player; return step; }, new { id });
-            _connection.Close();
             return result.FirstOrDefault();
         }
     }
