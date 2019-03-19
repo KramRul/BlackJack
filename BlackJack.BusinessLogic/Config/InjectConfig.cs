@@ -1,4 +1,5 @@
-﻿using BlackJack.DataAccess.Config;
+﻿using BlackJack.BusinessLogic.Config.Interfaces;
+using BlackJack.DataAccess.Config;
 using BlackJack.DataAccess.UnitOfWorks;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +20,13 @@ namespace BlackJack.BusinessLogic.Config
                 .AsImplementedInterfaces()
             );
             services.AddTransient<IBaseUnitOfWork, DapperUnitOfWork>();
-            services.AddTransient<IDbConnection>(db => new SqlConnection(
-                    config.ConnectionString()));
+            services.AddSingleton<IConnectionStringInjector, ConnectionStringInjector>();
+
+            using (var serviseProvider = services.BuildServiceProvider())
+            {
+                var connectionStringInjector = serviseProvider.GetService<ConnectionStringInjector>();
+                services.AddTransient<IDbConnection>(db => new SqlConnection(connectionStringInjector.ConnectionString));
+            }
         }
     }
 }

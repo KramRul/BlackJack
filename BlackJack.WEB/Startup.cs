@@ -20,12 +20,12 @@ namespace BlackJack.WEB
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        { 
-            services.DataBaseConfigures(Configuration);
+        {
+            services.InjectConfigures(Configuration);
+            services.DataBaseConfigures();
             services.IdentityConfigures();
             services.OptionsConfigures(Configuration);
-            services.JwtConfigures(Configuration);
-            services.InjectConfigures(Configuration);
+            services.JwtConfigures(Configuration);           
             services.SwaggerConfigures();
 
             services.AddMvc(conf =>
