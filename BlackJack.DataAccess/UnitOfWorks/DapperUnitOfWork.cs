@@ -1,5 +1,4 @@
-﻿using BlackJack.DataAccess.Config;
-using BlackJack.DataAccess.Repositories.Dapper;
+﻿using BlackJack.DataAccess.Repositories.Dapper;
 using BlackJack.DataAccess.Repositories.Interfaces;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using Microsoft.Extensions.Configuration;

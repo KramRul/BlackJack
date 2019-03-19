@@ -1,5 +1,5 @@
 ﻿using BlackJack.BusinessLogic.Config.Interfaces;
-using BlackJack.DataAccess.Config;
+using BlackJack.BusinessLogic.Config;
 using BlackJack.DataAccess.UnitOfWorks;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using Microsoft.Extensions.Configuration;

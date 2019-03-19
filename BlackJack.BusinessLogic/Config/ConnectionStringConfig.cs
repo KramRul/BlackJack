@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace BlackJack.DataAccess.Config
+namespace BlackJack.BusinessLogic.Config
 {
     public static class ConnectionStringConfig
     {

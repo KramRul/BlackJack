@@ -1,5 +1,5 @@
 ﻿using BlackJack.BusinessLogic.Config.Interfaces;
-using BlackJack.DataAccess.Config;
+using BlackJack.BusinessLogic.Config;
 using Microsoft.Extensions.Configuration;
 
 namespace BlackJack.BusinessLogic.Config
