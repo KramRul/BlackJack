@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { GetAllPlayersPlayerView } from 'src/app/shared/entities/player.views/get-all-players.player.view';
 import { GameService } from 'src/app/shared/services/game.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/services/account.service';
