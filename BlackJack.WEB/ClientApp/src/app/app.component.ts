@@ -1,6 +1,4 @@
-import { Component, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
-import { AccountService } from './shared/services/account.service';
-import { ToastrService } from 'ngx-toastr';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',

@@ -9,8 +9,8 @@ namespace BlackJack.DataAccess.Repositories.Interfaces
     {
         Task AddRange(List<PlayerStep> playerSteps);
 
-        Task<List<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId);
+        Task<List<PlayerStep>> GetAllByPlayerIdAndGameId(string playerId, Guid gameId);
 
-        Task<List<PlayerStep>> GetAllStepsByPlayerId(string playerId);
+        Task<List<PlayerStep>> GetAllByPlayerId(string playerId);
     }
 }

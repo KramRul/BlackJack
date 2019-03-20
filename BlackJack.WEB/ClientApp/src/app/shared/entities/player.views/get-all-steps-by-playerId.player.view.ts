@@ -1,6 +1,6 @@
-import { Suite } from '../../enums/suite';
-import { Rank } from '../../enums/rank';
-import { GameState } from '../../enums/game-state';
+import { SuiteType } from '../../enums/suite-type';
+import { RankType } from '../../enums/rank-type';
+import { GameStateType } from '../../enums/game-state-type';
 
 export class GetAllStepsByPlayerIdPlayerView {
   playerSteps?: Array<PlayerStepGetAllStepsByPlayerIdPlayerViewItem>;
@@ -12,8 +12,8 @@ export class GetAllStepsByPlayerIdPlayerView {
 
 export class PlayerStepGetAllStepsByPlayerIdPlayerViewItem {
   id?: string;
-  suite?: Suite;
-  rank?: Rank;
+  suite?: SuiteType;
+  rank?: RankType;
   player?: PlayerGetAllStepsByPlayerIdPlayerView;
   game?: GameGetAllStepsByPlayerIdPlayerView;
 
@@ -31,5 +31,5 @@ export class PlayerGetAllStepsByPlayerIdPlayerView {
 
 export class GameGetAllStepsByPlayerIdPlayerView {
   gameId?: string;
-  gameState?: GameState;
+  gameState?: GameStateType;
 }

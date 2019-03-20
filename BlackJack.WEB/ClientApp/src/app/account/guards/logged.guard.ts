@@ -11,8 +11,8 @@ export class LoggedGuard implements CanActivate  {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    var check = this._accountService.isSignedIn();
-    if (check) {
+    var isSignedIn = this._accountService.isSignedIn();
+    if (isSignedIn) {
       return true;
     }
     this._router.navigate(['/account/login']);

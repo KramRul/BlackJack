@@ -1,4 +1,4 @@
-﻿namespace BlackJack.BusinessLogic.Models
+﻿namespace BlackJack.BusinessLogic.Options
 {
     public class AuthenticationOptions
     {

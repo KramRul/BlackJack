@@ -26,7 +26,7 @@ namespace BlackJack.WEB.Controllers
 
         public async Task<IActionResult> Execute<T>(Func<Task<T>> func)
         {
-            GenericResponseView<T> response = new GenericResponseView<T>();
+            var response = new GenericResponseView<T>();
             var result = await func();
             response.Model = result;
             return Ok(response.Model);

@@ -1,4 +1,4 @@
-﻿namespace BlackJack.BusinessLogic.Config
+﻿namespace BlackJack.BusinessLogic.Options
 {
     public class JWTOptions
     {

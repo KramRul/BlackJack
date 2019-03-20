@@ -1,6 +1,6 @@
 ﻿namespace BlackJack.DataAccess.Enums
 {
-    public enum Rank
+    public enum RankType
     {
         Ace = 1,
         Two = 2,

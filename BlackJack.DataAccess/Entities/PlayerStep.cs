@@ -4,12 +4,10 @@ using System;
 
 namespace BlackJack.DataAccess.Entities
 {
-    public class PlayerStep
+    public class PlayerStep : BaseEntity
     {
-        [ExplicitKey]
-        public Guid Id { get; set; }
-        public Suite Suite { get; set; }
-        public Rank Rank { get; set; }
+        public SuiteType Suite { get; set; }
+        public RankType Rank { get; set; }
         public string PlayerId { get; set; }
         [Computed]
         public Player Player { get; set; }

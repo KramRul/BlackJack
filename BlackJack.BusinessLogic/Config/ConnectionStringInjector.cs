@@ -1,10 +1,8 @@
-﻿using BlackJack.BusinessLogic.Config.Interfaces;
-using BlackJack.BusinessLogic.Config;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace BlackJack.BusinessLogic.Config
 {
-    public class ConnectionStringInjector : IConnectionStringInjector
+    public class ConnectionStringInjector
     {
         private readonly IConfiguration _config;
 
@@ -17,7 +15,7 @@ namespace BlackJack.BusinessLogic.Config
         {
             get
             {
-                return _config.ConnectionString();
+                return _config.GetConnectionString("DefaultConnection");
             }
         }
     }

@@ -60,9 +60,9 @@
     <None Remove="ClientApp\src\app\shared\entities\player.views\get-all-players.player.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\player.views\get-all-steps-by-playerId.player.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\player.views\get-player-by-id.player.view.ts" />
-    <None Remove="ClientApp\src\app\shared\enums\game-state.ts" />
-    <None Remove="ClientApp\src\app\shared\enums\rank.ts" />
-    <None Remove="ClientApp\src\app\shared\enums\suite.ts" />
+    <None Remove="ClientApp\src\app\shared\enums\game-state-type.ts" />
+    <None Remove="ClientApp\src\app\shared\enums\rank-type.ts" />
+    <None Remove="ClientApp\src\app\shared\enums\suite-type.ts" />
     <None Remove="ClientApp\src\app\shared\services\account.service.ts" />
     <None Remove="ClientApp\src\app\shared\services\game.service.ts" />
     <None Remove="ClientApp\src\app\shared\services\history.service.ts" />
@@ -92,9 +92,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\player.views\get-all-players.player.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\player.views\get-all-steps-by-playerId.player.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\player.views\get-player-by-id.player.view.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\game-state.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\rank.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\suite.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\game-state-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\rank-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\suite-type.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\account.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\game.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\history.service.ts" />

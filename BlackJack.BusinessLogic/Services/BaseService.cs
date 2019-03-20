@@ -4,11 +4,11 @@ namespace BlackJack.BusinessLogic.Services
 {
     public class BaseService
     {
-        protected readonly IBaseUnitOfWork Database;
+        protected readonly IBaseUnitOfWork _database;
 
         public BaseService(IBaseUnitOfWork unitOfWork)
         {
-            Database = unitOfWork;
+            _database = unitOfWork;
         }
     }
 }

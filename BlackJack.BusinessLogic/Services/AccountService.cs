@@ -31,8 +31,8 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player does not exist.");
             }
 
-            var userCheck = await _userManager.CheckPasswordAsync(user, model.Password);
-            if (!userCheck)
+            var isValidPassword = await _userManager.CheckPasswordAsync(user, model.Password);
+            if (!isValidPassword)
             {
                 throw new CustomServiceException("Invalid username or password.");
             }
@@ -47,31 +47,31 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<RegisterAccountResponseView> Register(RegisterAccountView playerModel)
+        public async Task<RegisterAccountResponseView> Register(RegisterAccountView model)
         {
-            var playerExist = await _userManager.FindByNameAsync(playerModel.UserName);
-            if (playerExist != null)
+            var existedPlayear = await _userManager.FindByNameAsync(model.UserName);
+            if (existedPlayear != null)
             {
                 throw new CustomServiceException("Player allready exist.");
             }
 
             var user = new Player
             {
-                UserName = playerModel.UserName,
+                UserName = model.UserName,
                 Balance = 1000
             };
 
-            var result = await _userManager.CreateAsync(user, playerModel.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
                 throw new CustomServiceException("The user was not registered");
             }
 
-            string encodedJwt = await _jwtProvider.GenerateJwtToken(user.Email, user);
+            string token = await _jwtProvider.GenerateJwtToken(user.Email, user);
             return new RegisterAccountResponseView()
             {
-                AccessToken = encodedJwt,
+                AccessToken = token,
                 UserName = user.UserName
             };
         }

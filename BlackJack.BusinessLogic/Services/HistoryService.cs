@@ -20,7 +20,7 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<GameDetailsOfGameHistoryView> DetailsOfGame(string gameId)
         {
-            var game = await Database.Games.Get(Guid.Parse(gameId));
+            var game = await _database.Games.Get(Guid.Parse(gameId));
             if (game == null)
             {
                 throw new CustomServiceException("Game does not exist");
@@ -45,7 +45,7 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<GetHistoryOfGamesHistoryView> GetHistoryOfGames()
         {
             var result = new GetHistoryOfGamesHistoryView();
-            var games = await Database.Games.GetAll();
+            var games = await _database.Games.GetAll();
 
             result.Games = games.Select(game => new GameGetHistoryOfGamesHistoryViewItem()
             {

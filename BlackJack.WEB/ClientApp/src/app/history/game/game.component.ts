@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HistoryService } from '../../shared/services/history.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DetailsOfGameHistoryView } from '../../shared/entities/history.views/details-of-game.history.view';
-import { Suite } from '../../shared/enums/suite';
-import { Rank } from '../../shared/enums/rank';
-import { GameState } from '../../shared/enums/game-state';
+import { SuiteType } from '../../shared/enums/suite-type';
+import { RankType } from '../../shared/enums/rank-type';
+import { GameStateType } from '../../shared/enums/game-state-type';
 
 @Component({
   selector: 'app-game',
@@ -13,11 +13,13 @@ import { GameState } from '../../shared/enums/game-state';
 })
 export class GameComponent implements OnInit {
   public model: DetailsOfGameHistoryView = new DetailsOfGameHistoryView();
-  public Suite = Suite;
-  public Rank = Rank;
-  public GameState = GameState;
+  public Suite = SuiteType;
+  public Rank = RankType;
+  public GameState = GameStateType;
 
-  constructor(private historyService: HistoryService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private historyService: HistoryService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     var gameId = this.route.snapshot.queryParamMap.get('data');

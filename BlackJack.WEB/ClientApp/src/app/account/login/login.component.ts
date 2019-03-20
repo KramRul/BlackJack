@@ -12,19 +12,26 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
+  public players: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
   public model: RegisterAccountView = new RegisterAccountView();
 
-  constructor(private accountService: AccountService, private gameService: GameService, private notifyService: NotificationService, private router: Router) {
+  constructor(
+    private accountService: AccountService,
+    private gameService: GameService,
+    private notifyService: NotificationService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
     this.gameService.index().subscribe(data => {
-      this.modelPlayers.players = data;
+      this.players.players = data;
     });
   }
 
   login(): void {
-    this.accountService.login(this.model).subscribe(data => this.router.navigateByUrl("/"), error => this.notifyService.showError(error));
+    this.accountService.login(this.model).subscribe(
+      data => this.router.navigateByUrl("/"),
+      error => this.notifyService.showError(error)
+    );
   }
 }

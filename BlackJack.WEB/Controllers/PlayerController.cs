@@ -37,7 +37,7 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetPlayerById(string playerId)
         {
-            return await Execute(() => _playerService.GetPlayerById(playerId));
+            return await Execute(() => _playerService.GetById(playerId));
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using BlackJack.BusinessLogic.Providers.Interfaces;
-using BlackJack.BusinessLogic.Config;
+using BlackJack.BusinessLogic.Options;
 
 namespace BlackJack.BusinessLogic.Providers
 {
@@ -58,13 +58,6 @@ namespace BlackJack.BusinessLogic.Providers
             var result = tokenHandler.WriteToken(token);
 
             return result;
-        }
-
-        public async Task<string> ReadToken(string token)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var convertToken = tokenHandler.ReadToken(token);
-            return "";
         }
     }
 }

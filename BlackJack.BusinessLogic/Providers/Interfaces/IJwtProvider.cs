@@ -6,7 +6,5 @@ namespace BlackJack.BusinessLogic.Providers.Interfaces
     public interface IJwtProvider
     {
         Task<string> GenerateJwtToken(string email, Player player, double? expiredHours = null);
-
-        Task<string> ReadToken(string token);
     }
 }

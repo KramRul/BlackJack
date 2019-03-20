@@ -23,7 +23,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<List<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
+        public async Task<List<PlayerStep>> GetAllByPlayerIdAndGameId(string playerId, Guid gameId)
         {
             var result = await dataBase.PlayerSteps
                 .Include(p => p.Player)
@@ -32,7 +32,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<List<PlayerStep>> GetAllStepsByPlayerId(string playerId)
+        public async Task<List<PlayerStep>> GetAllByPlayerId(string playerId)
         {
             var result = await dataBase.PlayerSteps
                 .Include(p => p.Player)

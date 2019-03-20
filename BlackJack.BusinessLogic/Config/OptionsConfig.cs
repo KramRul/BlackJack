@@ -1,4 +1,4 @@
-﻿using BlackJack.BusinessLogic.Models;
+﻿using BlackJack.BusinessLogic.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

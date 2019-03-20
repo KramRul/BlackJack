@@ -5,6 +5,6 @@ namespace BlackJack.BusinessLogic.Helpers.Interfaces
 {
     public interface IRanksHelper
     {
-        int TotalValue(IEnumerable<Rank> steps);
+        int TotalValue(IEnumerable<RankType> steps);
     }
 }

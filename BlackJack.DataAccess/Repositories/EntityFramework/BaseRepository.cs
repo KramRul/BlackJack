@@ -8,8 +8,8 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        public ApplicationContext dataBase;
-        public DbSet<T> _dbSet;
+        protected ApplicationContext dataBase;
+        private DbSet<T> _dbSet;
 
         public BaseRepository(ApplicationContext context)
         {

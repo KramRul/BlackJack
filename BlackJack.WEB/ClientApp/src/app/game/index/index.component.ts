@@ -14,9 +14,11 @@ export class IndexComponent implements OnInit {
   public countOfBots: number = 1;
   public playerName: string;
 
-  constructor(private gameService: GameService, private accountService: AccountService, private notifyService: NotificationService, private router: Router) {
-    console.log(new LocalStorageService<string>().getItem("accessToken"));
-  }
+  constructor(
+    private gameService: GameService,
+    private accountService: AccountService,
+    private notifyService: NotificationService,
+    private router: Router) { }
 
   start(): void {
     this.gameService.start(this.countOfBots).subscribe(

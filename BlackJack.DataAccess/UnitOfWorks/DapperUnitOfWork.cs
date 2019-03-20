@@ -14,12 +14,10 @@ namespace BlackJack.DataAccess.UnitOfWorks
         private BotRepositoryDapper botRepository;
         private PlayerStepRepositoryDapper playerStepRepository;
         private BotStepRepositoryDapper botStepRepository;
-        private readonly IConfiguration _config;
         private IDbConnection _connection;
 
-        public DapperUnitOfWork(IConfiguration config, IDbConnection connection)
+        public DapperUnitOfWork(IDbConnection connection)
         {
-            _config = config;
             _connection = connection;
         }
         public IGameRepository Games

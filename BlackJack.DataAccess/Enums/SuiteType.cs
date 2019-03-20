@@ -1,6 +1,6 @@
 ﻿namespace BlackJack.DataAccess.Enums
 {
-    public enum Suite
+    public enum SuiteType
     {
         Club = 1,
         Diamond = 2,

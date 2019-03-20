@@ -21,29 +21,35 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM BotSteps b " +
                 "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                 "WHERE b.GameId = @gameId ";
-            var result = await _connection.QueryMultipleAsync(sQuery, new { gameId });           
+            var result = await _connection.QueryMultipleAsync(sQuery, new { gameId });
             var bots = result.Read<Bot>().ToList();
             return bots;
         }
 
-        public async Task<List<BotStep>> GetAllStepsByGameId(Guid gameId)
+        public async Task<List<BotStep>> GetAllByGameId(Guid gameId)
         {
             string sQuery = "SELECT DISTINCT * " +
                 "FROM BotSteps b " +
                 "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                 "WHERE b.GameId = @gameId";
-            var result = await _connection.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) => { step.Bot = bot; return step; }, new { gameId });           
+            var result = await _connection.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) =>
+            {
+                step.Bot = bot; return step;
+            }, new { gameId });
             var steps = result.ToList();
             return steps;
         }
 
-        public async Task<List<BotStep>> GetAllStepsByBotId(Guid botId)
+        public async Task<List<BotStep>> GetAllByBotId(Guid botId)
         {
             string sQuery = "SELECT DISTINCT * " +
                 "FROM BotSteps b " +
                 "INNER JOIN Bots bots ON b.BotId = bots.Id " +
                 "WHERE b.BotId = @botId";
-            var result = await _connection.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) => { step.Bot = bot; return step; }, new { botId });
+            var result = await _connection.QueryAsync<BotStep, Bot, BotStep>(sQuery, (step, bot) =>
+            {
+                step.Bot = bot; return step;
+            }, new { botId });
             var steps = result.ToList();
             return steps;
         }

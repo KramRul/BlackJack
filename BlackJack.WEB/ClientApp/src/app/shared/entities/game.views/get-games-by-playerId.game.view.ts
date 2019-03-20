@@ -1,4 +1,4 @@
-import { GameState } from '../../enums/game-state';
+import { GameStateType } from '../../enums/game-state-type';
 
 export class GetGamesByPlayerIdGameView {
   games?: Array<GameGetGamesByPlayerIdGameViewItem>;
@@ -10,7 +10,7 @@ export class GetGamesByPlayerIdGameView {
 
 export class GameGetGamesByPlayerIdGameViewItem {
   gameId?: string;
-  gameState?: GameState;
+  gameState?: GameStateType;
   player?: PlayerGetAllGamesByPlayerIdGameView;
 
   constructor() {

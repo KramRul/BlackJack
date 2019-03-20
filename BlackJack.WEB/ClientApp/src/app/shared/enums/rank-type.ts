@@ -1,4 +1,4 @@
-export enum Rank {
+export enum RankType {
   Ace = 1,
   Two = 2,
   Three = 3,

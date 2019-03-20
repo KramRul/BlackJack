@@ -6,50 +6,50 @@ namespace BlackJack.BusinessLogic.Helpers
 {
     public class RanksHelper : IRanksHelper
     {
-        public int TotalValue(IEnumerable<Rank> steps)
+        public int TotalValue(IEnumerable<RankType> steps)
         {
             int totalSum = 0;
             foreach (var card in steps)
             {
-                if (card == Rank.Ace && totalSum <= 10)
+                if (card == RankType.Ace && totalSum <= 10)
                 {
                     totalSum += 11;
                 }
-                else if (card == Rank.Ace && totalSum > 10 && totalSum < 21)
+                else if (card == RankType.Ace && totalSum > 10 && totalSum < 21)
                 {
                     totalSum += 1;
                 }
-                else if (card == Rank.Jack || card == Rank.King || card == Rank.Queen)
+                else if (card == RankType.Jack || card == RankType.King || card == RankType.Queen)
                 {
                     totalSum += 10;
                 }
                 switch (card)
                 {
-                    case Rank.Two:
+                    case RankType.Two:
                         totalSum += 2;
                         break;
-                    case Rank.Three:
+                    case RankType.Three:
                         totalSum += 3;
                         break;
-                    case Rank.Four:
+                    case RankType.Four:
                         totalSum += 4;
                         break;
-                    case Rank.Five:
+                    case RankType.Five:
                         totalSum += 5;
                         break;
-                    case Rank.Six:
+                    case RankType.Six:
                         totalSum += 6;
                         break;
-                    case Rank.Seven:
+                    case RankType.Seven:
                         totalSum += 7;
                         break;
-                    case Rank.Eight:
+                    case RankType.Eight:
                         totalSum += 8;
                         break;
-                    case Rank.Nine:
+                    case RankType.Nine:
                         totalSum += 9;
                         break;
-                    case Rank.Ten:
+                    case RankType.Ten:
                         totalSum += 10;
                         break;
                 }

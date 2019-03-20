@@ -20,7 +20,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<List<Game>> GetGamesForPlayer(string playerId)
+        public async Task<List<Game>> GetAllByPlayerId(string playerId)
         {
             var result = await dataBase.Games
                 .Include(d => d.Player)
@@ -29,17 +29,17 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<Game> GetActiveGameForPlayer(string playerId)
+        public async Task<Game> GetActiveByPlayerId(string playerId)
         {
             var result = await dataBase.Games
                 .Include(d => d.Player)
                 .Where(p => p.Player.Id == playerId)
-                .Where(p => p.GameState==Enums.GameState.Unknown)
+                .Where(p => p.GameState==Enums.GameStateType.Unknown)
                 .FirstOrDefaultAsync();
             return result;
         }
 
-        public async Task<Game> GetLastActiveGameForPlayer(string playerId)
+        public async Task<Game> GetLastActiveByPlayerId(string playerId)
         {
             var result = await dataBase.Games
                 .Include(d => d.Player)

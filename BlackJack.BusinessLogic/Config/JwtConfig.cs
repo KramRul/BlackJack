@@ -4,6 +4,7 @@ using System;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using BlackJack.BusinessLogic.Options;
 
 namespace BlackJack.BusinessLogic.Config
 {

@@ -1,8 +1,8 @@
-import { GameState } from 'src/app/shared/enums/game-state';
+import { GameStateType } from 'src/app/shared/enums/game-state-type';
 
 export class GetGameView {
   id?: string;
-  gameState?: GameState;
+  gameState?: GameStateType;
   player?: PlayerGetGameView;
 
   constructor() {

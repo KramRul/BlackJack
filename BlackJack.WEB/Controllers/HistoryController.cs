@@ -23,11 +23,7 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> Index()
         {
-            var result = await Execute(async () =>
-            {
-                var games = await _historyService.GetHistoryOfGames();
-                return games;
-            });
+            var result = await Execute(async () => await _historyService.GetHistoryOfGames());
             return result;
         }
 
@@ -36,12 +32,12 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> Game(string gameId)
         {
-            var result = await Execute(async () =>
+            return await Execute(async () =>
             {
                 var game = await _historyService.DetailsOfGame(gameId);
-                var playerSteps = await _gameService.GetAllSteps(game.Player.Id, game.Id);
-                var botsSteps = await _gameService.GetAllStepOfBots(game.Id);
-                var bots = await _gameService.GetAllBotsInGame(game.Id);
+                var playerSteps = await _gameService.GetAllStepsByPlayerIdAndGameId(game.Player.Id, game.Id);
+                var botsSteps = await _gameService.GetAllStepOfBotsByGameId(game.Id);
+                var bots = await _gameService.GetAllBotsByGameId(game.Id);
                 var steps = await _historyService.GetStepsDetailsOfGame(game, playerSteps, botsSteps, bots);
                 var model = new DetailsOfGameHistoryView()
                 {
@@ -55,7 +51,6 @@ namespace BlackJack.WEB.Controllers
                 };
                 return model;
             });
-            return result;
         }
     }
 }

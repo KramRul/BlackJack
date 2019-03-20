@@ -12,10 +12,16 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 export class RegisterComponent {
   public model: RegisterAccountView = new RegisterAccountView();
 
-  constructor(private accountService: AccountService, private notifyService: NotificationService, private router: Router) {
+  constructor(
+    private accountService: AccountService,
+    private notifyService: NotificationService,
+    private router: Router) {
   }
 
   register(): void {
-    this.accountService.register(this.model).subscribe(data => this.router.navigateByUrl("/"), error => this.notifyService.showError(error));
+    this.accountService.register(this.model).subscribe(
+      data => this.router.navigateByUrl("/"),
+      error => this.notifyService.showError(error)
+    );
   }
 }

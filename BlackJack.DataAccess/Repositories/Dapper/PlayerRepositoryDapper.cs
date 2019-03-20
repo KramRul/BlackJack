@@ -22,15 +22,6 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             return result.ToList();
         }
 
-        public new async Task<Player> Get(Guid id)
-        {
-            string sQuery = "SELECT TOP(1) * " +
-                "FROM AspNetUsers e " +
-                "WHERE (e.Id = @id)";
-            var result = await _connection.QueryAsync<Player>(sQuery, new { id });
-            return result.FirstOrDefault();
-        }
-
         public async Task<Player> GetByName(string name)
         {
             string sQuery = "SELECT TOP(1) * " +

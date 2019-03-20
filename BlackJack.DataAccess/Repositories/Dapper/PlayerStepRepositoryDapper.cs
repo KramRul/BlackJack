@@ -21,28 +21,37 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM PlayerSteps p " +
                 "INNER JOIN Games games ON p.GameId = games.Id " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id";
-            var result = await _connection.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) => { step.Player = player; step.Game = game; return step; });
+            var result = await _connection.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) =>
+            {
+                step.Player = player; step.Game = game; return step;
+            });
             return result.ToList();
         }
 
-        public async Task<List<PlayerStep>> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
+        public async Task<List<PlayerStep>> GetAllByPlayerIdAndGameId(string playerId, Guid gameId)
         {
             string sQuery = "SELECT DISTINCT * " +
                 "FROM PlayerSteps p " +
                 "INNER JOIN Games games ON p.GameId = games.Id " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
                 "WHERE (p.PlayerId = @playerId) AND (p.GameId = @gameId)";
-            var result = await _connection.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) => { step.Player = player; step.Game = game; return step; }, new { playerId, gameId });
+            var result = await _connection.QueryAsync<PlayerStep, Game, Player, PlayerStep>(sQuery, (step, game, player) =>
+            {
+                step.Player = player; step.Game = game; return step;
+            }, new { playerId, gameId });
             return result.ToList();
         }
 
-        public async Task<List<PlayerStep>> GetAllStepsByPlayerId(string playerId)
+        public async Task<List<PlayerStep>> GetAllByPlayerId(string playerId)
         {
             string sQuery = "SELECT DISTINCT * " +
                 "FROM PlayerSteps p " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
                 "WHERE (p.PlayerId = @playerId)";
-            var result = await _connection.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) => { step.Player = player; return step; }, new { playerId });
+            var result = await _connection.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) =>
+            {
+                step.Player = player; return step;
+            }, new { playerId });
             return result.ToList();
         }
 
@@ -52,7 +61,10 @@ namespace BlackJack.DataAccess.Repositories.Dapper
                 "FROM PlayerSteps p " +
                 "LEFT JOIN AspNetUsers players ON p.PlayerId = players.Id " +
                 "WHERE (p.Id = @id)";
-            var result = await _connection.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) => { step.Player = player; return step; }, new { id });
+            var result = await _connection.QueryAsync<PlayerStep, Player, PlayerStep>(sQuery, (step, player) =>
+            {
+                step.Player = player; return step;
+            }, new { id });
             return result.FirstOrDefault();
         }
     }

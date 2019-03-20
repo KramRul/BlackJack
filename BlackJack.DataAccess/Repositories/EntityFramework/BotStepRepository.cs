@@ -24,7 +24,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<List<BotStep>> GetAllStepsByGameId(Guid gameId)
+        public async Task<List<BotStep>> GetAllByGameId(Guid gameId)
         {
             var result = await dataBase.BotSteps
                 .Include(b => b.Bot)
@@ -33,7 +33,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             return result;
         }
 
-        public async Task<List<BotStep>> GetAllStepsByBotId(Guid botId)
+        public async Task<List<BotStep>> GetAllByBotId(Guid botId)
         {
             var result = await dataBase.BotSteps
                 .Include(b => b.Bot)

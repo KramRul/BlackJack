@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../shared/services/game.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GetDetailsGameView } from '../../shared/entities/game.views/get-details.game.view';
-import { Suite } from '../../shared/enums/suite';
-import { Rank } from '../../shared/enums/rank';
-import { GameState } from '../../shared/enums/game-state';
+import { SuiteType } from '../../shared/enums/suite-type';
+import { RankType } from '../../shared/enums/rank-type';
+import { GameStateType } from '../../shared/enums/game-state-type';
 
 @Component({
   selector: 'app-start',
@@ -14,11 +14,12 @@ import { GameState } from '../../shared/enums/game-state';
 export class StartComponent implements OnInit {
   public model: GetDetailsGameView = new GetDetailsGameView();
   public bet: number;
-  public Suite = Suite;
-  public Rank = Rank;
-  public GameState = GameState;
+  public Suite = SuiteType;
+  public Rank = RankType;
+  public GameState = GameStateType;
 
-  constructor(private gameService: GameService, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private gameService: GameService) {
   }
 
   ngOnInit(): void {

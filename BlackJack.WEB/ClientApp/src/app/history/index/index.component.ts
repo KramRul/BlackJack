@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HistoryService } from '../../shared/services/history.service';
 import { GetHistoryOfGamesHistoryView } from '../../shared/entities/history.views/get-history-of-games.history.view';
 import { Router } from '@angular/router';
-import { GameState } from '../../shared/enums/game-state';
+import { GameStateType } from '../../shared/enums/game-state-type';
 
 @Component({
   selector: 'app-index',
@@ -10,10 +10,12 @@ import { GameState } from '../../shared/enums/game-state';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  public GameState = GameState;
+  public GameState = GameStateType;
   public model: GetHistoryOfGamesHistoryView = new GetHistoryOfGamesHistoryView();
 
-  constructor(private historyService: HistoryService, private router: Router) { }
+  constructor(
+    private historyService: HistoryService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.historyService.index().subscribe(data => {
@@ -22,6 +24,9 @@ export class IndexComponent implements OnInit {
   }
 
   game(gameId: string): void {
-    this.router.navigate(["/history/game"], { queryParams: { data: gameId } });
+    this.router.navigate(["/history/game"],
+      {
+        queryParams: { data: gameId }
+      });
   }
 }

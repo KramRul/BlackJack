@@ -1,9 +1,9 @@
-import { GameState } from '../../enums/game-state';
+import { GameStateType } from '../../enums/game-state-type';
 
 export class StartGameView {
   id?: string;
   wonName?: string;
-  gameState?: GameState;
+  gameState?: GameStateType;
   countOfBots?: number;
   player?: PlayerStartGameView;
 

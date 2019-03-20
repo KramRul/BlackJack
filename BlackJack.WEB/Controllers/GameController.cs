@@ -51,7 +51,7 @@ namespace BlackJack.WEB.Controllers
         {
             var result = await Execute(async () =>
             {
-                var model = await _gameService.GetDetails(PlayerId, gameId);              
+                var model = await _gameService.GetDetailsByPlayerIdAndGameId(PlayerId, gameId);              
                 return model;
             });
             return result;
@@ -83,7 +83,7 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetAllSteps(string playerId, Guid gameId)
         {
-            return await Execute(() => _gameService.GetAllSteps(playerId, gameId));
+            return await Execute(() => _gameService.GetAllStepsByPlayerIdAndGameId(playerId, gameId));
         }
 
         [HttpGet]
@@ -91,7 +91,7 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetAllStepOfBots(Guid gameId)
         {
-            return await Execute(() => _gameService.GetAllStepOfBots(gameId));
+            return await Execute(() => _gameService.GetAllStepOfBotsByGameId(gameId));
         }
 
         [HttpGet]
@@ -107,7 +107,7 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> Get(Guid gameId)
         {
-            return await Execute(() => _gameService.Get(gameId));
+            return await Execute(() => _gameService.GetById(gameId));
         }
     }
 }

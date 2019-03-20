@@ -1,9 +1,9 @@
-import { Suite } from '../../enums/suite';
-import { Rank } from '../../enums/rank';
+import { SuiteType } from '../../enums/suite-type';
+import { RankType } from '../../enums/rank-type';
 
 export class HitGameView {
   playerId?: string;
   gameId?: string;
-  suite?: Suite;
-  rank?: Rank;
+  suite?: SuiteType;
+  rank?: RankType;
 }

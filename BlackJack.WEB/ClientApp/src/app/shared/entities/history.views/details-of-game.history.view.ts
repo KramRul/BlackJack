@@ -1,8 +1,8 @@
-import { GameState } from "../../enums/game-state";
+import { GameStateType } from "../../enums/game-state-type";
 import { GetAllStepsGameView } from "../game.views/get-all-steps.game.view";
 import { GetAllStepOfBotsGameView } from "../game.views/get-all-step-of-bots.game.view";
-import { Suite } from "../../enums/suite";
-import { Rank } from "../../enums/rank";
+import { SuiteType } from "../../enums/suite-type";
+import { RankType } from "../../enums/rank-type";
 
 export class DetailsOfGameHistoryView {
   game?: GameDetailsOfGameHistoryView;
@@ -36,8 +36,8 @@ export class StepPlayerAndBotStepsDetailsOfGameHistoryViewItem {
 
 export class CardPlayerAndBotStepsDetailsOfGameHistoryView {
   id?: string;
-  suite?: Suite;
-  rank?: Rank;
+  suite?: SuiteType;
+  rank?: RankType;
   player?: PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView;
   game?: GameCardPlayerAndBotStepsDetailsOfGameHistoryView;
   bot?: BotCardPlayerAndBotStepsDetailsOfGameHistoryView;
@@ -59,7 +59,7 @@ export class PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView {
 export class GameCardPlayerAndBotStepsDetailsOfGameHistoryView {
   id?: string;
   wonName?: string;
-  gameState?: GameState;
+  gameState?: GameStateType;
 }
 
 export class BotCardPlayerAndBotStepsDetailsOfGameHistoryView {
@@ -72,7 +72,7 @@ export class BotCardPlayerAndBotStepsDetailsOfGameHistoryView {
 export class GameDetailsOfGameHistoryView {
   id?: string;
   wonName?: string;
-  gameState?: GameState;
+  gameState?: GameStateType;
   player?: PlayerDetailsOfGameHistoryView;
 
   constructor() {
