@@ -46,7 +46,7 @@ export class StartComponent implements OnInit {
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
       });
-    });    
+    });
   }
 
   stand(): void {
@@ -56,6 +56,6 @@ export class StartComponent implements OnInit {
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
       });
-    });   
+    });
   }
 }

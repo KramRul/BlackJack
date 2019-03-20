@@ -11,13 +11,11 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
-export class IndexComponent implements OnInit{
-  //modelPlayers: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
-  public countOfBots: number;
+export class IndexComponent implements OnInit {
+  public countOfBots: number = 1;
   public playerName: string;
 
   constructor(private gameService: GameService, private accountService: AccountService, private notifyService: NotificationService, private router: Router) {
-    //this.gameService.index(this.modelPlayers).subscribe();
     console.log(new LocalStorageService<string>().getItem("accessToken"));
   }
 
@@ -25,13 +23,13 @@ export class IndexComponent implements OnInit{
     this.gameService.start(this.countOfBots).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(["/game/start"]);      
+        this.router.navigate(["/game/start"]);
       }
       , error => this.notifyService.showError(error)
     );
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.accountService.getLoggedPlayerName().subscribe(data => {
       console.log(data);
       this.playerName = data;

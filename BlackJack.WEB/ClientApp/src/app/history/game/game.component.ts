@@ -11,7 +11,7 @@ import { GameState } from '../../shared/enums/game-state';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit { 
+export class GameComponent implements OnInit {
   public model: DetailsOfGameHistoryView = new DetailsOfGameHistoryView();
   public Suite = Suite;
   public Rank = Rank;

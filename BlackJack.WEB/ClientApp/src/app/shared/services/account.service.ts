@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { LoginAccountResponseView } from '../entities/account.views/login-response.account.view';
 import { LocalStorageService } from './local-storage.service';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AccountService {
       return false;
   }
 
-  login(model: LoginAccountView) {
+  login(model: LoginAccountView): Observable<void> {
     return this.http.post<LoginAccountResponseView>(`${this.Url}login`, model).pipe(
       map((response: LoginAccountResponseView) => {
         console.log(response);
@@ -37,15 +38,15 @@ export class AccountService {
     lStorage.removeItem("accessToken");
   }
 
-  getLoggedPlayerName() {
+  getLoggedPlayerName(): Observable<string> {
     return this.http.post<string>(`${this.Url}getLoggedPlayerName`, null).pipe(
-      map((response: any) => {
+      map((response: string) => {
         console.log(response);
         return response;
       }));
   }
 
-  register(model: RegisterAccountView) {
+  register(model: RegisterAccountView): Observable<any> {
     return this.http.post(`${this.Url}register`, model);
   }
 }

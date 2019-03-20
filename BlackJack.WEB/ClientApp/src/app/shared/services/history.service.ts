@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { GetHistoryOfGamesHistoryView } from '../entities/history.views/get-history-of-games.history.view';
 import { DetailsOfGameHistoryView } from '../entities/history.views/details-of-game.history.view';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class HistoryService {
   constructor(private http: HttpClient) {
   }
 
-  index() {
+  index(): Observable<GetHistoryOfGamesHistoryView> {
     return this.http.get<GetHistoryOfGamesHistoryView>(`${this.Url}index`).pipe(
       map((response: GetHistoryOfGamesHistoryView) => {
         console.log(response);
@@ -22,7 +23,7 @@ export class HistoryService {
       }));
   }
 
-  game(gameId: string) {
+  game(gameId: string): Observable<DetailsOfGameHistoryView> {
     return this.http.get<DetailsOfGameHistoryView>(`${this.Url}game?gameId=${gameId}`).pipe(
       map((response: DetailsOfGameHistoryView) => {
         console.log(response);

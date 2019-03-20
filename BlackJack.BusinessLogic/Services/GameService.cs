@@ -57,7 +57,7 @@ namespace BlackJack.BusinessLogic.Services
                 Rank = (RankTypeEnumView)step.Rank,
                 Suite = (SuiteTypeEnumView)step.Suite
             }).ToList();
-
+            
             return model;
         }
 
@@ -78,7 +78,7 @@ namespace BlackJack.BusinessLogic.Services
                     Balance = x.Bot.Balance,
                     Bet = x.Bot.Bet
                 }
-            }).ToList();
+            }).OrderBy(b => b.Bot.Name).ToList();
 
             return model;
         }

@@ -3,48 +3,60 @@
   <h2 class="h2">Start Game</h2>
   <h2 class="h2">User: {{model?.game.player.userName}}</h2>
 </div>
-<hr />
-<div class="d-xl-flex justify-content-center">
-  <div class="alert alert-primary">
-    Balance: <label name="PlayerBalance" id="PlayerBalance" class="p-2 m-2 rounded-lg bg-light text-dark">{{model?.game.player.balance}}</label>
-    Bet: <label name="PlayerBet" id="PlayerBet" class="p-2 m-2 rounded-lg bg-light text-dark">{{model?.game.player.bet}}</label>
+<div class="container-fluid">
+  <hr />
+  <div class="d-xl-flex justify-content-center">
+    <div class="alert alert-primary">
+      Balance: <label name="PlayerBalance" id="PlayerBalance" class="p-2 m-2 rounded-lg bg-light text-dark">{{model?.game.player.balance}}</label>
+      Bet: <label name="PlayerBet" id="PlayerBet" class="p-2 m-2 rounded-lg bg-light text-dark">{{model?.game.player.bet}}</label>
+    </div>
+    <div class="alert alert-primary">Game State: <label name="GameState" id="GameState" class="p-2 m-2 rounded-lg bg-light text-dark">{{GameState[model?.game.gameState]}}</label></div>
   </div>
-  <div class="alert alert-primary">Game State: <label name="GameState" id="GameState" class="p-2 m-2 rounded-lg bg-light text-dark">{{GameState[model?.game.gameState]}}</label></div>
-</div>
-<hr />
-<div class="form-group" *ngIf="model.game.wonName!='' && model.game.wonName!=null">
-  <input type="text" class="form-control is-valid" disabled value="{{model?.game.wonName}} WON">
-</div>
-<table class="table">
-  <tr><th></th><th>Bot Name</th><th>Suite</th><th>Rank</th></tr>
-  <tr *ngFor="let botStep of model.botsSteps.botSteps; let i = index">
-    <td>{{i}}</td>
-    <td>{{botStep?.bot.name}}</td>
-    <td>{{Suite[botStep?.suite]}}</td>
-    <td>{{Rank[botStep?.rank]}}</td>
-  </tr>
-</table>
-<hr />
-<table class="table" id="TablePlayerStepsInGame">
-  <tr><th></th><th>Player Name</th><th>Suite</th><th>Rank</th></tr>
-  <tr *ngFor="let playerStep of model.playerSteps.playerSteps; let i = index">
-    <td>{{i}}</td>
-    <td>{{playerStep?.player.userName}}</td>
-    <td>{{Suite[playerStep?.suite]}}</td>
-    <td>{{Rank[playerStep?.rank]}}</td>
-  </tr>
-</table>
-<hr />
-<div *ngIf="model.game.player.bet==0 && model.playerSteps.playerSteps.length<=2">
-  <div class="form-group">
-    <input value={{model?.game.player.balance}} name="Balance" id="Balance" hidden />
-    <input [(ngModel)]="bet" name="Bet" id="Bet" />
-  </div>
-  <div>
-    <input id="formPlaceAbet" type="button" value="Bet" class="btn btn-secondary btn-lg" (click)="placeABet()" />
+  <hr />
+  <div class="form-group" *ngIf="model.game.wonName!='' && model.game.wonName!=null">
+    <input type="text" class="form-control is-valid" disabled value="{{model?.game.wonName}} WON">
   </div>
 </div>
-<div class="form-group d-flex justify-content-center" *ngIf="model.game.player.bet!=0 && model.game.gameState==0">
-  <input type="button" class="pr-5 pl-5 mr-3 ml-3 btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" (click)="hit()" />
-  <input type="button" class="pr-5 pl-5 mr-3 ml-3 btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" (click)="stand()" />
+<div class="container-fluid">
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr><th></th><th>Bot Name</th><th>Suite</th><th>Rank</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let botStep of model.botsSteps.botSteps; let i = index">
+        <td>{{i}}</td>
+        <td>{{botStep?.bot.name}}</td>
+        <td>{{Suite[botStep?.suite]}}</td>
+        <td>{{Rank[botStep?.rank]}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+  <table class="table table-bordered table-hover" id="TablePlayerStepsInGame">
+    <thead class="thead-light">
+      <tr><th></th><th>Player Name</th><th>Suite</th><th>Rank</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let playerStep of model.playerSteps.playerSteps; let i = index">
+        <td>{{i}}</td>
+        <td>{{playerStep?.player.userName}}</td>
+        <td>{{Suite[playerStep?.suite]}}</td>
+        <td>{{Rank[playerStep?.rank]}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+  <div *ngIf="model.game.player.bet==0 && model.playerSteps.playerSteps.length<=2">
+    <div class="form-group">
+      <input value={{model?.game.player.balance}} name="Balance" id="Balance" hidden />
+      <input [(ngModel)]="bet" name="Bet" id="Bet" />
+    </div>
+    <div>
+      <input id="formPlaceAbet" type="button" value="Bet" class="btn btn-secondary btn-lg" (click)="placeABet()" />
+    </div>
+  </div>
+  <div class="form-group d-flex justify-content-center" *ngIf="model.game.player.bet!=0 && model.game.gameState==0">
+    <input type="button" class="pr-5 pl-5 mr-3 ml-3 btn btn-primary btn-lg" name="ButtonHit" id="ButtonHit" value="Hit" (click)="hit()" />
+    <input type="button" class="pr-5 pl-5 mr-3 ml-3 btn btn-secondary btn-lg" name="ButtonStand" id="ButtonStand" value="Stand" (click)="stand()" />
+  </div>
 </div>

@@ -11,7 +11,7 @@ export class LogoutComponent {
   constructor(private accountService: AccountService, private router: Router) {
   }
 
-  logout() {
+  logout(): void {
     this.accountService.logout();
     this.router.navigateByUrl("/");
   }

@@ -32,7 +32,7 @@ export class LocalStorageService<T> {
     }
   }
 
-  getItem(key: string) {
+  getItem(key: string): string {
     try {
       var data = localStorage.getItem(key);
       if (!data) return null; else
