@@ -37,10 +37,10 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Invalid username or password.");
             }
 
-            string encodedJwt = await _jwtProvider.GenerateJwtToken(user.Email, user);
+            string token = await _jwtProvider.GenerateJwtToken(user.Email, user);
             var result = new LoginAccountResponseView()
             {
-                AccessToken = encodedJwt,
+                AccessToken = token,
                 UserName = user.UserName,
                 PlayerId = user.Id
             };
