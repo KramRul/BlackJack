@@ -27,7 +27,6 @@ export class IndexComponent implements OnInit {
   start(): void {
     this.gameService.start(this.startForm.get('countOfBots').value).subscribe(
       data => {
-        console.log(data);
         this.router.navigate(["/game/start"]);
       }
       , error => this.notifyService.showError(error)
@@ -36,7 +35,6 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountService.getLoggedPlayerName().subscribe(data => {
-      console.log(data);
       this.playerName = data;
     }
       , error => this.notifyService.showError(error)

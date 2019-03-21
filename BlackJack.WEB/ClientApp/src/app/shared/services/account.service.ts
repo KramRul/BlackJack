@@ -27,7 +27,6 @@ export class AccountService {
   login(model: LoginAccountView): Observable<void> {
     return this.http.post<LoginAccountResponseView>(`${this.Url}login`, model).pipe(
       map((response: LoginAccountResponseView) => {
-        console.log(response);
         var lStorage = new LocalStorageService<string>();
         lStorage.setItem("accessToken", response.accessToken);
       }));
@@ -41,7 +40,6 @@ export class AccountService {
   getLoggedPlayerName(): Observable<string> {
     return this.http.post<string>(`${this.Url}getLoggedPlayerName`, null).pipe(
       map((response: string) => {
-        console.log(response);
         return response;
       }));
   }

@@ -19,7 +19,6 @@ export class GameService {
   index(): Observable<Array<PlayerGetAllPlayersPlayerViewItem>> {
     return this.http.get<GetAllPlayersPlayerView>(`${this.Url}index`).pipe(
       map((response: GetAllPlayersPlayerView) => {
-        console.log(response);
         return response.players;
       }));
   }
@@ -27,7 +26,6 @@ export class GameService {
   start(countOfBots: number): Observable<StartGameView> {
     return this.http.get<StartGameView>(`${this.Url}start?countOfBots=${countOfBots}`).pipe(
       map((response: StartGameView) => {
-        console.log(response);
         return response;
       }));
   }
@@ -35,7 +33,6 @@ export class GameService {
   GetDetails(gameId?: string): Observable<GetDetailsGameView> {
     return this.http.get<GetDetailsGameView>(`${this.Url}getDetails?gameId=${gameId}`).pipe(
       map((response: GetDetailsGameView) => {
-        console.log(response);
         return response;
       }));
   }
