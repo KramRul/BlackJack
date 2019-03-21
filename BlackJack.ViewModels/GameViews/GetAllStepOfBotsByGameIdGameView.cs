@@ -4,25 +4,25 @@ using System.Collections.Generic;
 
 namespace BlackJack.ViewModels.GameViews
 {
-    public class GetAllStepOfBotsGameView
+    public class GetAllStepOfBotsByGameIdGameView
     {
-        public List<BotStepGetAllStepOfBotsViewItem> BotSteps { get; set; }
+        public List<BotStepGetAllStepOfBotsByGameIdGameViewItem> BotSteps { get; set; }
 
-        public GetAllStepOfBotsGameView()
+        public GetAllStepOfBotsByGameIdGameView()
         {
-            BotSteps = new List<BotStepGetAllStepOfBotsViewItem>();
+            BotSteps = new List<BotStepGetAllStepOfBotsByGameIdGameViewItem>();
         }
     }
 
-    public class BotStepGetAllStepOfBotsViewItem
+    public class BotStepGetAllStepOfBotsByGameIdGameViewItem
     {
         public Guid Id { get; set; }
         public SuiteTypeEnumView Suite { get; set; }
         public RankTypeEnumView Rank { get; set; }
-        public BotGetAllStepOfBotsView Bot { get; set; }
+        public BotGetAllStepOfBotsByGameIdGameView Bot { get; set; }
     }
 
-    public class BotGetAllStepOfBotsView
+    public class BotGetAllStepOfBotsByGameIdGameView
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

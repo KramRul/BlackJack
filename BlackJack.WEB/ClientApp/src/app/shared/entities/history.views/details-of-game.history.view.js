@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var get_all_steps_game_view_1 = require("../game.views/get-all-steps.game.view");
-var get_all_step_of_bots_game_view_1 = require("../game.views/get-all-step-of-bots.game.view");
+var get_all_steps_by_player_id_and_game_id_game_view_1 = require("../game.views/get-all-steps-by-player-id-and-game-id.game.view");
+var get_all_step_of_bots_by_game_id_game_view_1 = require("../game.views/get-all-step-of-bots-by-game-id.game.view");
 var DetailsOfGameHistoryView = /** @class */ (function () {
     function DetailsOfGameHistoryView() {
         this.game = new GameDetailsOfGameHistoryView();
-        this.playerSteps = new get_all_steps_game_view_1.GetAllStepsGameView();
-        this.botsSteps = new get_all_step_of_bots_game_view_1.GetAllStepOfBotsGameView();
+        this.playerSteps = new get_all_steps_by_player_id_and_game_id_game_view_1.GetAllStepsByPlayerIdAndGameIdGameView();
+        this.botsSteps = new get_all_step_of_bots_by_game_id_game_view_1.GetAllStepOfBotsByGameIdGameView();
         this.playerAndBotSteps = new PlayerAndBotStepsDetailsOfGameHistoryView();
     }
     return DetailsOfGameHistoryView;

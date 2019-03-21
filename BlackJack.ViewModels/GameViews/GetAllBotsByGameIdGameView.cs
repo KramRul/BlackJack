@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace BlackJack.ViewModels.GameViews
 {
-    public class GetAllBotsInGameGameView
+    public class GetAllBotsByGameIdGameView
     {
-        public List<BotGetAllBotsInGameGameViewItem> Bots { get; set; }
+        public List<BotGetAllBotsByGameIdGameViewItem> Bots { get; set; }
 
-        public GetAllBotsInGameGameView()
+        public GetAllBotsByGameIdGameView()
         {
-            Bots = new List<BotGetAllBotsInGameGameViewItem>();
+            Bots = new List<BotGetAllBotsByGameIdGameViewItem>();
         }
     }
 
-    public class BotGetAllBotsInGameGameViewItem
+    public class BotGetAllBotsByGameIdGameViewItem
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

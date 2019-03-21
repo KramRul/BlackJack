@@ -65,9 +65,9 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>> GetStepsDetailsOfGame(
             GameDetailsOfGameHistoryView game,
-            GetAllStepsGameView playerSteps,
-            GetAllStepOfBotsGameView botsSteps,
-            GetAllBotsInGameGameView bots)
+            GetAllStepsByPlayerIdAndGameIdGameView playerSteps,
+            GetAllStepOfBotsByGameIdGameView botsSteps,
+            GetAllBotsByGameIdGameView bots)
         {
             var steps = new List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>();
             var cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();

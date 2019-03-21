@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HistoryService } from '../../shared/services/history.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DetailsOfGameHistoryView } from '../../shared/entities/history.views/details-of-game.history.view';
 import { SuiteType } from '../../shared/enums/suite-type';
 import { RankType } from '../../shared/enums/rank-type';

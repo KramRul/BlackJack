@@ -58,7 +58,7 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<GetPlayerByIdPlayerView> GetById(string playerId)
+        public async Task<GetByIdPlayerView> GetById(string playerId)
         {
             var player = await _database.Players.Get(Guid.Parse(playerId));
             if (player == null)
@@ -66,7 +66,7 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player does not exist");
             }
 
-            var response = new GetPlayerByIdPlayerView()
+            var response = new GetByIdPlayerView()
             {
                 Id = player.Id,
                 UserName = player.UserName,

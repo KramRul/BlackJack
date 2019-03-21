@@ -6,11 +6,11 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
 {
     public interface IGameService
     {
-        Task<GetAllStepsGameView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameID);
+        Task<GetAllStepsByPlayerIdAndGameIdGameView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameID);
 
-        Task<GetAllBotsInGameGameView> GetAllBotsByGameId(Guid gameId);
+        Task<GetAllBotsByGameIdGameView> GetAllBotsByGameId(Guid gameId);
 
-        Task<GetAllStepOfBotsGameView> GetAllStepOfBotsByGameId(Guid gameId);
+        Task<GetAllStepOfBotsByGameIdGameView> GetAllStepOfBotsByGameId(Guid gameId);
 
         Task<StartGameView> Start(string playerName, int countOfBots);
 
@@ -22,10 +22,10 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
 
         Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId);
 
-        Task<GetGameView> GetById(Guid gameId);
+        Task<GetByIdGameView> GetById(Guid gameId);
 
-        Task<GetDetailsGameView> GetDetailsByPlayerIdAndGameId(string playerId, string gameId);
+        Task<GetDetailsByPlayerIdAndGameIdGameView> GetDetailsByPlayerIdAndGameId(string playerId, string gameId);
 
-        Task<GetDetailsResponseGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, string gameId);
+        Task<GetGameDetailsByPlayerIdAndGameIdGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, string gameId);
     }
 }

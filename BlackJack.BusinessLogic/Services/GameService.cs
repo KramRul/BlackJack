@@ -23,14 +23,14 @@ namespace BlackJack.BusinessLogic.Services
             _ranksHelper = ranksHelper;
         }
 
-        public async Task<GetAllStepsGameView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameID)
+        public async Task<GetAllStepsByPlayerIdAndGameIdGameView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameID)
         {
             if (string.IsNullOrEmpty(playerId))
             {
                 throw new CustomServiceException("Player cannot be null");
             }
 
-            var model = new GetAllStepsGameView();
+            var model = new GetAllStepsByPlayerIdAndGameIdGameView();
             var player = await _database.Players.Get(Guid.Parse(playerId));
             if (player == null)
             {
@@ -39,17 +39,17 @@ namespace BlackJack.BusinessLogic.Services
 
             var playerSteps = await _database.PlayerSteps.GetAllByPlayerIdAndGameId(playerId, gameID);
 
-            model.PlayerSteps = playerSteps.Select(step => new PlayerStepGetAllStepsGameViewItem()
+            model.PlayerSteps = playerSteps.Select(step => new PlayerStepGetAllStepsByPlayerIdAndGameIdGameViewItem()
             {
                 Id = step.Id,
-                Player = new PlayerGetAllStepsGameView()
+                Player = new PlayerGetAllStepsByPlayerIdAndGameIdGameView()
                 {
                     PlayerId = step.PlayerId,
                     Balance = step.Player.Balance,
                     UserName = step.Player.UserName,
                     Bet = step.Player.Bet
                 },
-                Game = new GameGetAllStepsGameView()
+                Game = new GameGetAllStepsByPlayerIdAndGameIdGameView()
                 {
                     GameId = step.GameId,
                     GameState = (GameStateTypeEnumView)step.Game.GameState
@@ -61,17 +61,17 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetAllStepOfBotsGameView> GetAllStepOfBotsByGameId(Guid gameId)
+        public async Task<GetAllStepOfBotsByGameIdGameView> GetAllStepOfBotsByGameId(Guid gameId)
         {
-            var model = new GetAllStepOfBotsGameView();
+            var model = new GetAllStepOfBotsByGameIdGameView();
             var botSteps = await _database.BotSteps.GetAllByGameId(gameId);
 
-            model.BotSteps = botSteps.Select(x => new BotStepGetAllStepOfBotsViewItem()
+            model.BotSteps = botSteps.Select(x => new BotStepGetAllStepOfBotsByGameIdGameViewItem()
             {
                 Id = x.Id,
                 Rank = (RankTypeEnumView)x.Rank,
                 Suite = (SuiteTypeEnumView)x.Suite,
-                Bot = new BotGetAllStepOfBotsView()
+                Bot = new BotGetAllStepOfBotsByGameIdGameView()
                 {
                     Id = x.BotId,
                     Name = x.Bot.Name,
@@ -83,12 +83,12 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetAllBotsInGameGameView> GetAllBotsByGameId(Guid gameId)
+        public async Task<GetAllBotsByGameIdGameView> GetAllBotsByGameId(Guid gameId)
         {
-            var model = new GetAllBotsInGameGameView();
+            var model = new GetAllBotsByGameIdGameView();
             var bots = await _database.BotSteps.GetAllBotsByGameId(gameId);
 
-            model.Bots = bots.Select(bot => new BotGetAllBotsInGameGameViewItem()
+            model.Bots = bots.Select(bot => new BotGetAllBotsByGameIdGameViewItem()
             {
                 Id = bot.Id,
                 Name = bot.Name,
@@ -185,7 +185,7 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<GetDetailsGameView> GetDetailsByPlayerIdAndGameId(string playerId, string gameId)
+        public async Task<GetDetailsByPlayerIdAndGameIdGameView> GetDetailsByPlayerIdAndGameId(string playerId, string gameId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
@@ -195,7 +195,7 @@ namespace BlackJack.BusinessLogic.Services
             var game = await GetGameDetailsByPlayerIdAndGameId(playerId, gameId);
             var playerSteps = await GetAllStepsByPlayerIdAndGameId(playerId, game.Id);
             var botsSteps = await GetAllStepOfBotsByGameId(game.Id);
-            var model = new GetDetailsGameView()
+            var model = new GetDetailsByPlayerIdAndGameIdGameView()
             {
                 Game = new StartGameView()
                 {
@@ -217,7 +217,7 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetDetailsResponseGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, string gameId)
+        public async Task<GetGameDetailsByPlayerIdAndGameIdGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, string gameId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
@@ -240,12 +240,12 @@ namespace BlackJack.BusinessLogic.Services
                 }
             }
 
-            var result = new GetDetailsResponseGameView()
+            var result = new GetGameDetailsByPlayerIdAndGameIdGameView()
             {
                 Id = game.Id,
                 GameState = (GameStateTypeEnumView)game.GameState,
                 WonName = game.WonName,
-                Player = new PlayerGetDetailsGameView()
+                Player = new PlayerGameDetailsByPlayerIdAndGameIdGameView()
                 {
                     PlayerId = player.Id,
                     UserName = player.UserName,
@@ -531,7 +531,7 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<GetGameView> GetById(Guid gameId)
+        public async Task<GetByIdGameView> GetById(Guid gameId)
         {
             var game = await _database.Games.Get(gameId);
             if (game == null)
@@ -539,10 +539,10 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Game does not exist");
             }
 
-            return new GetGameView()
+            return new GetByIdGameView()
             {
                 Id = game.Id,
-                Player = new PlayerGetGameView()
+                Player = new PlayerGetByIdGameView()
                 {
                     PlayerId = game.Player.Id,
                     Balance = game.Player.Balance,

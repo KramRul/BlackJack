@@ -1,6 +1,6 @@
 ﻿namespace BlackJack.ViewModels.PlayerViews
 {
-    public class GetPlayerByIdPlayerView
+    public class GetByIdPlayerView
     {
         public string Id { get; set; }
         public string UserName { get; set; }

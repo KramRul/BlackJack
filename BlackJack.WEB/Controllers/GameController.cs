@@ -45,7 +45,7 @@ namespace BlackJack.WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        [SwaggerResponse(200, "", typeof(GetDetailsGameView))]
+        [SwaggerResponse(200, "", typeof(GetDetailsByPlayerIdAndGameIdGameView))]
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetDetails(string gameId)
         {
@@ -79,7 +79,7 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
-        [SwaggerResponse(200, "", typeof(GetAllStepsGameView))]
+        [SwaggerResponse(200, "", typeof(GetAllStepsByPlayerIdAndGameIdGameView))]
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetAllSteps(string playerId, Guid gameId)
         {
@@ -87,7 +87,7 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
-        [SwaggerResponse(200, "", typeof(GetAllStepOfBotsGameView))]
+        [SwaggerResponse(200, "", typeof(GetAllStepOfBotsByGameIdGameView))]
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetAllStepOfBots(Guid gameId)
         {
@@ -103,7 +103,7 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
-        [SwaggerResponse(200, "", typeof(GetGameView))]
+        [SwaggerResponse(200, "", typeof(GetByIdGameView))]
         [SwaggerResponse(500)]
         public async Task<IActionResult> Get(Guid gameId)
         {

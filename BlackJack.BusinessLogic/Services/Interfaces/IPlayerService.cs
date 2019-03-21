@@ -9,6 +9,6 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
 
         Task<GetAllStepsByPlayerIdPlayerView> GetAllStepsByPlayerId(string playerId);
 
-        Task<GetPlayerByIdPlayerView> GetById(string playerId);
+        Task<GetByIdPlayerView> GetById(string playerId);
     }
 }

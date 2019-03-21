@@ -3,14 +3,14 @@ using System;
 
 namespace BlackJack.ViewModels.GameViews
 {
-    public class GetGameView
+    public class GetByIdGameView
     {
         public Guid Id { get; set; }
         public GameStateTypeEnumView GameState { get; set; }
-        public PlayerGetGameView Player { get; set; }
+        public PlayerGetByIdGameView Player { get; set; }
     }
 
-    public class PlayerGetGameView
+    public class PlayerGetByIdGameView
     {
         public string PlayerId { get; set; }
         public decimal Balance { get; set; }

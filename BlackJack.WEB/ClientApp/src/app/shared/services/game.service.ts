@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { GetAllPlayersPlayerView, PlayerGetAllPlayersPlayerViewItem } from '../entities/player.views/get-all-players.player.view';
 import { StartGameView } from '../entities/game.views/start.game.view';
-import { GetDetailsGameView } from '../entities/game.views/get-details.game.view';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { GetDetailsByPlayerIdAndGameIdGameView } from '../entities/game.views/get-details-by-player-id-and-game-id.game.view';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +30,9 @@ export class GameService {
       }));
   }
 
-  GetDetails(gameId?: string): Observable<GetDetailsGameView> {
-    return this.http.get<GetDetailsGameView>(`${this.Url}getDetails?gameId=${gameId}`).pipe(
-      map((response: GetDetailsGameView) => {
+  GetDetails(gameId?: string): Observable<GetDetailsByPlayerIdAndGameIdGameView> {
+    return this.http.get<GetDetailsByPlayerIdAndGameIdGameView>(`${this.Url}getDetails?gameId=${gameId}`).pipe(
+      map((response: GetDetailsByPlayerIdAndGameIdGameView) => {
         return response;
       }));
   }

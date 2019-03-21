@@ -1,4 +1,4 @@
-export class GetPlayerByIdPlayerView {
+export class GetByIdPlayerView {
   userName?: string;
   id?: string;
   balance?: number;

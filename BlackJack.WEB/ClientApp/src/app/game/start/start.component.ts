@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../shared/services/game.service';
-import { GetDetailsGameView } from '../../shared/entities/game.views/get-details.game.view';
 import { SuiteType } from '../../shared/enums/suite-type';
 import { RankType } from '../../shared/enums/rank-type';
 import { GameStateType } from '../../shared/enums/game-state-type';
 import { NotificationService } from '../../shared/services/notification.service';
+import { GetDetailsByPlayerIdAndGameIdGameView } from 'src/app/shared/entities/game.views/get-details-by-player-id-and-game-id.game.view';
 
 @Component({
   selector: 'app-start',
@@ -12,7 +12,7 @@ import { NotificationService } from '../../shared/services/notification.service'
   styleUrls: ['./start.component.css']
 })
 export class StartComponent implements OnInit {
-  public model: GetDetailsGameView = new GetDetailsGameView();
+  public model: GetDetailsByPlayerIdAndGameIdGameView = new GetDetailsByPlayerIdAndGameIdGameView();
   public bet: number;
   public Suite = SuiteType;
   public Rank = RankType;

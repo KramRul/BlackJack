@@ -3,16 +3,16 @@ using System;
 
 namespace BlackJack.ViewModels.GameViews
 {
-    public class GetDetailsResponseGameView
+    public class GetGameDetailsByPlayerIdAndGameIdGameView
     {
         public Guid Id { get; set; }
         public string WonName { get; set; }
         public int CountOfBots { get; set; }
         public GameStateTypeEnumView GameState { get; set; }
-        public PlayerGetDetailsGameView Player { get; set; }
+        public PlayerGameDetailsByPlayerIdAndGameIdGameView Player { get; set; }
     }
 
-    public class PlayerGetDetailsGameView
+    public class PlayerGameDetailsByPlayerIdAndGameIdGameView
     {
         public string PlayerId { get; set; }
         public string UserName { get; set; }

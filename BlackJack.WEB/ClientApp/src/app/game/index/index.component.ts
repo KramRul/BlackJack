@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GameService } from 'src/app/shared/services/game.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/services/account.service';

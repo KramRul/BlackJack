@@ -33,7 +33,7 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
-        [SwaggerResponse(200, "", typeof(GetPlayerByIdPlayerView))]
+        [SwaggerResponse(200, "", typeof(GetByIdPlayerView))]
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetPlayerById(string playerId)
         {
