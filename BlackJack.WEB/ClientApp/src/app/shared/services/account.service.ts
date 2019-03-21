@@ -29,19 +29,19 @@ export class AccountService {
       map((response: LoginAccountResponseView) => {
         var lStorage = new LocalStorageService<string>();
         lStorage.setItem("accessToken", response.accessToken);
+        lStorage.setItem("userName", response.userName);
       }));
   }
 
   logout(): void {
     var lStorage = new LocalStorageService<string>();
     lStorage.removeItem("accessToken");
+    lStorage.removeItem("userName");
   }
 
-  getLoggedPlayerName(): Observable<string> {
-    return this.http.post<string>(`${this.Url}getLoggedPlayerName`, null).pipe(
-      map((response: string) => {
-        return response;
-      }));
+  getLoggedPlayerName(): string {
+    var lStorage = new LocalStorageService<string>();
+    return lStorage.getItem("userName");
   }
 
   register(model: RegisterAccountView): Observable<any> {

@@ -8,7 +8,7 @@ namespace BlackJack.BusinessLogic.Config
     {
         public static void OptionsConfigures(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<AuthenticationOptions>(configuration.GetSection("JWTOptions"));
+            services.Configure<JWTOptions>(configuration.GetSection("JWTOptions"));
         }
     }
 }

@@ -34,10 +34,6 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.accountService.getLoggedPlayerName().subscribe(data => {
-      this.playerName = data;
-    }
-      , error => this.notifyService.showError(error)
-    );
+    this.playerName = this.accountService.getLoggedPlayerName();
   }
 }

@@ -12,7 +12,7 @@ namespace BlackJack.BusinessLogic.Config
     {
         public static void JwtConfigures(this IServiceCollection services, IConfiguration configuration)
         {
-            var _options = configuration.GetSection("JWTOptions").Get<JWTOptions>();
+            var jwtOptions = configuration.GetSection("JWTOptions").Get<JWTOptions>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -24,9 +24,9 @@ namespace BlackJack.BusinessLogic.Config
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = _options.Issuer,
-                    ValidAudience = _options.Issuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key)),
+                    ValidIssuer = jwtOptions.Issuer,
+                    ValidAudience = jwtOptions.Issuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key)),
                     ClockSkew = TimeSpan.Zero
                 };
             });

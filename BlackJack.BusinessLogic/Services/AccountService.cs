@@ -75,14 +75,5 @@ namespace BlackJack.BusinessLogic.Services
                 UserName = user.UserName
             };
         }
-
-        public async Task<string> GetLoggedPlayerName(string playerName)
-        {
-            if (string.IsNullOrEmpty(playerName))
-            {
-                throw new CustomServiceException("Player does not exist.");
-            }
-            return playerName;
-        }
     }
 }

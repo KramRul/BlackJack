@@ -31,13 +31,5 @@ namespace BlackJack.WEB.Controllers
         {
             return await Execute(() => _accountService.Login(model));           
         }
-
-        [HttpPost]
-        [SwaggerResponse(200, "", typeof(string))]
-        [SwaggerResponse(500)]
-        public async Task<IActionResult> GetLoggedPlayerName()
-        {
-            return await Execute(() => _accountService.GetLoggedPlayerName(PlayerName));
-        }
     }
 }
