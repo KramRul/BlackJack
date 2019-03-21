@@ -468,7 +468,7 @@ namespace BlackJack.BusinessLogic.Services
 
         private async Task<string> CheckingCardsOfBots(IEnumerable<Bot> bots, Game game)
         {
-            var amountOfCardsOfBots = new Dictionary<string, int>();
+            var amountsOfCardAllBots = new Dictionary<string, int>();
             string nameOfWonBot = "";
 
             var allSteps = await _database.BotSteps.GetAll();
@@ -499,13 +499,13 @@ namespace BlackJack.BusinessLogic.Services
                 }
 
                 totalValueOfBotCards = _ranksHelper.TotalValue(botRanks);
-                amountOfCardsOfBots.Add(bot.Name.ToString(), totalValueOfBotCards);
+                amountsOfCardAllBots.Add(bot.Name, totalValueOfBotCards);
             }
             await _database.BotSteps.Create(createdSteps);
 
             var maxAmount = 0;
 
-            foreach (var item in amountOfCardsOfBots)
+            foreach (var item in amountsOfCardAllBots)
             {
                 if (item.Value == Draw)
                 {
@@ -521,9 +521,7 @@ namespace BlackJack.BusinessLogic.Services
                 }
             }
 
-            if (nameOfWonBot == "") nameOfWonBot = "NOBODY";
-
-            return nameOfWonBot;
+            return (nameOfWonBot == "")? nameOfWonBot = "NOBODY" : nameOfWonBot;
         }
 
         public async Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId)
