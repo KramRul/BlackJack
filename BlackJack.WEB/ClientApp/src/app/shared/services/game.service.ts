@@ -31,6 +31,7 @@ export class GameService {
   }
 
   GetDetails(gameId?: string): Observable<GetDetailsByPlayerIdAndGameIdGameView> {
+    if (gameId == undefined) gameId = "";
     return this.http.get<GetDetailsByPlayerIdAndGameIdGameView>(`${this.Url}getDetails?gameId=${gameId}`).pipe(
       map((response: GetDetailsByPlayerIdAndGameIdGameView) => {
         return response;

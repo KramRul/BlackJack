@@ -61,19 +61,21 @@ namespace BlackJack.BusinessLogic.Services
                 Balance = 1000
             };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var createdUser = await _userManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
+            if (!createdUser.Succeeded)
             {
                 throw new CustomServiceException("The user was not registered");
             }
 
             string token = await _jwtProvider.GenerateJwtToken(user.Email, user);
-            return new RegisterAccountResponseView()
+            var result = new RegisterAccountResponseView()
             {
                 AccessToken = token,
                 UserName = user.UserName
             };
+
+            return result;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
 {
     public interface IPlayerService
     {
-        Task<GetAllPlayersPlayerView> GetAllPlayers();
+        Task<GetAllPlayersPlayerView> GetAll();
 
         Task<GetAllStepsByPlayerIdPlayerView> GetAllStepsByPlayerId(string playerId);
 

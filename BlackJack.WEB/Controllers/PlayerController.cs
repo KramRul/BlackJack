@@ -21,7 +21,7 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetAllPlayers()
         {
-            return await Execute(() => _playerService.GetAllPlayers());
+            return await Execute(() => _playerService.GetAll());
         }
 
         [HttpGet]

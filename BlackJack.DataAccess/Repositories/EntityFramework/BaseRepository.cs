@@ -41,6 +41,12 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             await Save();
         }
 
+        public async Task Update(List<T> items)
+        {
+            _dbSet.UpdateRange(items);
+            await Save();
+        }
+
         public async Task Delete(T item)
         {
             _dbSet.Remove(item);

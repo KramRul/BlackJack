@@ -38,6 +38,11 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             await _connection.UpdateAsync<T>(element);
         }
 
+        public async Task Update(List<T> elements)
+        {
+            await _connection.UpdateAsync(elements);
+        }
+
         public async Task Delete(T element)
         {
             await _connection.DeleteAsync<T>(element);

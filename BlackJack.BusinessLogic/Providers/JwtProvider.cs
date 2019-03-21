@@ -28,7 +28,7 @@ namespace BlackJack.BusinessLogic.Providers
         {
             var roles = await _userManager.GetRolesAsync(user);
 
-            List<Claim> claims = new List<Claim>
+            var claims = new List<Claim>
             {
                 //new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

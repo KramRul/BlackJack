@@ -24,8 +24,8 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
 
         Task<GetByIdGameView> GetById(Guid gameId);
 
-        Task<GetDetailsByPlayerIdAndGameIdGameView> GetDetailsByPlayerIdAndGameId(string playerId, string gameId);
+        Task<GetDetailsByPlayerIdAndGameIdGameView> GetDetailsByPlayerIdAndGameId(string playerId, Guid gameId);
 
-        Task<GetGameDetailsByPlayerIdAndGameIdGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, string gameId);
+        Task<GetGameDetailsByPlayerIdAndGameIdGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, Guid gameId);
     }
 }

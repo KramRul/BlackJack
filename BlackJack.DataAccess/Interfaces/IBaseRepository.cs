@@ -10,6 +10,7 @@ namespace BlackJack.DataAccess.Repositories.Interfaces
         Task<T> Get(Guid id);
         Task Create(T item);
         Task Update(T item);
+        Task Update(List<T> items);
         Task Delete(T id);
     }
 }

@@ -6,6 +6,6 @@ namespace BlackJack.DataAccess.Entities
     public class BaseEntity
     {
         [ExplicitKey]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
     }
 }
