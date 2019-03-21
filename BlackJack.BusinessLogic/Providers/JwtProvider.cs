@@ -41,14 +41,14 @@ namespace BlackJack.BusinessLogic.Providers
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var _options = _configuration.GetSection("JWTOptions").Get<JWTOptions>();
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key));
+            var options = _configuration.GetSection("JWTOptions").Get<JWTOptions>();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddHours(expiredHours ?? Convert.ToDouble(_options.Lifetime));
+            var expires = DateTime.Now.AddHours(expiredHours ?? Convert.ToDouble(options.Lifetime));
 
             var token = new JwtSecurityToken(
-                _options.Issuer,
-                _options.Issuer,
+                options.Issuer,
+                options.Issuer,
                 claims,
                 expires: expires,
                 signingCredentials: credentials
