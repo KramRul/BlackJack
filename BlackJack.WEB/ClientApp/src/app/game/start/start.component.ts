@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../shared/services/game.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { GetDetailsGameView } from '../../shared/entities/game.views/get-details.game.view';
 import { SuiteType } from '../../shared/enums/suite-type';
 import { RankType } from '../../shared/enums/rank-type';
 import { GameStateType } from '../../shared/enums/game-state-type';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-start',
@@ -19,7 +19,8 @@ export class StartComponent implements OnInit {
   public GameState = GameStateType;
 
   constructor(
-    private gameService: GameService) {
+    private gameService: GameService,
+    private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -46,6 +47,7 @@ export class StartComponent implements OnInit {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
+        this.showNotification();
       });
     });
   }
@@ -56,7 +58,13 @@ export class StartComponent implements OnInit {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
+        this.showNotification();
       });
     });
+  }
+
+  private showNotification(): void {
+    if (this.model.game.wonName != '' && this.model.game.wonName != null)
+      this.notifyService.showSuccess(`${this.model.game.wonName} WON`);
   }
 }

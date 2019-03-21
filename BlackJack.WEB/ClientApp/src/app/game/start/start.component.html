@@ -13,9 +13,6 @@
     <div class="alert alert-primary">Game State: <label name="GameState" id="GameState" class="p-2 m-2 rounded-lg bg-light text-dark">{{GameState[model?.game.gameState]}}</label></div>
   </div>
   <hr />
-  <div class="form-group" *ngIf="model.game.wonName!='' && model.game.wonName!=null">
-    <input type="text" class="form-control is-valid" disabled value="{{model?.game.wonName}} WON">
-  </div>
 </div>
 <div class="container-fluid">
   <table class="table table-bordered table-hover">

@@ -3,7 +3,7 @@ import { GameService } from 'src/app/shared/services/game.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -11,17 +11,21 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  public countOfBots: number = 1;
   public playerName: string;
+
+  public startForm = this.formBuilder.group({
+    countOfBots: [1, Validators.required]
+  });
 
   constructor(
     private gameService: GameService,
     private accountService: AccountService,
     private notifyService: NotificationService,
-    private router: Router) { }
+    private router: Router,
+    private formBuilder: FormBuilder) { }
 
   start(): void {
-    this.gameService.start(this.countOfBots).subscribe(
+    this.gameService.start(this.startForm.get('countOfBots').value).subscribe(
       data => {
         console.log(data);
         this.router.navigate(["/game/start"]);

@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class NotificationService {
-  private options: object =
+  private options =
     {
       disableTimeOut: false,
       tapToDismiss: true,
@@ -18,7 +18,9 @@ export class NotificationService {
   constructor(private toastr: ToastrService) { }
 
   showSuccess(message: string, title?: string): void {
-    this.toastr.success(message, title, this.options)
+    var newOptions = this.options;
+    newOptions.positionClass = 'toast-top-center';
+    this.toastr.success(message, title, newOptions)
   }
 
   show(message: string, title?: string): void {

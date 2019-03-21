@@ -4,7 +4,7 @@ import { GameComponent } from './game.component';
 import { IndexComponent } from './index/index.component';
 import { StartComponent } from './start/start.component';
 import { GameRoutingModule } from './game-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -17,7 +17,8 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FormsModule,
     GameRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class GameModule { }

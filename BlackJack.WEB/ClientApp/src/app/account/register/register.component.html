@@ -1,18 +1,19 @@
 <app-for-non-logged-players-menu></app-for-non-logged-players-menu>
 <h2>Регистрация нового пользователя</h2>
-<div class="form-group">
-  <label>UserName</label><br />
-  <input type="text" [(ngModel)]="model.userName" class="form-control"/>
+<div [formGroup]="registerForm">
+  <div class="form-group">
+    <label>UserName:</label>
+    <input type="text" formControlName="userName" class="form-control" required />
+  </div>
+  <div class="form-group">
+    <label>Password</label><br />
+    <input type="password" formControlName="password" class="form-control" required/>
+  </div>
+  <div class="form-group">
+    <label>Password Confirm</label><br />
+    <input type="password" formControlName="passwordConfirm" class="form-control" required/>
+  </div>
+  <div class="form-group">
+    <input type="button" value="Register" (click)="register()" class="btn btn-success" />
+  </div>
 </div>
-<div class="form-group">
-  <label>Password</label><br />
-  <input type="password" [(ngModel)]="model.password" class="form-control" />
-</div>
-<div class="form-group">
-  <label>PasswordConfirm</label><br />
-  <input type="password" [(ngModel)]="model.passwordConfirm" class="form-control" />
-</div>
-<div class="form-group">
-  <input type="button" value="Register" (click)="register()" class="btn btn-success" />
-</div>
-
