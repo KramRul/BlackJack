@@ -28,6 +28,11 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             await _connection.InsertAsync(element);
         }
 
+        public async Task Create(List<T> elements)
+        {
+            await _connection.InsertAsync(elements);
+        }
+
         public async Task AddRange(List<T> elements)
         {
             await _connection.InsertAsync(elements);
