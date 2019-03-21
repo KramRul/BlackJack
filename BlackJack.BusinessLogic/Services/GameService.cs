@@ -16,7 +16,8 @@ namespace BlackJack.BusinessLogic.Services
     public class GameService : BaseService, IGameService
     {
         private readonly IRanksHelper _ranksHelper;
-        private readonly Random _random = new Random();
+        private readonly int draw = 21;
+        private readonly int midleDraw = 20;
 
         public GameService(IBaseUnitOfWork unitOfWork, IRanksHelper ranksHelper)
             : base(unitOfWork)
@@ -323,7 +324,7 @@ namespace BlackJack.BusinessLogic.Services
 
             ranks = playerSteps.Select(step => step.Rank).ToList();
 
-            if (_ranksHelper.TotalValue(ranks) > 21)
+            if (_ranksHelper.TotalValue(ranks) > draw)
             {
                 player.Balance -= player.Bet;
                 var bots = await _database.BotSteps.GetAllBotsByGameId(game.Id);
@@ -410,7 +411,7 @@ namespace BlackJack.BusinessLogic.Services
 
                 botRanks = botSteps.Select(step => step.Rank).ToList();
 
-                while (_ranksHelper.TotalValue(botRanks) <= 20)
+                while (_ranksHelper.TotalValue(botRanks) <= midleDraw)
                 {
                     var botStep = new BotStep()
                     {
@@ -426,7 +427,7 @@ namespace BlackJack.BusinessLogic.Services
                 }
 
                 var isTotalValuePlayerMoreThanBot = _ranksHelper.TotalValue(playerRanks) > _ranksHelper.TotalValue(botRanks);
-                if (_ranksHelper.TotalValue(botRanks) > 21 || isTotalValuePlayerMoreThanBot)
+                if (_ranksHelper.TotalValue(botRanks) > draw || isTotalValuePlayerMoreThanBot)
                 {
                     player.Balance += player.Bet;
                     game.WonName = player.UserName;
@@ -463,7 +464,7 @@ namespace BlackJack.BusinessLogic.Services
                 var botRanks = new List<RankType>();
                 botRanks = botSteps.Select(step => step.Rank).ToList();
 
-                while (_ranksHelper.TotalValue(botRanks) <= 20)
+                while (_ranksHelper.TotalValue(botRanks) <= midleDraw)
                 {
                     var botStep = new BotStep()
                     {
@@ -485,11 +486,11 @@ namespace BlackJack.BusinessLogic.Services
 
             foreach (var item in amountOfCardsOfBots)
             {
-                if (item.Value == 21)
+                if (item.Value == draw)
                 {
                     nameOfWonBot = item.Key;
                 }
-                else if (item.Value < 21)
+                else if (item.Value < draw)
                 {
                     if (item.Value > maxAmount)
                     {
