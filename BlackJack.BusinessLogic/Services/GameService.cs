@@ -112,11 +112,11 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player does not exist");
             }
 
-            var gameCheck = await _database.Games.GetActiveByPlayerId(player.Id);
+            var isActiveGame = await _database.Games.GetActiveByPlayerId(player.Id);
             var game = new Game();
-            if (gameCheck != null)
+            if (isActiveGame != null)
             {
-                game = gameCheck;
+                game = isActiveGame;
             }
             else
             {
@@ -138,13 +138,13 @@ namespace BlackJack.BusinessLogic.Services
                 await _database.PlayerSteps.AddRange(playerSteps);
             }
 
-            var botCheck = new List<Bot>();
-            if (gameCheck != null)
-                botCheck = await _database.BotSteps.GetAllBotsByGameId(gameCheck.Id);
+            var bots = new List<Bot>();
+            if (isActiveGame != null)
+                bots = await _database.BotSteps.GetAllBotsByGameId(isActiveGame.Id);
             else
-                botCheck = await _database.BotSteps.GetAllBotsByGameId(game.Id);
+                bots = await _database.BotSteps.GetAllBotsByGameId(game.Id);
 
-            if (botCheck == null || botCheck.Count == 0)
+            if (bots == null || bots.Count == 0)
             {
                 var StepsOfAllBots = new List<BotStep>();
                 var countOfBotsInDB = await _database.Bots.Count() + 1;
