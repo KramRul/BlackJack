@@ -24,7 +24,7 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gameService.startGetDetails("").subscribe(data => {
+    this.gameService.GetDetails().subscribe(data => {
       this.model.game = data.game;
       this.model.playerSteps = data.playerSteps;
       this.model.botsSteps = data.botsSteps;
@@ -33,7 +33,7 @@ export class StartComponent implements OnInit {
 
   placeABet(): void {
     this.gameService.placeABet(this.bet).subscribe(() => {
-      this.gameService.startGetDetails("").subscribe(data => {
+      this.gameService.GetDetails().subscribe(data => {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
@@ -43,7 +43,7 @@ export class StartComponent implements OnInit {
 
   hit(): void {
     this.gameService.hit().subscribe(() => {
-      this.gameService.startGetDetails(this.model.game.id).subscribe(data => {
+      this.gameService.GetDetails(this.model.game.id).subscribe(data => {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
@@ -54,7 +54,7 @@ export class StartComponent implements OnInit {
 
   stand(): void {
     this.gameService.stand().subscribe(() => {
-      this.gameService.startGetDetails(this.model.game.id).subscribe(data => {
+      this.gameService.GetDetails(this.model.game.id).subscribe(data => {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;

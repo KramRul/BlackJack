@@ -32,7 +32,7 @@ export class GameService {
       }));
   }
 
-  startGetDetails(gameId: string): Observable<GetDetailsGameView> {
+  GetDetails(gameId?: string): Observable<GetDetailsGameView> {
     return this.http.get<GetDetailsGameView>(`${this.Url}getDetails?gameId=${gameId}`).pipe(
       map((response: GetDetailsGameView) => {
         console.log(response);
