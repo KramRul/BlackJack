@@ -23,8 +23,7 @@ namespace BlackJack.WEB.Controllers
         [SwaggerResponse(500)]
         public async Task<IActionResult> Index()
         {
-            var result = await Execute(async () => await _historyService.GetHistoryOfGames());
-            return result;
+            return await Execute(async () => await _historyService.GetHistoryOfGames());
         }
 
         [HttpGet]
