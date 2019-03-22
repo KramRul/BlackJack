@@ -365,12 +365,10 @@ namespace BlackJack.BusinessLogic.Services
             {
                 throw new CustomServiceException("There is not enough means on the account");
             }
-            else
-            {
-                player.Bet = bet;
-                player.Balance -= bet;
-                await _database.Players.Update(player);
-            }
+
+            player.Bet = bet;
+            player.Balance -= bet;
+            await _database.Players.Update(player);
         }
 
         public async Task Stand(string playerId)
