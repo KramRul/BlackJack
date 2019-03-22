@@ -5,7 +5,7 @@
     <div class="form-group">
       <label>UserName:</label>
       <input formControlName="userName" list="playersDatalist" [(ngModel)]="model.userName" class="form-control" />
-      <datalist id="playersDatalist">
+      <datalist id="playersDatalist" >
         <option *ngFor="let player of players.players">{{player?.userName}}</option>
       </datalist>
     </div>

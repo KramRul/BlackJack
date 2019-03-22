@@ -19,10 +19,7 @@ export class AccountService {
   }
 
   isSignedIn(): boolean {
-    if (this.localStorageService.getItem<string>("accessToken") != null)
-      return true;
-    else
-      return false;
+    return (this.localStorageService.getItem<string>("accessToken") != null) ? true : false;
   }
 
   login(model: LoginAccountView): Observable<void> {

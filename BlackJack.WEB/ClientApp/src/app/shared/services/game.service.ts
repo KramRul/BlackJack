@@ -16,26 +16,17 @@ export class GameService {
   constructor(private http: HttpClient) {
   }
 
-  index(): Observable<Array<PlayerGetAllPlayerViewItem>> {
-    return this.http.get<GetAllPlayerView>(`${this.Url}index`).pipe(
-      map((response: GetAllPlayerView) => {
-        return response.players;
-      }));
+  index(): Observable<GetAllPlayerView> {
+    return this.http.get<GetAllPlayerView>(`${this.Url}index`);
   }
 
   start(countOfBots: number): Observable<StartGameView> {
-    return this.http.get<StartGameView>(`${this.Url}start?countOfBots=${countOfBots}`).pipe(
-      map((response: StartGameView) => {
-        return response;
-      }));
+    return this.http.get<StartGameView>(`${this.Url}start?countOfBots=${countOfBots}`);
   }
 
   getDetails(gameId?: string): Observable<GetDetailsByPlayerIdAndGameIdGameView> {
     if (gameId == undefined) gameId = "";
-    return this.http.get<GetDetailsByPlayerIdAndGameIdGameView>(`${this.Url}getDetails?gameId=${gameId}`).pipe(
-      map((response: GetDetailsByPlayerIdAndGameIdGameView) => {
-        return response;
-      }));
+    return this.http.get<GetDetailsByPlayerIdAndGameIdGameView>(`${this.Url}getDetails?gameId=${gameId}`);
   }
 
   placeABet(bet?: number): Observable<any> {

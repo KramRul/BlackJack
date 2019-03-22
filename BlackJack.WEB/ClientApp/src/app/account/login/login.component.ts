@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.index().subscribe(data => {
-      this.players.players = data;
+      this.players.players = data.players;
     });
   }
 

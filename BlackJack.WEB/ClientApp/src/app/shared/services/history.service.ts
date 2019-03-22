@@ -16,16 +16,10 @@ export class HistoryService {
   }
 
   index(): Observable<GetHistoryOfGamesHistoryView> {
-    return this.http.get<GetHistoryOfGamesHistoryView>(`${this.Url}index`).pipe(
-      map((response: GetHistoryOfGamesHistoryView) => {
-        return response;
-      }));
+    return this.http.get<GetHistoryOfGamesHistoryView>(`${this.Url}index`);
   }
 
   game(gameId: string): Observable<DetailsOfGameHistoryView> {
-    return this.http.get<DetailsOfGameHistoryView>(`${this.Url}game?gameId=${gameId}`).pipe(
-      map((response: DetailsOfGameHistoryView) => {
-        return response;
-      }));
+    return this.http.get<DetailsOfGameHistoryView>(`${this.Url}game?gameId=${gameId}`);
   }
 }
