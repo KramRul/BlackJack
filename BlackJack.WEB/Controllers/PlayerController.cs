@@ -17,7 +17,7 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
-        [SwaggerResponse(200, "", typeof(GetAllPlayersPlayerView))]
+        [SwaggerResponse(200, "", typeof(GetAllPlayerView))]
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetAllPlayers()
         {

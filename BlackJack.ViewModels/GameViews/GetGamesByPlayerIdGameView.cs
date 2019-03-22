@@ -4,24 +4,24 @@ using System.Collections.Generic;
 
 namespace BlackJack.ViewModels.GameViews
 {
-    public class GetGamesByPlayerIdGameView
+    public class GetAllByPlayerIdGameView
     {
-        public List<GameGetGamesByPlayerIdGameViewItem> Games { get; set; }
+        public List<GameGetAllByPlayerIdGameViewItem> Games { get; set; }
 
-        public GetGamesByPlayerIdGameView()
+        public GetAllByPlayerIdGameView()
         {
-            Games = new List<GameGetGamesByPlayerIdGameViewItem>();
+            Games = new List<GameGetAllByPlayerIdGameViewItem>();
         }
     }
 
-    public class GameGetGamesByPlayerIdGameViewItem
+    public class GameGetAllByPlayerIdGameViewItem
     {
         public Guid Id { get; set; }
         public GameStateTypeEnumView GameState { get; set; }
-        public PlayerGetAllGamesByPlayerIdGameView Player { get; set; }
+        public PlayerGetAllByPlayerIdGameView Player { get; set; }
     }
 
-    public class PlayerGetAllGamesByPlayerIdGameView
+    public class PlayerGetAllByPlayerIdGameView
     {
         public string PlayerId { get; set; }
         public decimal Balance { get; set; }

@@ -521,16 +521,16 @@ namespace BlackJack.BusinessLogic.Services
             return (nameOfWonBot == "") ? nameOfWonBot = "NOBODY" : nameOfWonBot;
         }
 
-        public async Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId)
+        public async Task<GetAllByPlayerIdGameView> GetAllByPlayerId(string playerId)
         {
-            var result = new GetGamesByPlayerIdGameView();
+            var result = new GetAllByPlayerIdGameView();
             var games = await _database.Games.GetAllByPlayerId(playerId);
 
-            result.Games = games.Select(game => new GameGetGamesByPlayerIdGameViewItem()
+            result.Games = games.Select(game => new GameGetAllByPlayerIdGameViewItem()
             {
                 Id = game.Id,
                 GameState = (GameStateTypeEnumView)game.GameState,
-                Player = new PlayerGetAllGamesByPlayerIdGameView()
+                Player = new PlayerGetAllByPlayerIdGameView()
                 {
                     PlayerId = game.Player.Id,
                     Balance = game.Player.Balance,

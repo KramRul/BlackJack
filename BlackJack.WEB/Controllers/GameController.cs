@@ -96,11 +96,11 @@ namespace BlackJack.WEB.Controllers
         }
 
         [HttpGet]
-        [SwaggerResponse(200, "", typeof(GetGamesByPlayerIdGameView))]
+        [SwaggerResponse(200, "", typeof(GetAllByPlayerIdGameView))]
         [SwaggerResponse(500)]
         public async Task<IActionResult> GetGamesByPlayerId(string playerId)
         {
-            return await Execute(() => _gameService.GetGamesByPlayerId(playerId));
+            return await Execute(() => _gameService.GetAllByPlayerId(playerId));
         }
 
         [HttpGet]

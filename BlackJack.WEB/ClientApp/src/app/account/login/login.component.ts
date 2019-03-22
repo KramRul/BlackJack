@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RegisterAccountView } from 'src/app/shared/entities/account.views/register.account.view';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { Router } from '@angular/router';
-import { GetAllPlayersPlayerView } from '../../shared/entities/player.views/get-all-players.player.view';
+import { GetAllPlayerView } from '../../shared/entities/player.views/get-all.player.view';
 import { GameService } from '../../shared/services/game.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public players: GetAllPlayersPlayerView = new GetAllPlayersPlayerView();
+  public players: GetAllPlayerView = new GetAllPlayerView();
   public model: RegisterAccountView = new RegisterAccountView();
 
   public loginForm = this.formBuilder.group({

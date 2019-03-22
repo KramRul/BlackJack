@@ -2,17 +2,17 @@
 
 namespace BlackJack.ViewModels.PlayerViews
 {
-    public class GetAllPlayersPlayerView
+    public class GetAllPlayerView
     {
-        public List<PlayerGetAllPlayersPlayerViewItem> Players { get; set; }
+        public List<PlayerGetAllPlayerViewItem> Players { get; set; }
 
-        public GetAllPlayersPlayerView()
+        public GetAllPlayerView()
         {
-            Players = new List<PlayerGetAllPlayersPlayerViewItem>();
+            Players = new List<PlayerGetAllPlayerViewItem>();
         }
     }
 
-    public class PlayerGetAllPlayersPlayerViewItem
+    public class PlayerGetAllPlayerViewItem
     {
         public string PlayerId { get; set; }
         public string UserName { get; set; }

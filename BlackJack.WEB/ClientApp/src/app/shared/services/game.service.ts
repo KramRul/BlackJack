@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { GetAllPlayersPlayerView, PlayerGetAllPlayersPlayerViewItem } from '../entities/player.views/get-all-players.player.view';
+import { GetAllPlayerView, PlayerGetAllPlayerViewItem } from '../entities/player.views/get-all.player.view';
 import { StartGameView } from '../entities/game.views/start.game.view';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -16,9 +16,9 @@ export class GameService {
   constructor(private http: HttpClient) {
   }
 
-  index(): Observable<Array<PlayerGetAllPlayersPlayerViewItem>> {
-    return this.http.get<GetAllPlayersPlayerView>(`${this.Url}index`).pipe(
-      map((response: GetAllPlayersPlayerView) => {
+  index(): Observable<Array<PlayerGetAllPlayerViewItem>> {
+    return this.http.get<GetAllPlayerView>(`${this.Url}index`).pipe(
+      map((response: GetAllPlayerView) => {
         return response.players;
       }));
   }

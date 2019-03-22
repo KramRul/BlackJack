@@ -20,7 +20,7 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
 
         Task Stand(string playerId);
 
-        Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId);
+        Task<GetAllByPlayerIdGameView> GetAllByPlayerId(string playerId);
 
         Task<GetByIdGameView> GetById(Guid gameId);
 
