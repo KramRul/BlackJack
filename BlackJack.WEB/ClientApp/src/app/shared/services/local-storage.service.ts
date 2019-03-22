@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class LocalStorageService<T> {
+export class LocalStorageService {
   constructor() { }
 
   clear() {
@@ -14,17 +14,10 @@ export class LocalStorageService<T> {
     localStorage.removeItem(key);
   }
 
-  setItem(key: string, data: T): boolean {
+  setItem<T>(key: string, data: T): boolean {
     try {
-      if (typeof data === "string") {
-        localStorage.setItem(key, data)
-      }
-      else if (typeof data === "number" || typeof data === "boolean") {
-        localStorage.setItem(key, data.toString())
-      }
-      else {
-        localStorage.setItem(key, JSON.stringify(data));
-      }
+      const dataAsString: string = (typeof data === "string") ? data : JSON.stringify(data);
+      localStorage.setItem(key, dataAsString);
       return true;
     }
     catch (e) {
@@ -32,11 +25,10 @@ export class LocalStorageService<T> {
     }
   }
 
-  getItem(key: string): string {
+  getItem<T>(key: string): string {
     try {
       var data = localStorage.getItem(key);
-      if (!data) return null; else
-        return data;
+      return (!data) ? null : data;
     } catch (e) {
       console.log('Error getting data from localStorage', e);
       return null;

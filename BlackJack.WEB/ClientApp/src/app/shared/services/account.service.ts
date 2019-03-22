@@ -15,11 +15,11 @@ import { RegisterAccountResponseView } from '../entities/account.views/register-
 export class AccountService {
   private Url = `${environment.Base_URL}api/account/`;
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService<string>) {
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
   }
 
   isSignedIn(): boolean {
-    if (this.localStorageService.getItem("accessToken") != null)
+    if (this.localStorageService.getItem<string>("accessToken") != null)
       return true;
     else
       return false;
@@ -28,8 +28,8 @@ export class AccountService {
   login(model: LoginAccountView): Observable<void> {
     return this.http.post<LoginAccountResponseView>(`${this.Url}login`, model).pipe(
       map((response: LoginAccountResponseView) => {
-        this.localStorageService.setItem("accessToken", response.accessToken);
-        this.localStorageService.setItem("userName", response.userName);
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
       }));
   }
 
@@ -39,14 +39,14 @@ export class AccountService {
   }
 
   getLoggedPlayerName(): string {
-    return this.localStorageService.getItem("userName");
+    return this.localStorageService.getItem<string>("userName");
   }
 
   register(model: RegisterAccountView): Observable<any> {
     return this.http.post(`${this.Url}register`, model).pipe(
       map((response: RegisterAccountResponseView) => {
-        this.localStorageService.setItem("accessToken", response.accessToken);
-        this.localStorageService.setItem("userName", response.userName);
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
       }));
   }
 }

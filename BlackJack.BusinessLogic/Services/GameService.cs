@@ -551,13 +551,10 @@ namespace BlackJack.BusinessLogic.Services
                 {
                     nameOfWonBot = item.Key;
                 }
-                else if (item.Value < Draw)
+                if (item.Value < Draw && item.Value > maxAmount)
                 {
-                    if (item.Value > maxAmount)
-                    {
-                        maxAmount = item.Value;
-                        nameOfWonBot = item.Key;
-                    }
+                    maxAmount = item.Value;
+                    nameOfWonBot = item.Key;
                 }
             }
 
@@ -588,19 +585,22 @@ namespace BlackJack.BusinessLogic.Services
         {
             var game = await _database.Games.Get(gameId);
 
-            var result = (game == null) ?
-                throw new CustomServiceException("Game does not exist") :
-                new GetByIdGameView()
+            if (game == null)
+            {
+                throw new CustomServiceException("Game does not exist");
+            };
+
+            var result = new GetByIdGameView()
+            {
+                Id = game.Id,
+                Player = new PlayerGetByIdGameView()
                 {
-                    Id = game.Id,
-                    Player = new PlayerGetByIdGameView()
-                    {
-                        PlayerId = game.Player.Id,
-                        Balance = game.Player.Balance,
-                        Bet = game.Player.Bet
-                    },
-                    GameState = (GameStateTypeEnumView)game.GameState
-                };
+                    PlayerId = game.Player.Id,
+                    Balance = game.Player.Balance,
+                    Bet = game.Player.Bet
+                },
+                GameState = (GameStateTypeEnumView)game.GameState
+            };
 
             return result;
         }

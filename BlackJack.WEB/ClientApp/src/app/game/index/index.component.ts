@@ -12,6 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class IndexComponent implements OnInit {
   public playerName: string;
+  public countOfBots: number = 1;
 
   public startForm = this.formBuilder.group({
     countOfBots: [1, Validators.required]
@@ -25,7 +26,7 @@ export class IndexComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   start(): void {
-    this.gameService.start(this.startForm.get('countOfBots').value).subscribe(
+    this.gameService.start(this.countOfBots).subscribe(
       data => {
         this.router.navigate(["/game/start"]);
       }

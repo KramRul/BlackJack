@@ -26,7 +26,7 @@ export class IndexComponent implements OnInit {
   game(gameId: string): void {
     this.router.navigate(["/history/game"],
       {
-        queryParams: { data: gameId }
+        queryParams: { gameId: gameId }
       });
   }
 }

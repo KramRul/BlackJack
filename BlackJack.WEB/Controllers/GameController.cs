@@ -49,8 +49,11 @@ namespace BlackJack.WEB.Controllers
         {
             return await Execute(async () =>
             {
-                if (!gameId.HasValue) gameId = Guid.Empty;
-                var model = await _gameService.GetDetailsByPlayerIdAndGameId(PlayerId, (Guid)gameId);
+                if (!gameId.HasValue)
+                {
+                    gameId = Guid.Empty;
+                }
+                var model = await _gameService.GetDetailsByPlayerIdAndGameId(PlayerId, gameId.Value);
                 return model;
             });
         }

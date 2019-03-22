@@ -13,8 +13,8 @@ import { LocalStorageService } from '../shared/services/local-storage.service';
 export class HttpConfigInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    var lStorage = new LocalStorageService<string>();
-    const token: string = lStorage.getItem('accessToken');
+    var lStorage = new LocalStorageService();
+    const token: string = lStorage.getItem<string>('accessToken');
     if (token) {
       request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
     }

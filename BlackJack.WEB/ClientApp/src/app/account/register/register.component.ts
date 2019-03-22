@@ -27,9 +27,6 @@ export class RegisterComponent {
   }
 
   register(): void {
-    this.model.userName = this.registerForm.get('userName').value;
-    this.model.password = this.registerForm.get('password').value;
-    this.model.passwordConfirm = this.registerForm.get('passwordConfirm').value;
     this.accountService.register(this.model).subscribe(
       data => this.router.navigateByUrl("/"),
       error => this.notifyService.showError(error)

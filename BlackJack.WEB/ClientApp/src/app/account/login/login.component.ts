@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.model.userName = this.loginForm.get('userName').value;
-    this.model.password = this.loginForm.get('password').value;
     this.accountService.login(this.model).subscribe(
       data => this.router.navigateByUrl("/"),
       error => this.notifyService.showError(error)
