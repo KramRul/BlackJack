@@ -7,6 +7,7 @@ import { LoginAccountResponseView } from '../entities/account.views/login-respon
 import { LocalStorageService } from './local-storage.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { RegisterAccountResponseView } from '../entities/account.views/register-response.account.view';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,11 @@ export class AccountService {
   }
 
   register(model: RegisterAccountView): Observable<any> {
-    return this.http.post(`${this.Url}register`, model);
+    return this.http.post(`${this.Url}register`, model).pipe(
+      map((response: RegisterAccountResponseView) => {
+        var lStorage = new LocalStorageService<string>();
+        lStorage.setItem("accessToken", response.accessToken);
+        lStorage.setItem("userName", response.userName);
+      }));
   }
 }

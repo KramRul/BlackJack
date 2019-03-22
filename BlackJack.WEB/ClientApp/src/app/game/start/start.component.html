@@ -43,10 +43,10 @@
     </tbody>
   </table>
   <hr />
-  <div *ngIf="model.game.player.bet==0 && model.playerSteps.playerSteps.length<=2">
-    <div class="form-group">
+  <div class="form-group d-flex bd-highlight align-items-center justify-content-center" *ngIf="model.game.player.bet==0 && model.playerSteps.playerSteps.length<=2">
+    <div class="mr-2">
       <input value={{model?.game.player.balance}} name="Balance" id="Balance" hidden />
-      <input [(ngModel)]="bet" name="Bet" id="Bet" />
+      <input [(ngModel)]="bet" class="form-control form-control-lg" name="Bet" id="Bet" />
     </div>
     <div>
       <input id="formPlaceAbet" type="button" value="Bet" class="btn btn-secondary btn-lg" (click)="placeABet()" />

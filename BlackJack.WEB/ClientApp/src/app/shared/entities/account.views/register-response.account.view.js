@@ -6,4 +6,4 @@ var RegisterAccountResponseView = /** @class */ (function () {
     return RegisterAccountResponseView;
 }());
 exports.RegisterAccountResponseView = RegisterAccountResponseView;
-//# sourceMappingURL=RegisterAccountResponseView.js.map
+//# sourceMappingURL=register-response.account.view.js.map
