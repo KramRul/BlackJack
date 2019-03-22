@@ -325,8 +325,8 @@ namespace BlackJack.BusinessLogic.Services
 
             ranks = playerSteps.Select(step => step.Rank).ToList();
 
-            var totalRankCardsValue = _ranksHelper.TotalValue(ranks);
-            if (totalRankCardsValue > Draw)
+            var totalValueOfPlayerCards = _ranksHelper.TotalValue(ranks);
+            if (totalValueOfPlayerCards > Draw)
             {
                 player.Balance -= player.Bet;
                 var bots = await _database.BotSteps.GetAllBotsByGameId(game.Id);
@@ -405,7 +405,9 @@ namespace BlackJack.BusinessLogic.Services
 
             foreach (var bot in bots)
             {
-                var botSteps = allBotSteps.Select(step => step).Where(step => step.BotId == bot.Id);
+                var botSteps = allBotSteps.Select(step => step)
+                    .Where(step => step.BotId == bot.Id)
+                    .ToList();
 
                 var playerRanks = new List<RankType>();
 
@@ -473,7 +475,9 @@ namespace BlackJack.BusinessLogic.Services
 
             foreach (var bot in bots)
             {
-                var botSteps = allSteps.Select(step => step).Where(step => step.BotId == bot.Id);
+                var botSteps = allSteps.Select(step => step)
+                    .Where(step => step.BotId == bot.Id)
+                    .ToList();
 
                 var botRanks = new List<RankType>();
                 botRanks = botSteps.Select(step => step.Rank).ToList();
@@ -544,6 +548,7 @@ namespace BlackJack.BusinessLogic.Services
         public async Task<GetByIdGameView> GetById(Guid gameId)
         {
             var game = await _database.Games.Get(gameId);
+
             var result = (game == null) ?
                 throw new CustomServiceException("Game does not exist") :
                 new GetByIdGameView()
@@ -557,6 +562,7 @@ namespace BlackJack.BusinessLogic.Services
                     },
                     GameState = (GameStateTypeEnumView)game.GameState
                 };
+
             return result;
         }
     }
