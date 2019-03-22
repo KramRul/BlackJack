@@ -142,18 +142,13 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             var bots = new List<Bot>();
-            if (isActiveGame != null)
-            {
-                bots = await _database.BotSteps.GetAllBotsByGameId(isActiveGame.Id);
-            }
-            else
-            {
-                bots = await _database.BotSteps.GetAllBotsByGameId(game.Id);
-            }
+            bots = (isActiveGame != null) ?
+                await _database.BotSteps.GetAllBotsByGameId(isActiveGame.Id) :
+                    await _database.BotSteps.GetAllBotsByGameId(game.Id);
 
             if (bots == null || bots.Count == 0)
             {
-                var StepsOfAllBots = new List<BotStep>();
+                var stepsOfAllBots = new List<BotStep>();
                 var countOfAlreadyExistBots = await _database.Bots.Count() + 1;
                 var createdBots = new List<Bot>();
                 if (countOfBots > 0)
@@ -169,12 +164,12 @@ namespace BlackJack.BusinessLogic.Services
                         createdBots.Add(bot);
 
                         countOfAlreadyExistBots += 1;
-                        StepsOfAllBots.Add(CreateBotStep(bot, game));
-                        StepsOfAllBots.Add(CreateBotStep(bot, game));
+                        stepsOfAllBots.Add(CreateBotStep(bot, game));
+                        stepsOfAllBots.Add(CreateBotStep(bot, game));
                     }
                 }
                 await _database.Bots.Create(createdBots);
-                await _database.BotSteps.AddRange(StepsOfAllBots);
+                await _database.BotSteps.AddRange(stepsOfAllBots);
             }
 
             await _database.Players.Update(player);
@@ -404,11 +399,13 @@ namespace BlackJack.BusinessLogic.Services
                 return;
             }
 
+            var allBotSteps = await _database.BotSteps.GetAll();
+
+            var playerSteps = await _database.PlayerSteps.GetAllByPlayerIdAndGameId(playerId, game.Id);
+
             foreach (var bot in bots)
             {
-                var botSteps = await _database.BotSteps.GetAllByBotId(bot.Id);
-
-                var playerSteps = await _database.PlayerSteps.GetAllByPlayerIdAndGameId(playerId, game.Id);
+                var botSteps = allBotSteps.Select(step => step).Where(step => step.BotId == bot.Id);
 
                 var playerRanks = new List<RankType>();
 
@@ -419,8 +416,8 @@ namespace BlackJack.BusinessLogic.Services
                 botRanks = botSteps.Select(step => step.Rank).ToList();
 
                 var createdBotSteps = new List<BotStep>();
-                var totalRankCardsValue = _ranksHelper.TotalValue(botRanks);
-                while (totalRankCardsValue <= MidleDraw)
+                var totalValueOfBotCards = _ranksHelper.TotalValue(botRanks);
+                while (totalValueOfBotCards <= MidleDraw)
                 {
                     var botStep = new BotStep()
                     {
@@ -433,12 +430,12 @@ namespace BlackJack.BusinessLogic.Services
                     };
                     botRanks.Add(botStep.Rank);
                     createdBotSteps.Add(botStep);
-                    totalRankCardsValue = _ranksHelper.TotalValue(botRanks);
+                    totalValueOfBotCards = _ranksHelper.TotalValue(botRanks);
                 }
                 await _database.BotSteps.Create(createdBotSteps);
 
                 var isTotalValuePlayerMoreThanBot = _ranksHelper.TotalValue(playerRanks) > _ranksHelper.TotalValue(botRanks);
-                var totalValueOfBotCards = _ranksHelper.TotalValue(botRanks);
+                totalValueOfBotCards = _ranksHelper.TotalValue(botRanks);
                 var totalValueOfPlayerCards = _ranksHelper.TotalValue(playerRanks);
 
                 if (totalValueOfBotCards > Draw || isTotalValuePlayerMoreThanBot)
@@ -468,7 +465,7 @@ namespace BlackJack.BusinessLogic.Services
 
         private async Task<string> CheckingCardsOfBots(IEnumerable<Bot> bots, Game game)
         {
-            var amountsOfCardAllBots = new Dictionary<string, int>();
+            var amountsCardsOfAllBots = new Dictionary<string, int>();
             string nameOfWonBot = "";
 
             var allSteps = await _database.BotSteps.GetAll();
@@ -476,11 +473,11 @@ namespace BlackJack.BusinessLogic.Services
 
             foreach (var bot in bots)
             {
-                var botSteps = allSteps.Select(step=>step).Where(step=>step.BotId==bot.Id);
+                var botSteps = allSteps.Select(step => step).Where(step => step.BotId == bot.Id);
 
                 var botRanks = new List<RankType>();
                 botRanks = botSteps.Select(step => step.Rank).ToList();
-                
+
                 var totalValueOfBotCards = _ranksHelper.TotalValue(botRanks);
                 while (totalValueOfBotCards <= MidleDraw)
                 {
@@ -499,13 +496,13 @@ namespace BlackJack.BusinessLogic.Services
                 }
 
                 totalValueOfBotCards = _ranksHelper.TotalValue(botRanks);
-                amountsOfCardAllBots.Add(bot.Name, totalValueOfBotCards);
+                amountsCardsOfAllBots.Add(bot.Name, totalValueOfBotCards);
             }
             await _database.BotSteps.Create(createdSteps);
 
             var maxAmount = 0;
 
-            foreach (var item in amountsOfCardAllBots)
+            foreach (var item in amountsCardsOfAllBots)
             {
                 if (item.Value == Draw)
                 {
@@ -521,7 +518,7 @@ namespace BlackJack.BusinessLogic.Services
                 }
             }
 
-            return (nameOfWonBot == "")? nameOfWonBot = "NOBODY" : nameOfWonBot;
+            return (nameOfWonBot == "") ? nameOfWonBot = "NOBODY" : nameOfWonBot;
         }
 
         public async Task<GetGamesByPlayerIdGameView> GetGamesByPlayerId(string playerId)
