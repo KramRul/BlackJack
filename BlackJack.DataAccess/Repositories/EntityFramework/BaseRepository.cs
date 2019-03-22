@@ -32,35 +32,30 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         public async Task Create(T item)
         {
             await _dbSet.AddAsync(item);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
 
         public async Task Create(List<T> items)
         {
             await _dbSet.AddRangeAsync(items);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
 
         public async Task Update(T item)
         {
             dataBase.Entry(item).State = EntityState.Modified;
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
 
         public async Task Update(List<T> items)
         {
             _dbSet.UpdateRange(items);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
 
         public async Task Delete(T item)
         {
             _dbSet.Remove(item);
-            await Save();
-        }
-
-        public async Task Save()
-        {
             await dataBase.SaveChangesAsync();
         }
     }

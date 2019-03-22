@@ -44,7 +44,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         public async Task AddRange(List<PlayerStep> playerSteps)
         {
             await dataBase.PlayerSteps.AddRangeAsync(playerSteps);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
 
         public async Task Delete(Guid id)
@@ -52,7 +52,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             PlayerStep playerStep = await dataBase.PlayerSteps.FindAsync(id);
             if (playerStep != null)
                 dataBase.PlayerSteps.Remove(playerStep);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
     }
 }

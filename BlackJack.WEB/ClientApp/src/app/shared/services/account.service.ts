@@ -15,11 +15,11 @@ import { RegisterAccountResponseView } from '../entities/account.views/register-
 export class AccountService {
   private Url = `${environment.Base_URL}api/account/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService<string>) {
   }
 
   isSignedIn(): boolean {
-    if (new LocalStorageService<string>().getItem("accessToken") != null)
+    if (this.localStorageService.getItem("accessToken") != null)
       return true;
     else
       return false;
@@ -28,29 +28,25 @@ export class AccountService {
   login(model: LoginAccountView): Observable<void> {
     return this.http.post<LoginAccountResponseView>(`${this.Url}login`, model).pipe(
       map((response: LoginAccountResponseView) => {
-        var lStorage = new LocalStorageService<string>();
-        lStorage.setItem("accessToken", response.accessToken);
-        lStorage.setItem("userName", response.userName);
+        this.localStorageService.setItem("accessToken", response.accessToken);
+        this.localStorageService.setItem("userName", response.userName);
       }));
   }
 
   logout(): void {
-    var lStorage = new LocalStorageService<string>();
-    lStorage.removeItem("accessToken");
-    lStorage.removeItem("userName");
+    this.localStorageService.removeItem("accessToken");
+    this.localStorageService.removeItem("userName");
   }
 
   getLoggedPlayerName(): string {
-    var lStorage = new LocalStorageService<string>();
-    return lStorage.getItem("userName");
+    return this.localStorageService.getItem("userName");
   }
 
   register(model: RegisterAccountView): Observable<any> {
     return this.http.post(`${this.Url}register`, model).pipe(
       map((response: RegisterAccountResponseView) => {
-        var lStorage = new LocalStorageService<string>();
-        lStorage.setItem("accessToken", response.accessToken);
-        lStorage.setItem("userName", response.userName);
+        this.localStorageService.setItem("accessToken", response.accessToken);
+        this.localStorageService.setItem("userName", response.userName);
       }));
   }
 }

@@ -20,7 +20,14 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<GetDetailsByGameIdHistoryView> GetDetailsByGameId(string gameId)
         {
-            var game = await _database.Games.Get(Guid.Parse(gameId));
+            var validGameId = new Guid();
+            var isValidGameId = Guid.TryParse(gameId, out validGameId);
+            if (!isValidGameId)
+            {
+                throw new CustomServiceException("Game Id is not valid");
+            }
+
+            var game = await _database.Games.Get(validGameId);
             if (game == null)
             {
                 throw new CustomServiceException("Game does not exist");

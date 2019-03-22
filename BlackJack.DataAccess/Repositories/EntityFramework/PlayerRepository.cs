@@ -30,7 +30,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         public new async Task Create(Player player)
         {
             await dataBase.Users.AddAsync(player);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
 
         public async Task Delete(Guid id)
@@ -38,7 +38,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             Player player = await dataBase.Users.FindAsync(id.ToString());
             if (player != null)
                 dataBase.Users.Remove(player);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
     }
 }

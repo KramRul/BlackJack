@@ -8,11 +8,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
     public class EntityFrameworkUnitOfWork : IEntityFrameworkUnitOfWork
     {
         private ApplicationContext _dataBase;
-        private GameRepository gameRepository;
-        private PlayerRepository playerRepository;
-        private BotRepository botRepository;
-        private PlayerStepRepository playerStepRepository;
-        private BotStepRepository botStepRepository;
+        private GameRepository _gameRepository;
+        private PlayerRepository _playerRepository;
+        private BotRepository _botRepository;
+        private PlayerStepRepository _playerStepRepository;
+        private BotStepRepository _botStepRepository;
 
         public EntityFrameworkUnitOfWork(ApplicationContext context)
         {
@@ -22,9 +22,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (gameRepository == null)
-                    gameRepository = new GameRepository(_dataBase);
-                return gameRepository;
+                if (_gameRepository == null)
+                {
+                    _gameRepository = new GameRepository(_dataBase);
+                }
+                return _gameRepository;
             }
         }
 
@@ -32,9 +34,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (playerRepository == null)
-                    playerRepository = new PlayerRepository(_dataBase);
-                return playerRepository;
+                if (_playerRepository == null)
+                {
+                    _playerRepository = new PlayerRepository(_dataBase);
+                }
+                return _playerRepository;
             }
         }
 
@@ -42,9 +46,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (botRepository == null)
-                    botRepository = new BotRepository(_dataBase);
-                return botRepository;
+                if (_botRepository == null)
+                {
+                    _botRepository = new BotRepository(_dataBase);
+                }
+                return _botRepository;
             }
         }
 
@@ -52,9 +58,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (playerStepRepository == null)
-                    playerStepRepository = new PlayerStepRepository(_dataBase);
-                return playerStepRepository;
+                if (_playerStepRepository == null)
+                {
+                    _playerStepRepository = new PlayerStepRepository(_dataBase);
+                }
+                return _playerStepRepository;
             }
         }
 
@@ -62,24 +70,26 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (botStepRepository == null)
-                    botStepRepository = new BotStepRepository(_dataBase);
-                return botStepRepository;
+                if (_botStepRepository == null)
+                {
+                    _botStepRepository = new BotStepRepository(_dataBase);
+                }
+                return _botStepRepository;
             }
         }
 
-        private bool disposed = false;
+        private bool _disposed = false;
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
                     _dataBase.Dispose();
                     _dataBase = null;
                 }
-                this.disposed = true;
+                _disposed = true;
             }
         }
 

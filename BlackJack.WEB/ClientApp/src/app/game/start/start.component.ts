@@ -24,7 +24,7 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gameService.GetDetails().subscribe(data => {
+    this.gameService.getDetails().subscribe(data => {
       this.model.game = data.game;
       this.model.playerSteps = data.playerSteps;
       this.model.botsSteps = data.botsSteps;
@@ -33,7 +33,7 @@ export class StartComponent implements OnInit {
 
   placeABet(): void {
     this.gameService.placeABet(this.bet).subscribe(() => {
-      this.gameService.GetDetails().subscribe(data => {
+      this.gameService.getDetails().subscribe(data => {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
@@ -43,27 +43,27 @@ export class StartComponent implements OnInit {
 
   hit(): void {
     this.gameService.hit().subscribe(() => {
-      this.gameService.GetDetails(this.model.game.id).subscribe(data => {
+      this.gameService.getDetails(this.model.game.id).subscribe(data => {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
-        this.showNotification();
+        this.showWonName();
       });
     });
   }
 
   stand(): void {
     this.gameService.stand().subscribe(() => {
-      this.gameService.GetDetails(this.model.game.id).subscribe(data => {
+      this.gameService.getDetails(this.model.game.id).subscribe(data => {
         this.model.game = data.game;
         this.model.playerSteps = data.playerSteps;
         this.model.botsSteps = data.botsSteps;
-        this.showNotification();
+        this.showWonName();
       });
     });
   }
 
-  private showNotification(): void {
+  private showWonName(): void {
     if (this.model.game.wonName != '' && this.model.game.wonName != null)
       this.notifyService.showSuccess(`${this.model.game.wonName} WON`);
   }

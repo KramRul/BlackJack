@@ -7,7 +7,8 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LocalStorageService } from './shared/services/local-storage.service';
+import { LocalStorageService } from '../shared/services/local-storage.service';
+
 
 export class HttpConfigInterceptor implements HttpInterceptor {
 

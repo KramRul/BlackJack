@@ -8,11 +8,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
 {
     public class DapperUnitOfWork : IDapperUnitOfWork
     {
-        private GameRepositoryDapper gameRepository;
-        private PlayerRepositoryDapper playerRepository;
-        private BotRepositoryDapper botRepository;
-        private PlayerStepRepositoryDapper playerStepRepository;
-        private BotStepRepositoryDapper botStepRepository;
+        private GameRepositoryDapper _gameRepository;
+        private PlayerRepositoryDapper _playerRepository;
+        private BotRepositoryDapper _botRepository;
+        private PlayerStepRepositoryDapper _playerStepRepository;
+        private BotStepRepositoryDapper _botStepRepository;
         private IDbConnection _connection;
 
         public DapperUnitOfWork(IDbConnection connection)
@@ -23,9 +23,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (gameRepository == null)
-                    gameRepository = new GameRepositoryDapper(_connection);
-                return gameRepository;
+                if (_gameRepository == null)
+                {
+                    _gameRepository = new GameRepositoryDapper(_connection);
+                }
+                return _gameRepository;
             }
         }
 
@@ -33,9 +35,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (playerRepository == null)
-                    playerRepository = new PlayerRepositoryDapper(_connection);
-                return playerRepository;
+                if (_playerRepository == null)
+                {
+                    _playerRepository = new PlayerRepositoryDapper(_connection);
+                }
+                return _playerRepository;
             }
         }
 
@@ -43,9 +47,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (botRepository == null)
-                    botRepository = new BotRepositoryDapper(_connection);
-                return botRepository;
+                if (_botRepository == null)
+                {
+                    _botRepository = new BotRepositoryDapper(_connection);
+                }
+                return _botRepository;
             }
         }
 
@@ -53,9 +59,11 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (playerStepRepository == null)
-                    playerStepRepository = new PlayerStepRepositoryDapper(_connection);
-                return playerStepRepository;
+                if (_playerStepRepository == null)
+                {
+                    _playerStepRepository = new PlayerStepRepositoryDapper(_connection);
+                }
+                return _playerStepRepository;
             }
         }
 
@@ -63,17 +71,19 @@ namespace BlackJack.DataAccess.UnitOfWorks
         {
             get
             {
-                if (botStepRepository == null)
-                    botStepRepository = new BotStepRepositoryDapper(_connection);
-                return botStepRepository;
+                if (_botStepRepository == null)
+                {
+                    _botStepRepository = new BotStepRepositoryDapper(_connection);
+                }
+                return _botStepRepository;
             }
         }
 
-        private bool disposed = false;
+        private bool _disposed = false;
 
         public void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
@@ -81,7 +91,7 @@ namespace BlackJack.DataAccess.UnitOfWorks
                     _connection.Dispose();
                     _connection = null;
                 }
-                this.disposed = true;
+                _disposed = true;
             }
         }
 

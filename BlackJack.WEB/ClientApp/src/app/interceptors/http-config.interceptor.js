@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = require("@angular/common/http");
 var operators_1 = require("rxjs/operators");
-var local_storage_service_1 = require("./shared/services/local-storage.service");
+var local_storage_service_1 = require("../shared/services/local-storage.service");
 var HttpConfigInterceptor = /** @class */ (function () {
     function HttpConfigInterceptor() {
     }

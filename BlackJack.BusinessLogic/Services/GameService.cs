@@ -26,7 +26,7 @@ namespace BlackJack.BusinessLogic.Services
             _ranksHelper = ranksHelper;
         }
 
-        public async Task<GetAllStepsByPlayerIdAndGameIdGameView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameID)
+        public async Task<GetAllStepsByPlayerIdAndGameIdGameView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
@@ -34,13 +34,21 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             var model = new GetAllStepsByPlayerIdAndGameIdGameView();
-            var player = await _database.Players.Get(Guid.Parse(playerId));
+
+            var validPlayerId = new Guid();
+            var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
+            if (!isValidPlayerId)
+            {
+                throw new CustomServiceException("Player Id is not valid");
+            }
+
+            var player = await _database.Players.Get(validPlayerId);
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
             }
 
-            var playerSteps = await _database.PlayerSteps.GetAllByPlayerIdAndGameId(playerId, gameID);
+            var playerSteps = await _database.PlayerSteps.GetAllByPlayerIdAndGameId(playerId, gameId);
 
             model.PlayerSteps = playerSteps.Select(step => new PlayerStepGetAllStepsByPlayerIdAndGameIdGameViewItem()
             {
@@ -228,7 +236,14 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player is unautorized");
             }
 
-            var player = await _database.Players.Get(Guid.Parse(playerId));
+            var validPlayerId = new Guid();
+            var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
+            if (!isValidPlayerId)
+            {
+                throw new CustomServiceException("Player Id is not valid");
+            }
+
+            var player = await _database.Players.Get(validPlayerId);
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
@@ -296,7 +311,14 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player cannot be null");
             }
 
-            var player = await _database.Players.Get(Guid.Parse(playerId));
+            var validPlayerId = new Guid();
+            var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
+            if (!isValidPlayerId)
+            {
+                throw new CustomServiceException("Player Id is not valid");
+            }
+
+            var player = await _database.Players.Get(validPlayerId);
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
@@ -360,7 +382,14 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Invalid bet");
             }
 
-            var player = await _database.Players.Get(Guid.Parse(playerId));
+            var validPlayerId = new Guid();
+            var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
+            if (!isValidPlayerId)
+            {
+                throw new CustomServiceException("Player Id is not valid");
+            }
+
+            var player = await _database.Players.Get(validPlayerId);
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
@@ -383,7 +412,14 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player cannot be null");
             }
 
-            var player = await _database.Players.Get(Guid.Parse(playerId));
+            var validPlayerId = new Guid();
+            var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
+            if (!isValidPlayerId)
+            {
+                throw new CustomServiceException("Player Id is not valid");
+            }
+
+            var player = await _database.Players.Get(validPlayerId);
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");

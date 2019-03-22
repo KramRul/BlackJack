@@ -45,7 +45,7 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         public async Task AddRange(List<BotStep> botSteps)
         {
             await dataBase.BotSteps.AddRangeAsync(botSteps);
-            await Save();
+            await dataBase.SaveChangesAsync();
         }
     }
 }

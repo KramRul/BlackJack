@@ -6,15 +6,15 @@ import { AccountService } from 'src/app/shared/services/account.service';
   providedIn: 'root'
 })
 export class LoggedGuard implements CanActivate  {
-  constructor(private _accountService: AccountService, private _router: Router) {
+  constructor(private accountService: AccountService, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    var isSignedIn = this._accountService.isSignedIn();
+    var isSignedIn = this.accountService.isSignedIn();
     if (isSignedIn) {
       return true;
     }
-    this._router.navigate(['/account/login']);
+    this.router.navigate(['/account/login']);
     return false;
   }
 }

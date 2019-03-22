@@ -6,15 +6,15 @@ import { AccountService } from 'src/app/shared/services/account.service';
   providedIn: 'root'
 })
 export class NonLoggedGuard implements CanActivateChild{
-  constructor(private _accountService: AccountService, private _router: Router) {
+  constructor(private accountService: AccountService, private router: Router) {
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     var path = route.routeConfig.path;
     console.log(route.routeConfig.path);
-    var isSignedIn = this._accountService.isSignedIn();
+    var isSignedIn = this.accountService.isSignedIn();
     if (isSignedIn && path != 'logout') {
-      this._router.navigate(['/account/logout']);
+      this.router.navigate(['/account/logout']);
       return false;
     };
     if (isSignedIn && path == 'logout') {

@@ -60,7 +60,14 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<GetByIdPlayerView> GetById(string playerId)
         {
-            var player = await _database.Players.Get(Guid.Parse(playerId));
+            var validPlayerId = new Guid();
+            var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
+            if (!isValidPlayerId)
+            {
+                throw new CustomServiceException("Player Id is not valid");
+            }
+
+            var player = await _database.Players.Get(validPlayerId);
             if (player == null)
             {
                 throw new CustomServiceException("Player does not exist");
