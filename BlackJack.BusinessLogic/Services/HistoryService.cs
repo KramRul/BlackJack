@@ -107,7 +107,8 @@ namespace BlackJack.BusinessLogic.Services
                 }
                 foreach (var bot in bots.Bots)
                 {
-                    if (botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList().Count > i)
+                    var countOfBotSteps = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList().Count;
+                    if (countOfBotSteps > i)
                     {
                         cards.Add(new CardPlayerAndBotStepsDetailsOfGameHistoryView()
                         {
