@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { Router } from '@angular/router';
 
