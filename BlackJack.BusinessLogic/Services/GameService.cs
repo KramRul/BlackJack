@@ -355,6 +355,11 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player cannot be null");
             }
 
+            if (bet < 0)
+            {
+                throw new CustomServiceException("Invalid bet");
+            }
+
             var player = await _database.Players.Get(Guid.Parse(playerId));
             if (player == null)
             {
