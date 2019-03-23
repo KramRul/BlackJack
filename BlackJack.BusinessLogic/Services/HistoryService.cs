@@ -13,6 +13,7 @@ namespace BlackJack.BusinessLogic.Services
 {
     public class HistoryService : BaseService, IHistoryService
     {
+        private const int CountOfSteps = 5;
         public HistoryService(IBaseUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
@@ -70,16 +71,102 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
+        public async Task<GetAllStepsByPlayerIdAndGameIdHistoryView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
+        {
+            if (string.IsNullOrEmpty(playerId))
+            {
+                throw new CustomServiceException("Player cannot be null");
+            }
+
+            var model = new GetAllStepsByPlayerIdAndGameIdHistoryView();
+
+            var validPlayerId = new Guid();
+            var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
+            if (!isValidPlayerId)
+            {
+                throw new CustomServiceException("Player Id is not valid");
+            }
+
+            var player = await _database.Players.Get(validPlayerId);
+            if (player == null)
+            {
+                throw new CustomServiceException("Player does not exist");
+            }
+
+            var playerSteps = await _database.PlayerSteps.GetAllByPlayerIdAndGameId(playerId, gameId);
+
+            model.PlayerSteps = playerSteps.Select(step => new PlayerStepGetAllStepsByPlayerIdAndGameIdHistoryViewItem()
+            {
+                Id = step.Id,
+                Player = new PlayerGetAllStepsByPlayerIdAndGameIdHistoryView()
+                {
+                    PlayerId = step.PlayerId,
+                    Balance = step.Player.Balance,
+                    UserName = step.Player.UserName,
+                    Bet = step.Player.Bet
+                },
+                Game = new GameGetAllStepsByPlayerIdAndGameIdHistoryView()
+                {
+                    GameId = step.GameId,
+                    GameState = (GameStateTypeEnumView)step.Game.GameState
+                },
+                Rank = (RankTypeEnumView)step.Rank,
+                Suite = (SuiteTypeEnumView)step.Suite
+            }).ToList();
+
+            return model;
+        }
+
+        public async Task<GetAllStepOfBotsByGameIdHistoryView> GetAllStepOfBotsByGameId(Guid gameId)
+        {
+            var model = new GetAllStepOfBotsByGameIdHistoryView();
+            var botSteps = await _database.BotSteps.GetAllByGameId(gameId);
+
+            model.BotSteps = botSteps.Select(x => new BotStepGetAllStepOfBotsByGameIdHistoryViewItem()
+            {
+                Id = x.Id,
+                Rank = (RankTypeEnumView)x.Rank,
+                Suite = (SuiteTypeEnumView)x.Suite,
+                Bot = new BotGetAllStepOfBotsByGameIdHistoryView()
+                {
+                    Id = x.BotId,
+                    Name = x.Bot.Name,
+                    Balance = x.Bot.Balance,
+                    Bet = x.Bot.Bet
+                }
+            }).OrderBy(b => b.Bot.Name)
+            .ToList();
+
+            return model;
+        }
+
+        public async Task<GetAllBotsByGameIdHistoryView> GetAllBotsByGameId(Guid gameId)
+        {
+            var model = new GetAllBotsByGameIdHistoryView();
+            var bots = await _database.BotSteps.GetAllBotsByGameId(gameId);
+
+            model.Bots = bots.Select(bot => new BotGetAllBotsByGameIdHistoryViewItem()
+            {
+                Id = bot.Id,
+                Name = bot.Name,
+                Balance = bot.Balance,
+                Bet = bot.Bet
+            }).ToList();
+
+            return model;
+        }
+
         public async Task<List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>> GetStepsDetailsOfGame(
             GetDetailsByGameIdHistoryView game,
-            GetAllStepsByPlayerIdAndGameIdGameView playerSteps,
-            GetAllStepOfBotsByGameIdGameView botsSteps,
-            GetAllBotsByGameIdGameView bots)
+            GetAllStepsByPlayerIdAndGameIdHistoryView playerSteps,
+            GetAllStepOfBotsByGameIdHistoryView botsSteps,
+            GetAllBotsByGameIdHistoryView bots
+            )
         {
             var steps = new List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>();
             var cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < CountOfSteps; i++)
             {
                 cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
 
@@ -159,6 +246,38 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             return steps;
+        }
+
+        public async Task<DetailsOfGameHistoryView> DetailsOfGame(GetDetailsByGameIdHistoryView game)
+        {
+            var playerSteps = await GetAllStepsByPlayerIdAndGameId(game.Player.Id, game.Id);
+            var botsSteps = await GetAllStepOfBotsByGameId(game.Id);
+            var bots = await GetAllBotsByGameId(game.Id);
+            var steps = await GetStepsDetailsOfGame(game, playerSteps, botsSteps, bots);
+
+            var model = new DetailsOfGameHistoryView()
+            {
+                Game = new GameDetailsOfGameHistoryView()
+                {
+                    Id = game.Id,
+                    WonName = game.WonName,
+                    GameState = game.GameState,
+                    Player = new PlayerDetailsOfGameHistoryView()
+                    {
+                        Id = game.Player.Id,
+                        UserName = game.Player.UserName,
+                        Balance = game.Player.Balance,
+                        Bet = game.Player.Bet
+                    }
+                },
+                PlayerSteps = playerSteps,
+                BotsSteps = botsSteps,
+                PlayerAndBotSteps = new PlayerAndBotStepsDetailsOfGameHistoryView()
+                {
+                    Steps = steps
+                }
+            };
+            return model;
         }
     }
 }

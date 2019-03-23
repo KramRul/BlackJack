@@ -10,3 +10,15 @@ C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\bi
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.csprojAssemblyReference.cache
 C:\Users\Anuitex - 62\source\repos\ProjectsNew\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.csproj.CopyComplete
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.deps.json
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.dll
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.ViewModels.pdb
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.csprojAssemblyReference.cache
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.AssemblyInfoInputs.cache
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.AssemblyInfo.cs
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.csproj.CopyComplete
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.dll
+C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.ViewModels\obj\Debug\netcoreapp2.2\BlackJack.ViewModels.pdb

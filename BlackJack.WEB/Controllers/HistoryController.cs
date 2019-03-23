@@ -34,32 +34,7 @@ namespace BlackJack.WEB.Controllers
             return await Execute(async () =>
             {
                 var game = await _historyService.GetDetailsByGameId(gameId);
-                var playerSteps = await _gameService.GetAllStepsByPlayerIdAndGameId(game.Player.Id, game.Id);
-                var botsSteps = await _gameService.GetAllStepOfBotsByGameId(game.Id);
-                var bots = await _gameService.GetAllBotsByGameId(game.Id);
-                var steps = await _historyService.GetStepsDetailsOfGame(game, playerSteps, botsSteps, bots);
-                var model = new DetailsOfGameHistoryView()
-                {
-                    Game = new GameDetailsOfGameHistoryView()
-                    {
-                        Id = game.Id,
-                        WonName = game.WonName,
-                        GameState = game.GameState,
-                        Player = new PlayerDetailsOfGameHistoryView()
-                        {
-                            Id = game.Player.Id,
-                            UserName = game.Player.UserName,
-                            Balance = game.Player.Balance,
-                            Bet = game.Player.Bet
-                        }
-                    },
-                    PlayerSteps = playerSteps,
-                    BotsSteps = botsSteps,
-                    PlayerAndBotSteps = new PlayerAndBotStepsDetailsOfGameHistoryView()
-                    {
-                        Steps = steps
-                    }
-                };
+                var model = await _historyService.DetailsOfGame(game);
                 return model;
             });
         }
