@@ -20,164 +20,38 @@
 <div>
   <hr />
 </div>
-<table class="table table-bordered table-hover" *ngIf="model.playerAndBotSteps.steps.length>=1">
-  <caption style="caption-side: top">STEP 1</caption>
-  <thead class="thead-light">
-    <tr>
-      <th></th>
-      <th>Suite</th>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Balance</th>
-      <th>Bet</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let card of model.playerAndBotSteps.steps[0].cards; let i = index">
-      <td>{{i}}</td>
-      <td>{{Suite[card?.suite]}}</td>
-      <td>{{Rank[card?.rank]}}</td>
-      <ng-template *ngIf="card.player.userName!=''; then thenBlock else elseBlock">
-      </ng-template>
-      <ng-template #thenBlock>
-        <td>{{card?.player.userName}}</td>
-        <td>{{card?.player.balance}}</td>
-        <td>{{card?.player.bet}}</td>
-      </ng-template>
-      <ng-template #elseBlock>
-        <td>{{card?.bot.name}}</td>
-        <td>{{card?.bot.balance}}</td>
-        <td>{{card?.bot.bet}}</td>
-      </ng-template>
-    </tr>
-  </tbody>
-</table>
-<table class="table table-bordered table-hover" *ngIf="model.playerAndBotSteps.steps.length>=2">
-  <caption style="caption-side: top">STEP 2</caption>
-  <thead class="thead-light">
-    <tr>
-      <th></th>
-      <th>Suite</th>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Balance</th>
-      <th>Bet</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let card of model.playerAndBotSteps.steps[1].cards; let i = index">
-      <td>{{i}}</td>
-      <td>{{Suite[card?.suite]}}</td>
-      <td>{{Rank[card?.rank]}}</td>
-      <ng-template *ngIf="card.player.userName!=''; then thenBlock else elseBlock">
-      </ng-template>
-      <ng-template #thenBlock>
-        <td>{{card?.player.userName}}</td>
-        <td>{{card?.player.balance}}</td>
-        <td>{{card?.player.bet}}</td>
-      </ng-template>
-      <ng-template #elseBlock>
-        <td>{{card?.bot.name}}</td>
-        <td>{{card?.bot.balance}}</td>
-        <td>{{card?.bot.bet}}</td>
-      </ng-template>
-    </tr>
-  </tbody>
-</table>
-<table class="table table-bordered table-hover" *ngIf="model.playerAndBotSteps.steps.length>=3">
-  <caption style="caption-side: top">STEP 3</caption>
-  <thead class="thead-light">
-    <tr>
-      <th></th>
-      <th>Suite</th>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Balance</th>
-      <th>Bet</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let card of model.playerAndBotSteps.steps[2].cards; let i = index">
-      <td>{{i}}</td>
-      <td>{{Suite[card?.suite]}}</td>
-      <td>{{Rank[card?.rank]}}</td>
-      <ng-template *ngIf="card.player.userName!=''; then thenBlock else elseBlock">
-      </ng-template>
-      <ng-template #thenBlock>
-        <td>{{card?.player.userName}}</td>
-        <td>{{card?.player.balance}}</td>
-        <td>{{card?.player.bet}}</td>
-      </ng-template>
-      <ng-template #elseBlock>
-        <td>{{card?.bot.name}}</td>
-        <td>{{card?.bot.balance}}</td>
-        <td>{{card?.bot.bet}}</td>
-      </ng-template>
-    </tr>
-  </tbody>
-</table>
-<table class="table table-bordered table-hover" *ngIf="model.playerAndBotSteps.steps.length>=4">
-  <caption style="caption-side: top">STEP 4</caption>
-  <thead class="thead-light">
-    <tr>
-      <th></th>
-      <th>Suite</th>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Balance</th>
-      <th>Bet</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let card of model.playerAndBotSteps.steps[3].cards; let i = index">
-      <td>{{i}}</td>
-      <td>{{Suite[card?.suite]}}</td>
-      <td>{{Rank[card?.rank]}}</td>
-      <ng-template *ngIf="card.player.userName!=''; then thenBlock else elseBlock">
-      </ng-template>
-      <ng-template #thenBlock>
-        <td>{{card?.player.userName}}</td>
-        <td>{{card?.player.balance}}</td>
-        <td>{{card?.player.bet}}</td>
-      </ng-template>
-      <ng-template #elseBlock>
-        <td>{{card?.bot.name}}</td>
-        <td>{{card?.bot.balance}}</td>
-        <td>{{card?.bot.bet}}</td>
-      </ng-template>
-    </tr>
-  </tbody>
-</table>
-<table class="table table-bordered table-hover" *ngIf="model.playerAndBotSteps.steps.length>=5">
-  <caption style="caption-side: top">STEP 5</caption>
-  <thead class="thead-light">
-    <tr>
-      <th></th>
-      <th>Suite</th>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Balance</th>
-      <th>Bet</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let card of model.playerAndBotSteps.steps[4].cards; let i = index">
-      <td>{{i}}</td>
-      <td>{{Suite[card?.suite]}}</td>
-      <td>{{Rank[card?.rank]}}</td>
-      <ng-template *ngIf="card.player.userName!=''; then thenBlock else elseBlock">
-      </ng-template>
-      <ng-template #thenBlock>
-        <td>{{card?.player.userName}}</td>
-        <td>{{card?.player.balance}}</td>
-        <td>{{card?.player.bet}}</td>
-      </ng-template>
-      <ng-template #elseBlock>
-        <td>{{card?.bot.name}}</td>
-        <td>{{card?.bot.balance}}</td>
-        <td>{{card?.bot.bet}}</td>
-      </ng-template>
-    </tr>
-  </tbody>
-</table>
+<div *ngFor="let step of model.playerAndBotSteps.steps; let i = index">
+  <table class="table table-bordered table-hover" *ngIf="model.playerAndBotSteps.steps.length>=1">
+    <caption style="caption-side: top">STEP {{i}}</caption>
+    <thead class="thead-light">
+      <tr>
+        <th></th>
+        <th>Suite</th>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Balance</th>
+        <th>Bet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let card of step.cards; let i = index">
+        <td>{{i}}</td>
+        <td>{{Suite[card?.suite]}}</td>
+        <td>{{Rank[card?.rank]}}</td>
+        <ng-template *ngIf="card.player.userName!=''; then thenBlock else elseBlock">
+        </ng-template>
+        <ng-template #thenBlock>
+          <td>{{card?.player.userName}}</td>
+          <td>{{card?.player.balance}}</td>
+          <td>{{card?.player.bet}}</td>
+        </ng-template>
+        <ng-template #elseBlock>
+          <td>{{card?.bot.name}}</td>
+          <td>{{card?.bot.balance}}</td>
+          <td>{{card?.bot.bet}}</td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <hr/>
