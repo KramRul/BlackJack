@@ -8,8 +8,6 @@ namespace BlackJack.ViewModels.HistoryViews
     public class DetailsOfGameHistoryView
     {
         public GameDetailsOfGameHistoryView Game { get; set; }
-        public GetAllStepsByPlayerIdAndGameIdHistoryView PlayerSteps { get; set; }
-        public GetAllStepOfBotsByGameIdHistoryView BotsSteps { get; set; }
         public PlayerAndBotStepsDetailsOfGameHistoryView PlayerAndBotSteps { get; set; }
     }
 

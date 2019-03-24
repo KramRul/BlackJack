@@ -1,19 +1,13 @@
 import { GameStateType } from "../../enums/game-state-type";
 import { SuiteType } from "../../enums/suite-type";
 import { RankType } from "../../enums/rank-type";
-import { GetAllStepsByPlayerIdAndGameIdGameView } from '../game.views/get-all-steps-by-player-id-and-game-id.game.view';
-import { GetAllStepOfBotsByGameIdGameView } from '../game.views/get-all-step-of-bots-by-game-id.game.view';
 
 export class DetailsOfGameHistoryView {
   game?: GameDetailsOfGameHistoryView;
-  playerSteps?: GetAllStepsByPlayerIdAndGameIdGameView;
-  botsSteps?: GetAllStepOfBotsByGameIdGameView;
   playerAndBotSteps?: PlayerAndBotStepsDetailsOfGameHistoryView;
 
   constructor() {
     this.game = new GameDetailsOfGameHistoryView();
-    this.playerSteps = new GetAllStepsByPlayerIdAndGameIdGameView();
-    this.botsSteps = new GetAllStepOfBotsByGameIdGameView();
     this.playerAndBotSteps = new PlayerAndBotStepsDetailsOfGameHistoryView();
   }
 }

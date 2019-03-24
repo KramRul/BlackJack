@@ -25,8 +25,6 @@ export class GameComponent implements OnInit {
     var gameId = this.route.snapshot.queryParamMap.get('gameId');
     this.historyService.game(gameId).subscribe(data => {
       this.model.game = data.game;
-      this.model.botsSteps = data.botsSteps;
-      this.model.playerSteps = data.playerSteps;
       this.model.playerAndBotSteps = data.playerAndBotSteps;
     });
   }

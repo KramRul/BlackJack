@@ -21,9 +21,7 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
         Task<GetAllBotsByGameIdHistoryView> GetAllBotsByGameId(Guid gameId);
 
         Task<List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>> GetStepsDetailsOfGame(
-            GetDetailsByGameIdHistoryView game,
-            GetAllStepsByPlayerIdAndGameIdHistoryView playerSteps,
-            GetAllStepOfBotsByGameIdHistoryView botsSteps,
-            GetAllBotsByGameIdHistoryView bots);
+            GameGetStepsDetailsOfGameHistoryView game,
+            BotsGetStepsDetailsOfGameHistoryView bots);
     }
 }
