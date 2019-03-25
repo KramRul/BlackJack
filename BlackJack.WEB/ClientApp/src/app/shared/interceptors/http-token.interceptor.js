@@ -8,7 +8,7 @@ var HttpTokenInterceptor = /** @class */ (function () {
     }
     HttpTokenInterceptor.prototype.intercept = function (request, next) {
         var lStorage = new local_storage_service_1.LocalStorageService();
-        var token = lStorage.getItem('accessToken', "");
+        var token = lStorage.getItem('accessToken');
         if (token) {
             request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
         }

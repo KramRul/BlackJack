@@ -5,14 +5,15 @@ import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account.component';
 import { LogoutComponent } from './logout/logout.component';
 import { NonLoggedGuard } from './guards/non-logged.guard';
+import { LoggedGuard } from './guards/logged.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'logout', pathMatch: 'full' },
   {
-    path: '', component: AccountComponent, canActivateChild: [NonLoggedGuard], children: [      
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'logout', component: LogoutComponent }
+    path: '', component: AccountComponent, children: [      
+      { path: 'login', component: LoginComponent, canActivate: [NonLoggedGuard] },
+      { path: 'register', component: RegisterComponent, canActivate: [NonLoggedGuard] },
+      { path: 'logout', component: LogoutComponent, canActivate: [LoggedGuard] }
     ]
   }
 ]

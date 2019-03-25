@@ -26,10 +26,11 @@ export class LocalStorageService {
     }
   }
 
-  getItem<T=string>(key: string, typeT: T): T {
+  getItem<T=string>(key: string): T {
     try {
       const dataAsString = localStorage.getItem(key);
-      return (typeof typeT === "string") ? dataAsString : JSON.parse(dataAsString);         
+      const dataAsJSON = JSON.stringify(dataAsString);
+      return JSON.parse(dataAsJSON);         
     } catch (e) {
       console.log('Error getting data from localStorage', e);
       return null;

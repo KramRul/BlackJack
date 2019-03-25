@@ -23,7 +23,7 @@ export class AccountService {
   }
 
   getToken(): string {
-    return this.localStorageService.getItem<string>("accessToken", "");
+    return this.localStorageService.getItem<string>("accessToken");
   }
 
   login(model: LoginAccountView): Observable<void> {
@@ -40,7 +40,7 @@ export class AccountService {
   }
 
   getLoggedPlayerName(): string {
-    return this.localStorageService.getItem<string>("userName","");
+    return this.localStorageService.getItem<string>("userName");
   }
 
   register(model: RegisterAccountView): Observable<any> {
