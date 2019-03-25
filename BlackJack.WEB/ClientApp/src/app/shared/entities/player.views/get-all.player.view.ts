@@ -8,7 +8,7 @@ export class GetAllPlayerView {
 
 export class PlayerGetAllPlayerViewItem {
   userName?: string;
-  playerId?: string;
+  id?: string;
   balance?: number;
   bet?: number;
 }

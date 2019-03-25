@@ -14,7 +14,7 @@ export class StartGameView {
 
 export class PlayerStartGameView {
   userName?: string;
-  playerId?: string;
+  id?: string;
   balance?: number;
   bet?: number;
 }

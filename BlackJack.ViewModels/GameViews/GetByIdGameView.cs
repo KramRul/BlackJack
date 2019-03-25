@@ -12,7 +12,7 @@ namespace BlackJack.ViewModels.GameViews
 
     public class PlayerGetByIdGameView
     {
-        public string PlayerId { get; set; }
+        public string Id { get; set; }
         public decimal Balance { get; set; }
         public decimal Bet { get; set; }
     }

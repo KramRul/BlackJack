@@ -10,9 +10,9 @@ export class NonLoggedGuard implements CanActivateChild{
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    var path = route.routeConfig.path;
+    let path = route.routeConfig.path;
     console.log(route.routeConfig.path);
-    var isSignedIn = this.accountService.isSignedIn();
+    let isSignedIn = this.accountService.isSignedIn();
     console.log(isSignedIn);
     if (isSignedIn && path != 'logout') {
       this.router.navigate(['/account/logout']);

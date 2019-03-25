@@ -24,12 +24,12 @@ export class PlayerStepGetAllStepsByPlayerIdPlayerViewItem {
 }
 
 export class PlayerGetAllStepsByPlayerIdPlayerView {
-  playerId?: string;
+  id?: string;
   balance?: number;
   bet?: number;
 }
 
 export class GameGetAllStepsByPlayerIdPlayerView {
-  gameId?: string;
+  id?: string;
   gameState?: GameStateType;
 }

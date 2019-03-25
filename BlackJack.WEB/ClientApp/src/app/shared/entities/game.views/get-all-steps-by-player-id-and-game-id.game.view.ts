@@ -25,7 +25,7 @@ export class PlayerStepGetAllStepsByPlayerIdAndGameIdGameViewItem {
 }
 
 export class PlayerGetAllStepsByPlayerIdAndGameIdGameView {
-  playerId?: string;
+  id?: string;
   balance?: number;
   bet?: number;
 }

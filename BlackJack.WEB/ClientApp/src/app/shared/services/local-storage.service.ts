@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { createDirectiveInstance } from '@angular/core/src/view/provider';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LocalStorageService {
   constructor() { }
 
@@ -14,21 +16,20 @@ export class LocalStorageService {
     localStorage.removeItem(key);
   }
 
-  setItem<T>(key: string, data: T): boolean {
+  setItem<T>(key: string, data: T) {
     try {
       const dataAsString: string = (typeof data === "string") ? data : JSON.stringify(data);
       localStorage.setItem(key, dataAsString);
-      return true;
     }
     catch (e) {
-      return false;
+      console.log('Error getting data from localStorage', e);
     }
   }
 
-  getItem<T>(key: string): string {
+  getItem<T=string>(key: string, typeT: T): T {
     try {
-      var data = localStorage.getItem(key);
-      return (!data) ? null : data;
+      const dataAsString = localStorage.getItem(key);
+      return (typeof typeT === "string") ? dataAsString : JSON.parse(dataAsString);         
     } catch (e) {
       console.log('Error getting data from localStorage', e);
       return null;

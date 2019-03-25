@@ -362,7 +362,6 @@ namespace BlackJack.BusinessLogic.Services
 
             var result = new HitGameView()
             {
-                PlayerId = playerStep.PlayerId,
                 GameId = playerStep.GameId,
                 Rank = (RankTypeEnumView)playerStep.Rank,
                 Suite = (SuiteTypeEnumView)playerStep.Suite
@@ -596,7 +595,7 @@ namespace BlackJack.BusinessLogic.Services
                 Id = game.Id,
                 Player = new PlayerGetByIdGameView()
                 {
-                    PlayerId = game.Player.Id,
+                    Id = game.Player.Id,
                     Balance = game.Player.Balance,
                     Bet = game.Player.Bet
                 },

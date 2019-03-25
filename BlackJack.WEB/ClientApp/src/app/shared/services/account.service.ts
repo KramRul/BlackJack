@@ -19,7 +19,11 @@ export class AccountService {
   }
 
   isSignedIn(): boolean {
-    return (this.localStorageService.getItem<string>("accessToken") != null) ? true : false;
+    return this.getToken() != null;
+  }
+
+  getToken(): string {
+    return this.localStorageService.getItem<string>("accessToken", "");
   }
 
   login(model: LoginAccountView): Observable<void> {
@@ -36,7 +40,7 @@ export class AccountService {
   }
 
   getLoggedPlayerName(): string {
-    return this.localStorageService.getItem<string>("userName");
+    return this.localStorageService.getItem<string>("userName","");
   }
 
   register(model: RegisterAccountView): Observable<any> {

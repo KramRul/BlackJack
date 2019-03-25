@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { GetAllPlayerView, PlayerGetAllPlayerViewItem } from '../entities/player.views/get-all.player.view';
+import { GetAllPlayerView } from '../entities/player.views/get-all.player.view';
 import { StartGameView } from '../entities/game.views/start.game.view';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { GetDetailsByPlayerIdAndGameIdGameView } from '../entities/game.views/get-details-by-player-id-and-game-id.game.view';
+import { HitGameView } from '../entities/game.views/hit.game.view';
+import { PlaceABetGameView } from '../entities/game.views/place-a-bet.game.view';
+import { StandGameView } from '../entities/game.views/stand.game.view';
 
 @Injectable({
   providedIn: 'root'
@@ -29,15 +31,15 @@ export class GameService {
     return this.http.get<GetDetailsByPlayerIdAndGameIdGameView>(`${this.Url}getDetails?gameId=${gameId}`);
   }
 
-  placeABet(bet?: number): Observable<any> {
-    return this.http.get(`${this.Url}placeABet?bet=${bet}`);
+  placeABet(bet?: number): Observable<PlaceABetGameView> {
+    return this.http.get<PlaceABetGameView>(`${this.Url}placeABet?bet=${bet}`);
   }
 
-  hit(): Observable<any> {
-    return this.http.get(`${this.Url}hit`);
+  hit(): Observable<HitGameView> {
+    return this.http.get<HitGameView>(`${this.Url}hit`);
   }
 
-  stand(): Observable<any> {
-    return this.http.get(`${this.Url}stand`);
+  stand(): Observable<StandGameView> {
+    return this.http.get<StandGameView>(`${this.Url}stand`);
   }
 }

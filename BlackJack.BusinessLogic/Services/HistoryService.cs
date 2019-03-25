@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.EnumViews;
+using BlackJack.ViewModels.GameViews;
 using BlackJack.ViewModels.HistoryViews;
 using System;
 using System.Collections.Generic;
@@ -155,7 +156,7 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>> GetStepsDetailsOfGame(
+        public async Task<GetStepsDetailsOfGameHistoryResponseView> GetStepsDetailsOfGame(
             GetStepsDetailsOfGameHistoryView model)
         {
             var playerSteps = await GetAllStepsByPlayerIdAndGameId(model.Game.Player.Id, model.Game.Id);
@@ -245,11 +246,18 @@ namespace BlackJack.BusinessLogic.Services
                 }
             }
 
-            return steps;
+            var result = new GetStepsDetailsOfGameHistoryResponseView()
+            {
+                PlayerAndBotSteps = steps
+            };
+
+            return result;
         }
 
-        public async Task<DetailsOfGameHistoryView> DetailsOfGame(GetDetailsByGameIdHistoryView game)
+        public async Task<DetailsOfGameHistoryView> DetailsOfGame(string gameId)
         {
+            var game = await GetDetailsByGameId(gameId);
+
             var bots = await GetAllBotsByGameId(game.Id);
 
             var gameDetails = new GameGetStepsDetailsOfGameHistoryView()
@@ -300,7 +308,7 @@ namespace BlackJack.BusinessLogic.Services
                 },
                 PlayerAndBotSteps = new PlayerAndBotStepsDetailsOfGameHistoryView()
                 {
-                    Steps = steps
+                    Steps = steps.PlayerAndBotSteps
                 }
             };
             return model;

@@ -10,7 +10,7 @@ export class LoggedGuard implements CanActivate  {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    var isSignedIn = this.accountService.isSignedIn();
+    let isSignedIn = this.accountService.isSignedIn();
     if (isSignedIn) {
       return true;
     }

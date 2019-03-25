@@ -33,8 +33,7 @@ namespace BlackJack.WEB.Controllers
         {
             return await Execute(async () =>
             {
-                var game = await _historyService.GetDetailsByGameId(gameId);
-                var model = await _historyService.DetailsOfGame(game);
+                var model = await _historyService.DetailsOfGame(gameId);
                 return model;
             });
         }

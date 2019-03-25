@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
-import { HttpConfigInterceptor } from './interceptors/http-config.interceptor';
+import { HttpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
+import { HttpTokenInterceptor } from './shared/interceptors/http-token.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -30,7 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
   },
   {
     provide: HTTP_INTERCEPTORS,
-    useClass: HttpConfigInterceptor,
+    useClass: HttpTokenInterceptor,
     multi: true
     }
   ],

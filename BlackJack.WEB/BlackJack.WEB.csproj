@@ -52,6 +52,8 @@
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-all-steps-by-player-id-and-game-id.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\get-details-by-player-id-and-game-id.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\hit.game.view.ts" />
+    <None Remove="ClientApp\src\app\shared\entities\game.views\place-a-bet.game.view.ts" />
+    <None Remove="ClientApp\src\app\shared\entities\game.views\stand.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\start-result.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\game.views\start.game.view.ts" />
     <None Remove="ClientApp\src\app\shared\entities\history.views\details-of-game.history.view.ts" />
@@ -76,8 +78,10 @@
     <TypeScriptCompile Include="ClientApp\src\app\account\account-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\game\game-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\history\history-routing.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\interceptors\http-error.interceptor.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\interceptors\http-config.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\place-a-bet.game.view.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\stand.game.view.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\interceptors\http-error.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\interceptors\http-token.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-all-step-of-bots-by-game-id.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-all-steps-by-player-id-and-game-id.game.view.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\entities\game.views\get-details-by-player-id-and-game-id.game.view.ts" />

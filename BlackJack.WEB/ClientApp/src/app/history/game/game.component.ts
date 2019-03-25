@@ -22,7 +22,7 @@ export class GameComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    var gameId = this.route.snapshot.queryParamMap.get('gameId');
+    let gameId = this.route.snapshot.queryParamMap.get('gameId');
     this.historyService.game(gameId).subscribe(data => {
       this.model.game = data.game;
       this.model.game.player = data.game.player;

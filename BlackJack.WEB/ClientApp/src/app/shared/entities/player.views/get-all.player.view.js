@@ -13,4 +13,4 @@ var PlayerGetAllPlayerViewItem = /** @class */ (function () {
     return PlayerGetAllPlayerViewItem;
 }());
 exports.PlayerGetAllPlayerViewItem = PlayerGetAllPlayerViewItem;
-//# sourceMappingURL=get-all-players.player.view.js.map
+//# sourceMappingURL=get-all.player.view.js.map

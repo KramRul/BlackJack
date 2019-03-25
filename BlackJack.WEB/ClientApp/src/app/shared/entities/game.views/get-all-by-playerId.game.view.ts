@@ -9,7 +9,7 @@ export class GetAllByPlayerIdGameView {
 }
 
 export class GameGetAllByPlayerIdGameViewItem {
-  gameId?: string;
+  id?: string;
   gameState?: GameStateType;
   player?: PlayerGetAllByPlayerIdGameView;
 
@@ -19,7 +19,7 @@ export class GameGetAllByPlayerIdGameViewItem {
 }
 
 export class PlayerGetAllByPlayerIdGameView {
-  playerId?: string;
+  id?: string;
   balance?: number;
   bet?: number;
 }
