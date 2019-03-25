@@ -2,7 +2,6 @@
 using BlackJack.BusinessLogic.Services.Interfaces;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.EnumViews;
-using BlackJack.ViewModels.GameViews;
 using BlackJack.ViewModels.HistoryViews;
 using System;
 using System.Collections.Generic;
@@ -67,7 +66,7 @@ namespace BlackJack.BusinessLogic.Services
                     Bet = game.Player.Bet
                 }
             }).ToList();
-            
+
             return result;
         }
 
@@ -171,19 +170,19 @@ namespace BlackJack.BusinessLogic.Services
             {
                 cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
 
-                if (playerSteps.PlayerSteps.Count > i)
+                if (playerSteps.PlayerSteps.Count >= i)
                 {
-                    cards.Add(new CardPlayerAndBotStepsDetailsOfGameHistoryView()
+                    cards.Add(playerSteps.PlayerSteps.Select(step => new CardPlayerAndBotStepsDetailsOfGameHistoryView()
                     {
-                        Id = playerSteps.PlayerSteps[i].Id,
-                        Suite = playerSteps.PlayerSteps[i].Suite,
-                        Rank = playerSteps.PlayerSteps[i].Rank,
+                        Id = step.Id,
+                        Suite = step.Suite,
+                        Rank = step.Rank,
                         Player = new PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView()
                         {
-                            Id = playerSteps.PlayerSteps[i].Player.PlayerId,
-                            UserName = playerSteps.PlayerSteps[i].Player.UserName,
-                            Balance = playerSteps.PlayerSteps[i].Player.Balance,
-                            Bet = playerSteps.PlayerSteps[i].Player.Bet
+                            Id = step.Player.PlayerId,
+                            UserName = step.Player.UserName,
+                            Balance = step.Player.Balance,
+                            Bet = step.Player.Bet
                         },
                         Game = new GameCardPlayerAndBotStepsDetailsOfGameHistoryView()
                         {
@@ -198,21 +197,19 @@ namespace BlackJack.BusinessLogic.Services
                             Balance = 0,
                             Bet = 0
                         }
-                    });
+                    }).FirstOrDefault());
+                    playerSteps.PlayerSteps.RemoveAt(0);
                 }
                 foreach (var bot in bots.Bots)
                 {
-                    var countOfBotSteps = botsSteps.BotSteps
-                        .Where(b => b.Bot.Id == bot.Id)
-                        .ToList()
-                        .Count;
-                    if (countOfBotSteps > i)
+                    var botStep = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).FirstOrDefault();
+                    if (botStep != null)
                     {
-                        cards.Add(new CardPlayerAndBotStepsDetailsOfGameHistoryView()
+                        cards.Add(botsSteps.BotSteps.Select(step => new CardPlayerAndBotStepsDetailsOfGameHistoryView()
                         {
-                            Id = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Id,
-                            Suite = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Suite,
-                            Rank = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Rank,
+                            Id = step.Id,
+                            Suite = step.Suite,
+                            Rank = step.Rank,
                             Player = new PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView()
                             {
                                 Id = "",
@@ -228,13 +225,15 @@ namespace BlackJack.BusinessLogic.Services
                             },
                             Bot = new BotCardPlayerAndBotStepsDetailsOfGameHistoryView()
                             {
-                                Id = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Id,
-                                Name = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Name,
-                                Balance = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Balance,
-                                Bet = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).ToList()[i].Bot.Bet
+                                Id = step.Bot.Id,
+                                Name = step.Bot.Name,
+                                Balance = step.Bot.Balance,
+                                Bet = step.Bot.Bet
                             }
-                        });
-                    }
+                        }).Where(b => b.Bot.Id == bot.Id).FirstOrDefault());
+                        botStep = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).FirstOrDefault();
+                        botsSteps.BotSteps.Remove(botStep);
+                    }                   
                 }
 
                 if (cards.Count != 0)
