@@ -96,7 +96,7 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetAllBotsByGameIdGameView> GetAllBotsByGameId(Guid gameId)
+        private async Task<GetAllBotsByGameIdGameView> GetAllBotsByGameId(Guid gameId)
         {
             var model = new GetAllBotsByGameIdGameView();
             var bots = await _database.Bots.GetAllBotsByGameId(gameId);
@@ -230,7 +230,7 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetGameDetailsByPlayerIdAndGameIdGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, Guid gameId)
+        private async Task<GetGameDetailsByPlayerIdAndGameIdGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, Guid gameId)
         {
             if (string.IsNullOrEmpty(playerId))
             {

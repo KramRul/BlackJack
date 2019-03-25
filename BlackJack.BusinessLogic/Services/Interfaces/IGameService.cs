@@ -8,8 +8,6 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
     {
         Task<GetAllStepsByPlayerIdAndGameIdGameView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId);
 
-        Task<GetAllBotsByGameIdGameView> GetAllBotsByGameId(Guid gameId);
-
         Task<GetAllStepOfBotsByGameIdGameView> GetAllStepOfBotsByGameId(Guid gameId);
 
         Task<StartGameView> Start(string playerName, int countOfBots);
@@ -25,7 +23,5 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
         Task<GetByIdGameView> GetById(Guid gameId);
 
         Task<GetDetailsByPlayerIdAndGameIdGameView> GetDetailsByPlayerIdAndGameId(string playerId, Guid gameId);
-
-        Task<GetGameDetailsByPlayerIdAndGameIdGameView> GetGameDetailsByPlayerIdAndGameId(string playerId, Guid gameId);
     }
 }
