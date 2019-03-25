@@ -12,14 +12,12 @@ namespace BlackJack.BusinessLogic.Services
     public class AccountService : BaseService, IAccountService
     {
         private readonly UserManager<Player> _userManager;
-        private readonly SignInManager<Player> _signInManager;
         private readonly IJwtProvider _jwtProvider;
 
-        public AccountService(UserManager<Player> userManager, SignInManager<Player> signInManager, IJwtProvider jwtProvider, IBaseUnitOfWork unitOfWork)
+        public AccountService(UserManager<Player> userManager, IJwtProvider jwtProvider, IBaseUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _jwtProvider = jwtProvider;
         }
 

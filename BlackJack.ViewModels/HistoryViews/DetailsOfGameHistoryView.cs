@@ -25,7 +25,7 @@ namespace BlackJack.ViewModels.HistoryViews
         public decimal Balance { get; set; }
         public decimal Bet { get; set; }
     }
-    /******************************************************************************************/
+    
     public class PlayerAndBotStepsDetailsOfGameHistoryView
     {
         public List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem> Steps { get; set; }
@@ -55,7 +55,7 @@ namespace BlackJack.ViewModels.HistoryViews
         public GameCardPlayerAndBotStepsDetailsOfGameHistoryView Game { get; set; }
         public BotCardPlayerAndBotStepsDetailsOfGameHistoryView Bot { get; set; }
     }
-    /*------------------------------*/
+    
     public class PlayerCardPlayerAndBotStepsDetailsOfGameHistoryView
     {
         public string Id { get; set; }
