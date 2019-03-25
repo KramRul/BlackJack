@@ -1,5 +1,4 @@
 ﻿using BlackJack.ViewModels.EnumViews;
-using BlackJack.ViewModels.GameViews;
 using System;
 using System.Collections.Generic;
 
@@ -39,15 +38,15 @@ namespace BlackJack.ViewModels.HistoryViews
 
     public class StepPlayerAndBotStepsDetailsOfGameHistoryViewItem
     {
-        public List<CardPlayerAndBotStepsDetailsOfGameHistoryView> Cards { get; set; }
+        public List<CardPlayerAndBotStepsDetailsOfGameHistoryViewItem> Cards { get; set; }
 
         public StepPlayerAndBotStepsDetailsOfGameHistoryViewItem()
         {
-            Cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
+            Cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryViewItem>();
         }
     }
 
-    public class CardPlayerAndBotStepsDetailsOfGameHistoryView
+    public class CardPlayerAndBotStepsDetailsOfGameHistoryViewItem
     {
         public Guid Id { get; set; }
         public SuiteTypeEnumView Suite { get; set; }

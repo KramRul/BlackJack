@@ -60,7 +60,7 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<GetByIdPlayerView> GetById(string playerId)
         {
-            var validPlayerId = new Guid();
+            var validPlayerId = Guid.Empty;
             var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
             if (!isValidPlayerId)
             {

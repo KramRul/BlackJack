@@ -20,7 +20,7 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<GetDetailsByGameIdHistoryView> GetDetailsByGameId(string gameId)
         {
-            var validGameId = new Guid();
+            var validGameId = Guid.Empty;
             var isValidGameId = Guid.TryParse(gameId, out validGameId);
             if (!isValidGameId)
             {
@@ -70,7 +70,7 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<GetAllStepsByPlayerIdAndGameIdHistoryView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
+        private async Task<GetAllStepsByPlayerIdAndGameIdHistoryView> GetAllStepsByPlayerIdAndGameId(string playerId, Guid gameId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
@@ -79,7 +79,7 @@ namespace BlackJack.BusinessLogic.Services
 
             var model = new GetAllStepsByPlayerIdAndGameIdHistoryView();
 
-            var validPlayerId = new Guid();
+            var validPlayerId = Guid.Empty;
             var isValidPlayerId = Guid.TryParse(playerId, out validPlayerId);
             if (!isValidPlayerId)
             {
@@ -116,7 +116,7 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetAllStepOfBotsByGameIdHistoryView> GetAllStepOfBotsByGameId(Guid gameId)
+        private async Task<GetAllStepOfBotsByGameIdHistoryView> GetAllStepOfBotsByGameId(Guid gameId)
         {
             var model = new GetAllStepOfBotsByGameIdHistoryView();
             var botSteps = await _database.BotSteps.GetAllByGameId(gameId);
@@ -139,10 +139,10 @@ namespace BlackJack.BusinessLogic.Services
             return model;
         }
 
-        public async Task<GetAllBotsByGameIdHistoryView> GetAllBotsByGameId(Guid gameId)
+        private async Task<GetAllBotsByGameIdHistoryView> GetAllBotsByGameId(Guid gameId)
         {
             var model = new GetAllBotsByGameIdHistoryView();
-            var bots = await _database.BotSteps.GetAllBotsByGameId(gameId);
+            var bots = await _database.Bots.GetAllBotsByGameId(gameId);
 
             model.Bots = bots.Select(bot => new BotGetAllBotsByGameIdHistoryViewItem()
             {
@@ -156,23 +156,21 @@ namespace BlackJack.BusinessLogic.Services
         }
 
         public async Task<List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>> GetStepsDetailsOfGame(
-            GameGetStepsDetailsOfGameHistoryView game,
-            BotsGetStepsDetailsOfGameHistoryView bots
-            )
+            GetStepsDetailsOfGameHistoryView model)
         {
-            var playerSteps = await GetAllStepsByPlayerIdAndGameId(game.Player.Id, game.Id);
-            var botsSteps = await GetAllStepOfBotsByGameId(game.Id);
+            var playerSteps = await GetAllStepsByPlayerIdAndGameId(model.Game.Player.Id, model.Game.Id);
+            var botsSteps = await GetAllStepOfBotsByGameId(model.Game.Id);
 
             var steps = new List<StepPlayerAndBotStepsDetailsOfGameHistoryViewItem>();
-            var cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
+            var cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryViewItem>();
 
             for (int i = 0; i < CountOfSteps; i++)
             {
-                cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryView>();
+                cards = new List<CardPlayerAndBotStepsDetailsOfGameHistoryViewItem>();
 
                 if (playerSteps.PlayerSteps.Count >= i)
                 {
-                    cards.Add(playerSteps.PlayerSteps.Select(step => new CardPlayerAndBotStepsDetailsOfGameHistoryView()
+                    var playerCard = playerSteps.PlayerSteps.Select(step => new CardPlayerAndBotStepsDetailsOfGameHistoryViewItem()
                     {
                         Id = step.Id,
                         Suite = step.Suite,
@@ -186,26 +184,27 @@ namespace BlackJack.BusinessLogic.Services
                         },
                         Game = new GameCardPlayerAndBotStepsDetailsOfGameHistoryView()
                         {
-                            Id = game.Id,
-                            WonName = game.WonName,
-                            GameState = game.GameState
+                            Id = model.Game.Id,
+                            WonName = model.Game.WonName,
+                            GameState = model.Game.GameState
                         },
                         Bot = new BotCardPlayerAndBotStepsDetailsOfGameHistoryView()
                         {
-                            Id = new Guid(),
+                            Id = Guid.NewGuid(),
                             Name = "",
                             Balance = 0,
                             Bet = 0
                         }
-                    }).FirstOrDefault());
+                    }).FirstOrDefault();
+                    cards.Add(playerCard);
                     playerSteps.PlayerSteps.RemoveAt(0);
                 }
-                foreach (var bot in bots.Bots)
+                foreach (var bot in model.Bots.Bots)
                 {
                     var botStep = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).FirstOrDefault();
                     if (botStep != null)
                     {
-                        cards.Add(botsSteps.BotSteps.Select(step => new CardPlayerAndBotStepsDetailsOfGameHistoryView()
+                        var botCard = botsSteps.BotSteps.Select(step => new CardPlayerAndBotStepsDetailsOfGameHistoryViewItem()
                         {
                             Id = step.Id,
                             Suite = step.Suite,
@@ -219,9 +218,9 @@ namespace BlackJack.BusinessLogic.Services
                             },
                             Game = new GameCardPlayerAndBotStepsDetailsOfGameHistoryView()
                             {
-                                Id = game.Id,
-                                WonName = game.WonName,
-                                GameState = game.GameState
+                                Id = model.Game.Id,
+                                WonName = model.Game.WonName,
+                                GameState = model.Game.GameState
                             },
                             Bot = new BotCardPlayerAndBotStepsDetailsOfGameHistoryView()
                             {
@@ -230,10 +229,11 @@ namespace BlackJack.BusinessLogic.Services
                                 Balance = step.Bot.Balance,
                                 Bet = step.Bot.Bet
                             }
-                        }).Where(b => b.Bot.Id == bot.Id).FirstOrDefault());
+                        }).Where(b => b.Bot.Id == bot.Id).FirstOrDefault();
+                        cards.Add(botCard);
                         botStep = botsSteps.BotSteps.Where(b => b.Bot.Id == bot.Id).FirstOrDefault();
                         botsSteps.BotSteps.Remove(botStep);
-                    }                   
+                    }
                 }
 
                 if (cards.Count != 0)
@@ -266,19 +266,22 @@ namespace BlackJack.BusinessLogic.Services
                 }
             };
 
-            var botsDetails = new BotsGetStepsDetailsOfGameHistoryView()
+            var botsDetails = new BotsGetStepsDetailsOfGameHistoryView
             {
-                Bots = new List<BotBotsGetStepsDetailsOfGameHistoryViewItem>()
+                Bots = bots.Bots.Select(bot => new BotBotsGetStepsDetailsOfGameHistoryViewItem()
+                {
+                    Id = bot.Id,
+                    Name = bot.Name,
+                    Balance = bot.Balance,
+                    Bet = bot.Bet
+                }).ToList()
             };
-            botsDetails.Bots = bots.Bots.Select(bot => new BotBotsGetStepsDetailsOfGameHistoryViewItem()
-            {
-                Id = bot.Id,
-                Name = bot.Name,
-                Balance = bot.Balance,
-                Bet = bot.Bet
-            }).ToList();
 
-            var steps = await GetStepsDetailsOfGame(gameDetails, botsDetails);
+            var steps = await GetStepsDetailsOfGame(new GetStepsDetailsOfGameHistoryView()
+            {
+                Game = gameDetails,
+                Bots = botsDetails
+            });
 
             var model = new DetailsOfGameHistoryView()
             {

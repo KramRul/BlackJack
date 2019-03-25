@@ -8,9 +8,9 @@ namespace BlackJack.BusinessLogic.Config
     {
         public static void DataBaseConfigures(this IServiceCollection services)
         {
-            using (var serviseProvider = services.BuildServiceProvider())
+            using (var serviceProvider = services.BuildServiceProvider())
             {
-                var connectionStringInjector = serviseProvider.GetService<ConnectionStringInjector>();
+                var connectionStringInjector = serviceProvider.GetService<ConnectionStringInjector>();
                 services.AddDbContext<ApplicationContext>(options =>
                     options.UseSqlServer(connectionStringInjector.ConnectionString, b => b.MigrationsAssembly("BlackJack.WEB")));
             }           

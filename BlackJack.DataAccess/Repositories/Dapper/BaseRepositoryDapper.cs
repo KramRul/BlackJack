@@ -58,5 +58,11 @@ namespace BlackJack.DataAccess.Repositories.Dapper
             var result = await _connection.GetAllAsync<T>();
             return result.ToList();
         }
+
+        public async Task<int> Count()
+        {
+            var result = await _connection.GetAllAsync<T>();           
+            return result.Count();
+        }
     }
 }

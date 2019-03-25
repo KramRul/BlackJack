@@ -40,19 +40,5 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
                 .ToListAsync();
             return result;
         }
-
-        public async Task AddRange(List<PlayerStep> playerSteps)
-        {
-            await dataBase.PlayerSteps.AddRangeAsync(playerSteps);
-            await dataBase.SaveChangesAsync();
-        }
-
-        public async Task Delete(Guid id)
-        {
-            PlayerStep playerStep = await dataBase.PlayerSteps.FindAsync(id);
-            if (playerStep != null)
-                dataBase.PlayerSteps.Remove(playerStep);
-            await dataBase.SaveChangesAsync();
-        }
     }
 }

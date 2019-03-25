@@ -5,7 +5,7 @@ using System;
 
 namespace BlackJack.DataAccess.UnitOfWorks
 {
-    public class EntityFrameworkUnitOfWork : IEntityFrameworkUnitOfWork
+    public class EntityFrameworkUnitOfWork : IBaseUnitOfWork
     {
         private ApplicationContext _dataBase;
         private GameRepository _gameRepository;

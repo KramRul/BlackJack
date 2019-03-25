@@ -17,67 +17,72 @@ namespace BlackJack.DataAccess.Repositories.Dapper
 
         public new async Task<List<Game>> GetAll()
         {
-            string sQuery = "SELECT * " +
-                "FROM dbo.Games g " +
-                "LEFT JOIN dbo.AspNetUsers aspUser ON g.PlayerId = aspUser.Id";
+            string sQuery = @"SELECT * 
+                FROM dbo.Games g 
+                LEFT JOIN dbo.AspNetUsers aspUser ON g.PlayerId = aspUser.Id";
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) =>
             {
                 game.Player = player; return game;
             });
-            return result.ToList();
+            var games = result.ToList();
+            return games;
         }
 
         public async Task<List<Game>> GetAllByPlayerId(string playerId)
         {
-            string sQuery = "SELECT DISTINCT g.Id, g.BotId, g.GameId, g.Rank, g.Suite, g.Bot.Id, g.Bot.Balance, g.Bot.Bet, g.Bot.Name " +
-                "FROM Games g " +
-                "INNER JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
-                "WHERE g.PlayerId = @playerId";
+            string sQuery = @"SELECT DISTINCT g.Id, g.BotId, g.GameId, g.Rank, g.Suite, g.Bot.Id, g.Bot.Balance, g.Bot.Bet, g.Bot.Name 
+                FROM Games g 
+                INNER JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id 
+                WHERE g.PlayerId = @playerId";
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) =>
             {
                 game.Player = player; return game;
             }, new { playerId });
-            return result.ToList();
+            var games = result.ToList();
+            return games;
 
         }
 
         public async Task<Game> GetActiveByPlayerId(string playerId)
         {
-            string sQuery = "SELECT TOP(1) * " +
-                "FROM Games AS g " +
-                "LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
-                "WHERE (g.PlayerId = @playerId) AND (g.GameState = 0)";
+            string sQuery = @"SELECT TOP(1) * 
+                FROM Games AS g 
+                LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id 
+                WHERE (g.PlayerId = @playerId) AND (g.GameState = 0)";
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) =>
             {
                 game.Player = player; return game;
             }, new { playerId });
-            return result.FirstOrDefault();
+            var gameResult = result.FirstOrDefault();
+            return gameResult;
         }
 
         public async Task<Game> GetLastActiveByPlayerId(string playerId)
         {
-            string sQuery = "SELECT DISTINCT * " +
-                "FROM Games AS g " +
-                "LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
-                "WHERE (g.PlayerId = @playerId)";
+            string sQuery = @"SELECT DISTINCT * 
+                FROM Games AS g 
+                LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id 
+                WHERE (g.PlayerId = @playerId)";
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) =>
             {
                 game.Player = player; return game;
             }, new { playerId });
-            return result.LastOrDefault();
+            var gameResult = result.LastOrDefault();
+            return gameResult;
         }
 
         public new async Task<Game> Get(Guid gameid)
         {
-            string sQuery = "SELECT * " +
-                "FROM Games AS g " +
-                "LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id " +
-                "WHERE (g.Id = @gameid)";
+            string sQuery = @"SELECT * 
+                FROM Games AS g 
+                LEFT JOIN AspNetUsers aspPlayer ON g.PlayerId = aspPlayer.Id 
+                WHERE (g.Id = @gameid)";
             var result = await _connection.QueryAsync<Game, Player, Game>(sQuery, (game, player) =>
             {
                 game.Player = player; return game;
             }, new { gameid });
-            return result.FirstOrDefault();
+            var gameResult = result.FirstOrDefault();
+            return gameResult;
         }
     }
 }

@@ -14,16 +14,6 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         {
         }
 
-        public async Task<List<Bot>> GetAllBotsByGameId(Guid gameId)
-        {
-            var result = await dataBase.BotSteps.Include(b => b.Bot)
-                .Where(b => b.GameId == gameId)
-                .Select(b => b.Bot)
-                .Distinct()
-                .ToListAsync();
-            return result;
-        }
-
         public async Task<List<BotStep>> GetAllByGameId(Guid gameId)
         {
             var result = await dataBase.BotSteps
@@ -40,12 +30,6 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
                 .Where(b => b.BotId == botId)
                 .ToListAsync();
             return result;
-        }
-
-        public async Task AddRange(List<BotStep> botSteps)
-        {
-            await dataBase.BotSteps.AddRangeAsync(botSteps);
-            await dataBase.SaveChangesAsync();
         }
     }
 }

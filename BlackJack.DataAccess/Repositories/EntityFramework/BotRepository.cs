@@ -3,6 +3,7 @@ using BlackJack.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories.EntityFramework
@@ -13,9 +14,13 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
         {
         }
 
-        public async Task<int> Count()
+        public async Task<List<Bot>> GetAllBotsByGameId(Guid gameId)
         {
-            var result = await dataBase.Bots.CountAsync();
+            var result = await dataBase.BotSteps.Include(b => b.Bot)
+                .Where(b => b.GameId == gameId)
+                .Select(b => b.Bot)
+                .Distinct()
+                .ToListAsync();
             return result;
         }
     }

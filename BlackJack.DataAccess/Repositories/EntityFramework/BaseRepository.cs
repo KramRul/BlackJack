@@ -58,5 +58,11 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             _dbSet.Remove(item);
             await dataBase.SaveChangesAsync();
         }
+
+        public async Task<int> Count()
+        {
+            var result = await _dbSet.CountAsync();
+            return result;
+        }
     }
 }

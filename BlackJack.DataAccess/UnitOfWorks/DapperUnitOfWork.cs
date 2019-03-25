@@ -6,7 +6,7 @@ using System.Data;
 
 namespace BlackJack.DataAccess.UnitOfWorks
 {
-    public class DapperUnitOfWork : IDapperUnitOfWork
+    public class DapperUnitOfWork : IBaseUnitOfWork
     {
         private GameRepositoryDapper _gameRepository;
         private PlayerRepositoryDapper _playerRepository;

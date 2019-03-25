@@ -19,16 +19,18 @@ namespace BlackJack.DataAccess.Repositories.Dapper
         {
             string sQuery = "SELECT * FROM AspNetUsers b";
             var result = await _connection.QueryAsync<Player>(sQuery);
-            return result.ToList();
+            var players = result.ToList();
+            return players;
         }
 
         public async Task<Player> GetByName(string name)
         {
-            string sQuery = "SELECT TOP(1) * " +
-                "FROM AspNetUsers e " +
-                "WHERE (e.UserName = @name)";
+            string sQuery = @"SELECT TOP(1) * 
+                FROM AspNetUsers e 
+                WHERE (e.UserName = @name)";
             var result = await _connection.QueryAsync<Player>(sQuery, new { name });
-            return result.FirstOrDefault();
+            var player = result.FirstOrDefault();
+            return player;
         }
     }
 }

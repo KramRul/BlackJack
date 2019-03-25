@@ -32,13 +32,5 @@ namespace BlackJack.DataAccess.Repositories.EntityFramework
             await dataBase.Users.AddAsync(player);
             await dataBase.SaveChangesAsync();
         }
-
-        public async Task Delete(Guid id)
-        {
-            Player player = await dataBase.Users.FindAsync(id.ToString());
-            if (player != null)
-                dataBase.Users.Remove(player);
-            await dataBase.SaveChangesAsync();
-        }
     }
 }

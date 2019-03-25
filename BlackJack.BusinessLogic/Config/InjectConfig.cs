@@ -20,9 +20,9 @@ namespace BlackJack.BusinessLogic.Config
             services.AddTransient<IBaseUnitOfWork, DapperUnitOfWork>();
             services.AddSingleton<ConnectionStringInjector>();
 
-            using (var serviseProvider = services.BuildServiceProvider())
+            using (var serviceProvider = services.BuildServiceProvider())
             {
-                var connectionStringInjector = serviseProvider.GetService<ConnectionStringInjector>();
+                var connectionStringInjector = serviceProvider.GetService<ConnectionStringInjector>();
                 services.AddTransient<IDbConnection>(db => new SqlConnection(connectionStringInjector.ConnectionString));
             }
         }
