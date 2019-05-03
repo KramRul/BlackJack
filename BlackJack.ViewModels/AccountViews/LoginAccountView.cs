@@ -13,5 +13,9 @@ namespace BlackJack.ViewModels.AccountViews
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Token")]
+        public string Token { get; set; }
     }
 }

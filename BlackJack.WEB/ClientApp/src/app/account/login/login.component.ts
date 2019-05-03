@@ -6,6 +6,11 @@ import { GetAllPlayerView } from '../../shared/entities/player.views/get-all.pla
 import { GameService } from '../../shared/services/game.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
+import { AuthService } from "angularx-social-login";
+import { SocialUser } from "angularx-social-login";
+import { LoginAccountView } from 'src/app/shared/entities/account.views/login.account.view';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +20,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   public players: GetAllPlayerView = new GetAllPlayerView();
   public model: RegisterAccountView = new RegisterAccountView();
+  private user: SocialUser;
+  private loggedIn: boolean;
 
   public loginForm = this.formBuilder.group({
     userName: ['', Validators.required],
@@ -23,6 +30,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
+    private authService: AuthService,
     private gameService: GameService,
     private notifyService: NotificationService,
     private router: Router,
@@ -33,12 +41,40 @@ export class LoginComponent implements OnInit {
     this.gameService.index().subscribe(data => {
       this.players.players = data.players;
     });
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
   }
 
   login(): void {
+    this.model.token = "";
     this.accountService.login(this.model).subscribe(
       data => this.router.navigateByUrl("/"),
       error => this.notifyService.showError(error)
     );
+  }
+
+  loginWithGoogle() {  
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
+      let model: LoginAccountView = new LoginAccountView();
+      model.userName = userData.name;
+      model.password = "def";
+      model.token = userData.idToken;
+      this.accountService.loginWithGoogle(model).subscribe(
+        data => this.router.navigateByUrl("/"),
+        error => this.notifyService.showError(error));
+    });
+  }
+
+  logoutWithGoogle() {
+    this.authService.signOut().then(() => {
+      
+      //this.accountService.logoutWithGoogle(model);
+    });
+  }
+
+  loginWithFacebook() {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 }

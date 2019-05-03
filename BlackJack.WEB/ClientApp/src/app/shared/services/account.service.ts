@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginAccountView } from '../entities/account.views/login.account.view';
 import { RegisterAccountView } from '../entities/account.views/register.account.view';
 import { map } from 'rxjs/operators';
@@ -28,6 +28,14 @@ export class AccountService {
 
   login(model: LoginAccountView): Observable<void> {
     return this.http.post<LoginAccountResponseView>(`${this.Url}login`, model).pipe(
+      map((response: LoginAccountResponseView) => {
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
+      }));
+  }
+
+  loginWithGoogle(model: LoginAccountView): Observable<void> {
+    return this.http.post<LoginAccountResponseView>(`${this.Url}loginWithGoogle`, model).pipe(
       map((response: LoginAccountResponseView) => {
         this.localStorageService.setItem<string>("accessToken", response.accessToken);
         this.localStorageService.setItem<string>("userName", response.userName);

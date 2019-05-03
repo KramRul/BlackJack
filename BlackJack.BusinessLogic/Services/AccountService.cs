@@ -5,7 +5,10 @@ using BlackJack.DataAccess.Entities;
 using BlackJack.DataAccess.UnitOfWorks.Interfaces;
 using BlackJack.ViewModels.AccountViews;
 using Microsoft.AspNetCore.Identity;
+using Google.Apis.Auth;
+using Google.Apis.Auth.OAuth2;
 using System.Threading.Tasks;
+using NickBuhro.Translit;
 
 namespace BlackJack.BusinessLogic.Services
 {
@@ -36,6 +39,42 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             string token = await _jwtProvider.GenerateJwtToken(user.Email, user);
+            var result = new LoginAccountResponseView()
+            {
+                AccessToken = token,
+                UserName = user.UserName,
+                PlayerId = user.Id
+            };
+            return result;
+        }
+
+        public async Task<LoginAccountResponseView> LoginWithGoogle(LoginAccountView model)
+        {        
+            GoogleJsonWebSignature.Payload payload = await GoogleJsonWebSignature.ValidateAsync(model.Token);
+
+            var latinName = Transliteration.CyrillicToLatin(payload.Name, Language.Russian);
+            var newName = latinName.Replace(" ", string.Empty);
+            var user = await _userManager.FindByNameAsync(newName);
+            var player = new Player();
+            string token = "";
+            if (user == null)
+            {
+                player.UserName = newName;
+                player.Balance = 1000;
+                var createdUser = await _userManager.CreateAsync(player);
+
+                if (!createdUser.Succeeded)
+                {
+                    throw new CustomServiceException("The user was not registered");
+                }
+
+                token = await _jwtProvider.GenerateJwtToken(payload.Email, player);
+            }
+            else
+            {
+                token = await _jwtProvider.GenerateJwtToken(payload.Email, user);
+            }
+            
             var result = new LoginAccountResponseView()
             {
                 AccessToken = token,

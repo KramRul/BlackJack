@@ -1,6 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Services.Interfaces;
+using BlackJack.DataAccess.Entities;
 using BlackJack.ViewModels.AccountViews;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -30,6 +37,14 @@ namespace BlackJack.WEB.Controllers
         public async Task<IActionResult> Login([FromBody]LoginAccountView model)
         {
             return await Execute(() => _accountService.Login(model));           
+        }
+
+        [HttpPost]
+        [SwaggerResponse(200, "Player was logged", typeof(LoginAccountResponseView))]
+        [SwaggerResponse(500)]
+        public async Task<IActionResult> LoginWithGoogle([FromBody]LoginAccountView model)
+        {
+            return await Execute(() => _accountService.LoginWithGoogle(model));
         }
     }
 }
