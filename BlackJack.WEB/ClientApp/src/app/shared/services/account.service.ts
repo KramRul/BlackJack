@@ -42,6 +42,14 @@ export class AccountService {
       }));
   }
 
+  loginWithFacebook(model: LoginAccountView): Observable<void> {
+    return this.http.post<LoginAccountResponseView>(`${this.Url}loginWithFacebook`, model).pipe(
+      map((response: LoginAccountResponseView) => {
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
+      }));
+  }
+
   logout(): void {
     this.localStorageService.removeItem("accessToken");
     this.localStorageService.removeItem("userName");

@@ -11,6 +11,7 @@ import { AuthService } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { LoginAccountView } from 'src/app/shared/entities/account.views/login.account.view';
 import { debug } from 'util';
+import { LoginExtendedAccountView } from 'src/app/shared/entities/account.views/login-extended-account.view';
 
 @Component({
   selector: 'app-login',
@@ -57,9 +58,7 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle() {  
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
-      let model: LoginAccountView = new LoginAccountView();
-      model.userName = userData.name;
-      model.password = "def";
+      let model: LoginExtendedAccountView = new LoginExtendedAccountView();
       model.token = userData.idToken;
       this.accountService.loginWithGoogle(model).subscribe(
         data => this.router.navigateByUrl("/"),
@@ -67,14 +66,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  logoutWithGoogle() {
-    this.authService.signOut().then(() => {
-      
-      //this.accountService.logoutWithGoogle(model);
-    });
-  }
-
   loginWithFacebook() {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
+      let model: LoginExtendedAccountView = new LoginExtendedAccountView();
+      model.token = userData.authToken;
+      this.accountService.loginWithFacebook(model).subscribe(
+        data => this.router.navigateByUrl("/"),
+        error => this.notifyService.showError(error));
+    });
   }
 }

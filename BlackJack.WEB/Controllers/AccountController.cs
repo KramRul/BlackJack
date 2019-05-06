@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Services.Interfaces;
@@ -42,9 +43,17 @@ namespace BlackJack.WEB.Controllers
         [HttpPost]
         [SwaggerResponse(200, "Player was logged", typeof(LoginAccountResponseView))]
         [SwaggerResponse(500)]
-        public async Task<IActionResult> LoginWithGoogle([FromBody]LoginAccountView model)
+        public async Task<IActionResult> LoginWithGoogle([FromBody]LoginExtendedAccountView model)
         {
             return await Execute(() => _accountService.LoginWithGoogle(model));
+        }
+
+        [HttpPost]
+        [SwaggerResponse(200, "Player was logged", typeof(LoginAccountResponseView))]
+        [SwaggerResponse(500)]
+        public async Task<IActionResult> LoginWithFacebook([FromBody]LoginExtendedAccountView model)
+        {
+            return await Execute(() => _accountService.LoginWithFacebook(model));
         }
     }
 }

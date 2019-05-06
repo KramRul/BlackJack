@@ -9,6 +9,8 @@ using Google.Apis.Auth;
 using Google.Apis.Auth.OAuth2;
 using System.Threading.Tasks;
 using NickBuhro.Translit;
+using Facebook;
+using Newtonsoft.Json;
 
 namespace BlackJack.BusinessLogic.Services
 {
@@ -16,12 +18,21 @@ namespace BlackJack.BusinessLogic.Services
     {
         private readonly UserManager<Player> _userManager;
         private readonly IJwtProvider _jwtProvider;
+        private readonly IGoogleAuthProvider _googleAuthProvider;
+        private readonly IFacebookAuthProvider _facebookAuthProvider;
 
-        public AccountService(UserManager<Player> userManager, IJwtProvider jwtProvider, IBaseUnitOfWork unitOfWork)
+        public AccountService(
+            UserManager<Player> userManager, 
+            IJwtProvider jwtProvider, 
+            IGoogleAuthProvider googleAuthProvider, 
+            IFacebookAuthProvider facebookAuthProvider, 
+            IBaseUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
             _userManager = userManager;
             _jwtProvider = jwtProvider;
+            _googleAuthProvider = googleAuthProvider;
+            _facebookAuthProvider = facebookAuthProvider;
         }
 
         public async Task<LoginAccountResponseView> Login(LoginAccountView model)
@@ -48,19 +59,56 @@ namespace BlackJack.BusinessLogic.Services
             return result;
         }
 
-        public async Task<LoginAccountResponseView> LoginWithGoogle(LoginAccountView model)
-        {        
-            GoogleJsonWebSignature.Payload payload = await GoogleJsonWebSignature.ValidateAsync(model.Token);
+        public async Task<LoginWithFacebookAccountResponseView> LoginWithFacebook(LoginExtendedAccountView model)
+        {
+            var userData = await _facebookAuthProvider.GetUserDataByToken(model.Token);
 
-            var latinName = Transliteration.CyrillicToLatin(payload.Name, Language.Russian);
+            var createdPlayer = await CreatePlayer(userData.Name, userData.Email);
+
+            var playerView = await GetPlayerView(createdPlayer);
+
+            var result = new LoginWithFacebookAccountResponseView()
+            {
+                AccessToken = playerView.AccessToken,
+                PlayerId = playerView.PlayerId,
+                UserName = playerView.UserName
+            };
+            return result;
+        }
+
+        public async Task<LoginWithGoogleAccountResponseView> LoginWithGoogle(LoginExtendedAccountView model)
+        {
+            var payload = await _googleAuthProvider.GetUserDataAsPayloadByToken(model.Token);
+
+            var createdPlayer = await CreatePlayer(payload.Name, payload.Email);
+
+            var playerView = await GetPlayerView(createdPlayer);
+
+            var result = new LoginWithGoogleAccountResponseView()
+            {
+                AccessToken = playerView.AccessToken,
+                PlayerId = playerView.PlayerId,
+                UserName = playerView.UserName
+            };
+            return result;
+        }
+
+        private async Task<Player> CreatePlayer(string userName, string email)
+        {
+            var latinName = Transliteration.CyrillicToLatin(userName, Language.Russian);
             var newName = latinName.Replace(" ", string.Empty);
             var user = await _userManager.FindByNameAsync(newName);
-            var player = new Player();
-            string token = "";
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                user.Email = email;
+                await _userManager.UpdateAsync(user);
+            }
             if (user == null)
             {
+                var player = new Player();
                 player.UserName = newName;
                 player.Balance = 1000;
+                player.Email = email;
                 var createdUser = await _userManager.CreateAsync(player);
 
                 if (!createdUser.Succeeded)
@@ -68,18 +116,23 @@ namespace BlackJack.BusinessLogic.Services
                     throw new CustomServiceException("The user was not registered");
                 }
 
-                token = await _jwtProvider.GenerateJwtToken(payload.Email, player);
+                return player;
             }
             else
             {
-                token = await _jwtProvider.GenerateJwtToken(payload.Email, user);
+                return user;
             }
-            
-            var result = new LoginAccountResponseView()
+        }
+
+        private async Task<GetPlayerAccountView> GetPlayerView(Player player)
+        {
+            var token = await _jwtProvider.GenerateJwtToken(player.Email, player);            
+
+            var result = new GetPlayerAccountView()
             {
                 AccessToken = token,
-                UserName = user.UserName,
-                PlayerId = user.Id
+                UserName = player.UserName,
+                PlayerId = player.Id
             };
             return result;
         }
