@@ -3,6 +3,7 @@ import { AccountService } from 'src/app/shared/services/account.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'angularx-social-login';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-logout',
@@ -13,6 +14,7 @@ export class LogoutComponent {
   constructor(
     private accountService: AccountService,
     private authService: AuthService,
+    public afAuth: AngularFireAuth,
     private notifyService: NotificationService,
     private router: Router) {
   }
@@ -25,6 +27,7 @@ export class LogoutComponent {
 
     try {
       this.accountService.logout();    
+      this.afAuth.auth.signOut();
     }
     catch (e) {
       console.error(e); 

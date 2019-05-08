@@ -1,4 +1,6 @@
-﻿using Google.Apis.Auth;
+﻿using BlackJack.ViewModels.AccountViews;
+using FirebaseAdmin.Auth;
+using Google.Apis.Auth;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +10,8 @@ namespace BlackJack.BusinessLogic.Providers.Interfaces
 {
     public interface IGoogleAuthProvider
     {
-        Task<GoogleJsonWebSignature.Payload> GetUserDataAsPayloadByToken(string token);
+        Task<UserGoogleAccountView> GetUserDataAsPayloadByToken(string token);
+
+        Task<UserGoogleAccountView> GetUserDataFirebaseByToken(string token);
     }
 }

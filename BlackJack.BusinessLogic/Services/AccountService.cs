@@ -78,9 +78,9 @@ namespace BlackJack.BusinessLogic.Services
 
         public async Task<LoginWithGoogleAccountResponseView> LoginWithGoogle(LoginExtendedAccountView model)
         {
-            var payload = await _googleAuthProvider.GetUserDataAsPayloadByToken(model.Token);
+            var userData = await _googleAuthProvider.GetUserDataFirebaseByToken(model.Token);
 
-            var createdPlayer = await CreatePlayer(payload.Name, payload.Email);
+            var createdPlayer = await CreatePlayer(userData.Name, userData.Email);
 
             var playerView = await GetPlayerView(createdPlayer);
 

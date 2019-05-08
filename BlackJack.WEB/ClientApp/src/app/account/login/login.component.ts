@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { RegisterAccountView } from 'src/app/shared/entities/account.views/register.account.view';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,9 @@ import { SocialUser } from "angularx-social-login";
 import { LoginAccountView } from 'src/app/shared/entities/account.views/login.account.view';
 import { debug } from 'util';
 import { LoginExtendedAccountView } from 'src/app/shared/entities/account.views/login-extended-account.view';
+import * as firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { resolve } from 'q';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +35,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private authService: AuthService,
+    private zone: NgZone, 
+    public afAuth: AngularFireAuth,
     private gameService: GameService,
     private notifyService: NotificationService,
     private router: Router,
@@ -57,13 +62,26 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithGoogle() {  
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    this.afAuth.auth
+    .signInWithPopup(provider)
+    .then(async (userData) => {
+      let model: LoginExtendedAccountView = new LoginExtendedAccountView();         
+      model.token = await userData.user.getIdToken();
+      this.accountService.loginWithGoogle(model).subscribe(
+        data => this.zone.run(() => { this.router.navigateByUrl("/");}),
+        error => this.notifyService.showError(error));
+        resolve(userData);
+    })
+    /*this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
       let model: LoginExtendedAccountView = new LoginExtendedAccountView();
       model.token = userData.idToken;
       this.accountService.loginWithGoogle(model).subscribe(
         data => this.router.navigateByUrl("/"),
         error => this.notifyService.showError(error));
-    });
+    });*/
   }
 
   loginWithFacebook() {

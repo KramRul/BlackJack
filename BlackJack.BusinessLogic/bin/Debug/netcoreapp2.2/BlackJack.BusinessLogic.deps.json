@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "e56ebc9630747fe21200b65f3b4a58868e8abc85"
+    "signature": "dc651d7f848747b8398dc2d1b63d9b350065e91b"
   },
   "compilationOptions": {},
   "targets": {
@@ -11,6 +11,7 @@
           "BlackJack.DataAccess": "1.0.0",
           "BlackJack.ViewModels": "1.0.0",
           "Facebook": "7.0.6",
+          "FirebaseAdmin": "1.4.0",
           "Google.Apis.Auth": "1.39.0",
           "Google.Apis.Auth.AspNetCore": "1.39.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
@@ -74,6 +75,18 @@
           "lib/net45/Facebook.dll": {
             "assemblyVersion": "6.0.10.0",
             "fileVersion": "7.0.6.0"
+          }
+        }
+      },
+      "FirebaseAdmin/1.4.0": {
+        "dependencies": {
+          "Google.Apis.Auth": "1.39.0",
+          "System.Collections.Immutable": "1.5.0"
+        },
+        "runtime": {
+          "lib/netstandard1.5/FirebaseAdmin.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
           }
         }
       },
@@ -2121,6 +2134,13 @@
       "sha512": "sha512-D9nlWZb88S4U+eh1pUDQ+AkSkiht6m0eFpxKFddZnQSSFTnncvDMBEnNODy4fOIOjWQIiOXRVbuY04jCPyWqkw==",
       "path": "facebook/7.0.6",
       "hashPath": "facebook.7.0.6.nupkg.sha512"
+    },
+    "FirebaseAdmin/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5mkDATcikEn/jnW0Ekde+suez9yzibxuWkeSuzXsNOYWmv2z0YwWoqM8LnZUD65e5zbxFIvRMOxdtmCYQ5ixAA==",
+      "path": "firebaseadmin/1.4.0",
+      "hashPath": "firebaseadmin.1.4.0.nupkg.sha512"
     },
     "Google.Apis/1.39.0": {
       "type": "package",
