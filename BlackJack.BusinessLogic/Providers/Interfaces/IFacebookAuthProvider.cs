@@ -9,5 +9,7 @@ namespace BlackJack.BusinessLogic.Providers.Interfaces
     public interface IFacebookAuthProvider
     {
         Task<UserFacebookAccountView> GetUserDataByToken(string token);
+
+        Task<UserFacebookAccountView> GetUserDataFirebaseByToken(string token);
     }
 }

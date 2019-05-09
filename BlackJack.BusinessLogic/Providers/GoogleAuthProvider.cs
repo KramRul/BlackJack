@@ -43,10 +43,18 @@ namespace BlackJack.BusinessLogic.Providers
                 credential = GoogleCredential.FromStream(stream);
             }
 
-            var defaultApp = FirebaseApp.Create(new AppOptions()
+            FirebaseApp defaultApp;
+            if (FirebaseApp.DefaultInstance == null)
             {
-                Credential = credential
-            });
+                defaultApp = FirebaseApp.Create(new AppOptions()
+                {
+                    Credential = credential
+                });
+            }
+            else
+            {
+                defaultApp = FirebaseApp.DefaultInstance;
+            }
 
             var auth = FirebaseAuth.GetAuth(defaultApp);
             var userData = await auth.VerifyIdTokenAsync(token);

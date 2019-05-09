@@ -55,5 +55,13 @@ namespace BlackJack.WEB.Controllers
         {
             return await Execute(() => _accountService.LoginWithFacebook(model));
         }
+
+        [HttpPost]
+        [SwaggerResponse(200, "Player was logged", typeof(LoginAccountResponseView))]
+        [SwaggerResponse(500)]
+        public async Task<IActionResult> LoginWithGitHub([FromBody]LoginExtendedAccountView model)
+        {
+            return await Execute(() => _accountService.LoginWithGitHub(model));
+        }
     }
 }

@@ -10,5 +10,9 @@ namespace BlackJack.ViewModels.AccountViews
         [DataType(DataType.Text)]
         [Display(Name = "Token")]
         public string Token { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
     }
 }

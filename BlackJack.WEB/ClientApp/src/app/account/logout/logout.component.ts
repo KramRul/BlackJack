@@ -19,15 +19,15 @@ export class LogoutComponent {
     private router: Router) {
   }
 
-  logout(): void {
+  async logout(): Promise<void> {
     this.authService.signOut(true).catch(error => {
       console.error(error);
       this.notifyService.showError(error);
     });
 
     try {
-      this.accountService.logout();    
-      this.afAuth.auth.signOut();
+      await this.afAuth.auth.signOut();
+      this.accountService.logout();  
     }
     catch (e) {
       console.error(e); 

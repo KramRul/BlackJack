@@ -50,6 +50,14 @@ export class AccountService {
       }));
   }
 
+  loginWithGitHub(model: LoginAccountView): Observable<void> {
+    return this.http.post<LoginAccountResponseView>(`${this.Url}loginWithGitHub`, model).pipe(
+      map((response: LoginAccountResponseView) => {
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
+      }));
+  }
+
   logout(): void {
     this.localStorageService.removeItem("accessToken");
     this.localStorageService.removeItem("userName");

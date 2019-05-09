@@ -12,5 +12,7 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
         Task<LoginWithGoogleAccountResponseView> LoginWithGoogle(LoginExtendedAccountView model);
 
         Task<LoginWithFacebookAccountResponseView> LoginWithFacebook(LoginExtendedAccountView model);
+
+        Task<LoginWithFacebookAccountResponseView> LoginWithGitHub(LoginExtendedAccountView model);
     }
 }

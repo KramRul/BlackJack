@@ -85,12 +85,50 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithFacebook() {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
+    let provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('email');
+    this.afAuth.auth
+    .signInWithPopup(provider)
+    .then(async (userData) => {
+      let model: LoginExtendedAccountView = new LoginExtendedAccountView();     
+      model.token = await userData.user.getIdTokenResult().then(t=>t.token);
+      this.accountService.loginWithFacebook(model).subscribe(
+        data => this.zone.run(() => { this.router.navigateByUrl("/");}),
+        error => this.notifyService.showError(error));
+        resolve(userData);
+    })
+    /*this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
       let model: LoginExtendedAccountView = new LoginExtendedAccountView();
       model.token = userData.authToken;
       this.accountService.loginWithFacebook(model).subscribe(
         data => this.router.navigateByUrl("/"),
         error => this.notifyService.showError(error));
-    });
+    });*/
+  }
+
+  loginWithGitHub() {
+    let provider = new firebase.auth.GithubAuthProvider();
+    provider.addScope('user');
+    provider.addScope('read:user');
+    provider.addScope('user:email');
+    provider.addScope('repo');
+    this.afAuth.auth
+    .signInWithPopup(provider)
+    .then(async (userData) => {
+      let model: LoginExtendedAccountView = new LoginExtendedAccountView();          
+      model.token = await userData.user.getIdTokenResult().then(t=>t.token);
+      model.name = userData.additionalUserInfo.username;
+      this.accountService.loginWithGitHub(model).subscribe(
+        data => this.zone.run(() => { this.router.navigateByUrl("/");}),
+        error => this.notifyService.showError(error));
+        resolve(userData);
+    })
+    /*this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
+      let model: LoginExtendedAccountView = new LoginExtendedAccountView();
+      model.token = userData.authToken;
+      this.accountService.loginWithFacebook(model).subscribe(
+        data => this.router.navigateByUrl("/"),
+        error => this.notifyService.showError(error));
+    });*/
   }
 }
