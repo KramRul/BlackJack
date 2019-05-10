@@ -19,7 +19,7 @@
       </div>
       <div class="form-group">
         <input type="button" value="Verifi Email" (click)="verifiEmail()" style="margin-right:10px" class="btn btn-outline-primary btn-sm"
-          [disabled]="model.email === null || model.email === undefined || model.email === '' || model.emailConfirmed === true"/>
+          [disabled]="model.email === null || model.email === undefined || model.email === '' || (model.emailConfirmed === true)"/>
         <input type="button" value="Change Email" (click)="changeEmail()" class="btn btn-outline-primary btn-sm"
           [disabled]="model.email === null || model.email === undefined || model.email === ''"/>
         <div class="alert alert-warning" *ngIf="model.emailConfirmed === false">
