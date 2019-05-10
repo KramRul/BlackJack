@@ -14,5 +14,11 @@ namespace BlackJack.BusinessLogic.Services.Interfaces
         Task<LoginWithFacebookAccountResponseView> LoginWithFacebook(LoginExtendedAccountView model);
 
         Task<LoginWithFacebookAccountResponseView> LoginWithGitHub(LoginExtendedAccountView model);
+
+        Task<GetCurrentUserInfoAccountView> GetCurrentUserInfo(string userId);
+
+        Task EmailConfirmed(string userId);
+
+        Task UpdateEmail(string userId, string newEmail);
     }
 }

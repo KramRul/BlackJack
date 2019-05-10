@@ -51,7 +51,7 @@ namespace BlackJack.BusinessLogic.Providers
             {
                 defaultApp = FirebaseApp.DefaultInstance;
             }
-
+            
             var auth = FirebaseAuth.GetAuth(defaultApp);
             var userData = await auth.VerifyIdTokenAsync(token);
 

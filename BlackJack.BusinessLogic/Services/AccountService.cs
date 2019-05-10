@@ -52,7 +52,8 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Invalid username or password.");
             }
 
-            string token = await _jwtProvider.GenerateJwtToken(user.Email, user);
+            var email = (!string.IsNullOrEmpty(model.Email)) ? model.Email : "";
+            string token = await _jwtProvider.GenerateJwtToken(email, user);
             var result = new LoginAccountResponseView()
             {
                 AccessToken = token,
@@ -118,7 +119,7 @@ namespace BlackJack.BusinessLogic.Services
         {
             var latinName = Transliteration.CyrillicToLatin(userName, Language.Russian);
             var newName = latinName.Replace(" ", string.Empty);
-            var user = await _userManager.FindByNameAsync(newName);          
+            var user = await _userManager.FindByNameAsync(newName);
             if (user == null)
             {
                 var player = new Player
@@ -168,10 +169,12 @@ namespace BlackJack.BusinessLogic.Services
                 throw new CustomServiceException("Player allready exist.");
             }
 
+            var email = (!string.IsNullOrEmpty(model.Email)) ? model.Email : "";
             var user = new Player
             {
                 UserName = model.UserName,
-                Balance = 1000
+                Balance = 1000,
+                Email = email
             };
 
             var createdUser = await _userManager.CreateAsync(user, model.Password);
@@ -189,6 +192,61 @@ namespace BlackJack.BusinessLogic.Services
             };
 
             return result;
+        }
+
+        public async Task<GetCurrentUserInfoAccountView> GetCurrentUserInfo(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new CustomServiceException("Player does not exist.");
+            }
+
+            var result = new GetCurrentUserInfoAccountView()
+            {
+                Email = user.Email,
+                UserName = user.UserName,
+                EmailConfirmed = user.EmailConfirmed
+            };
+
+            return result;
+        }
+
+        public async Task EmailConfirmed(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new CustomServiceException("Player does not exist.");
+            }
+
+            user.EmailConfirmed = true;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                throw new CustomServiceException("Cannot update player");
+            }
+        }
+
+        public async Task UpdateEmail(string userId, string newEmail)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new CustomServiceException("Player does not exist.");
+            }
+            
+            var token = await _userManager.GenerateChangeEmailTokenAsync(user, newEmail);
+
+            var result = await _userManager.ChangeEmailAsync(user, newEmail, token);
+
+            user.EmailConfirmed = false;
+            result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                throw new CustomServiceException("Cannot update email");
+            }
         }
     }
 }

@@ -9,6 +9,10 @@ namespace BlackJack.ViewModels.AccountViews
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

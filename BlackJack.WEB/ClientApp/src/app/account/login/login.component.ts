@@ -15,6 +15,7 @@ import { LoginExtendedAccountView } from 'src/app/shared/entities/account.views/
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { resolve } from 'q';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-login',
@@ -23,12 +24,11 @@ import { resolve } from 'q';
 })
 export class LoginComponent implements OnInit {
   public players: GetAllPlayerView = new GetAllPlayerView();
-  public model: RegisterAccountView = new RegisterAccountView();
-  private user: SocialUser;
-  private loggedIn: boolean;
+  public model: LoginAccountView = new LoginAccountView();
 
   public loginForm = this.formBuilder.group({
     userName: ['', Validators.required],
+    email: ['', [Validators.email]],
     password: ['', Validators.required]
   });
 
@@ -47,14 +47,13 @@ export class LoginComponent implements OnInit {
     this.gameService.index().subscribe(data => {
       this.players.players = data.players;
     });
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-    });
   }
 
   login(): void {
     this.model.token = "";
+    if(this.model.email != null && this.model.email != "") {
+      this.loginWithEmailAndPassword();
+    }  
     this.accountService.login(this.model).subscribe(
       data => this.router.navigateByUrl("/"),
       error => this.notifyService.showError(error)
@@ -74,7 +73,7 @@ export class LoginComponent implements OnInit {
         data => this.zone.run(() => { this.router.navigateByUrl("/");}),
         error => this.notifyService.showError(error));
         resolve(userData);
-    })
+    }, error => this.notifyService.showError(error))
     /*this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
       let model: LoginExtendedAccountView = new LoginExtendedAccountView();
       model.token = userData.idToken;
@@ -96,7 +95,7 @@ export class LoginComponent implements OnInit {
         data => this.zone.run(() => { this.router.navigateByUrl("/");}),
         error => this.notifyService.showError(error));
         resolve(userData);
-    })
+    }, error => this.notifyService.showError(error))
     /*this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
       let model: LoginExtendedAccountView = new LoginExtendedAccountView();
       model.token = userData.authToken;
@@ -108,10 +107,8 @@ export class LoginComponent implements OnInit {
 
   loginWithGitHub() {
     let provider = new firebase.auth.GithubAuthProvider();
-    provider.addScope('user');
     provider.addScope('read:user');
     provider.addScope('user:email');
-    provider.addScope('repo');
     this.afAuth.auth
     .signInWithPopup(provider)
     .then(async (userData) => {
@@ -122,7 +119,7 @@ export class LoginComponent implements OnInit {
         data => this.zone.run(() => { this.router.navigateByUrl("/");}),
         error => this.notifyService.showError(error));
         resolve(userData);
-    })
+    }, error => this.notifyService.showError(error))
     /*this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
       let model: LoginExtendedAccountView = new LoginExtendedAccountView();
       model.token = userData.authToken;
@@ -130,5 +127,17 @@ export class LoginComponent implements OnInit {
         data => this.router.navigateByUrl("/"),
         error => this.notifyService.showError(error));
     });*/
+  }
+
+  loginWithEmailAndPassword() {
+    return new Promise<any>((resolve, reject) => {
+      firebase.auth().signInWithEmailAndPassword(this.model.email, this.model.password)
+      .then(res => {
+        resolve(res);
+      }, error => {
+        this.notifyService.showError(error);
+        reject(error);
+      })
+    })
   }
 }
