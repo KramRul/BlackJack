@@ -97,10 +97,11 @@ export class AccountInfComponent implements OnInit {
       }
       currentUser.sendEmailVerification()
       .then(res => {
+        this.notifyService.showInfo("You must verifi your Email by link that send to your");
         this.accountService.emailConfirmed().subscribe(
           data => {
             this.model.emailConfirmed = true;
-            this.notifyService.showSuccess("Email Confirmed");
+            this.notifyService.showSuccess("Email Confirmed in database");
           },
           error => this.notifyService.showError(error)
         );
@@ -121,7 +122,7 @@ export class AccountInfComponent implements OnInit {
         this.accountService.updateEmail(newEmail).subscribe(
           data => {
             this.model.emailConfirmed = false;
-            this.notifyService.showSuccess("Email Changed");
+            this.notifyService.showSuccess("Email Changed in database");
           },
           error => this.notifyService.showError(error)
         );
@@ -129,10 +130,11 @@ export class AccountInfComponent implements OnInit {
       }
       currentUser.updateEmail(this.model.email)
       .then(res => {
+        this.notifyService.showSuccess("Current user email changed");
         this.accountService.updateEmail(newEmail).subscribe(
           data => {
             this.model.emailConfirmed = false;
-            this.notifyService.showSuccess("Email Changed");
+            this.notifyService.showSuccess("Email Changed in database");
           },
           error => this.notifyService.showError(error)
         );

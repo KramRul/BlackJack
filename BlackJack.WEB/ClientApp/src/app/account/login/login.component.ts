@@ -133,6 +133,7 @@ export class LoginComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(this.model.email, this.model.password)
       .then(res => {
+        this.notifyService.showSuccess("Successfully login with Email and Password");
         resolve(res);
       }, error => {
         this.notifyService.showError(error);

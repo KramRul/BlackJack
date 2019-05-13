@@ -20,13 +20,13 @@ export class LogoutComponent {
   }
 
   async logout(): Promise<void> {
-    this.authService.signOut(true).catch(error => {
+    /*this.authService.signOut(true).catch(error => {
       console.error(error);
       this.notifyService.showError(error);
-    });
+    });*/
 
     try {
-      await this.afAuth.auth.signOut();
+      await this.afAuth.auth.signOut().then(res=>this.notifyService.showSuccess("Successfully logout"));
       this.accountService.logout();  
     }
     catch (e) {
