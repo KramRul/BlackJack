@@ -1,8 +1,11 @@
 using BlackJack.BusinessLogic.Config;
 using BlackJack.WEB.Filters;
 using BlackJack.WEB.Middlewares;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +15,8 @@ namespace BlackJack.WEB
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,9 +30,9 @@ namespace BlackJack.WEB
             services.DataBaseConfigures();
             services.IdentityConfigures();
             services.OptionsConfigures(Configuration);
-            services.JwtConfigures(Configuration);           
+            services.JwtConfigures(Configuration);
             services.SwaggerConfigures();
-
+            
             services.AddMvc(conf =>
             {
                 conf.Filters.Add(typeof(ValidateModelStateFilterAttribute));
@@ -50,7 +55,6 @@ namespace BlackJack.WEB
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
             app.UseExceptionMiddleware();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

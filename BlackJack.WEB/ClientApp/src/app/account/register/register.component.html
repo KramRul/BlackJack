@@ -4,15 +4,56 @@
   <div [formGroup]="registerForm">
     <div class="form-group">
       <label>UserName:</label>
-      <input type="text" formControlName="userName" [(ngModel)]="model.userName" class="form-control" />
+      <input type="text" placeholder="User Name" formControlName="userName" [(ngModel)]="model.userName" class="form-control" />
+      <div class="alert alert-danger" *ngIf="registerForm.get('userName').errors && registerForm.get('userName').touched">
+        <span class="form-validation field-validation-error" data-valmsg-for="userName" data-valmsg-replace="true">
+          <span id="Password-error" class="" style="display: inline;" *ngIf="registerForm.get('userName').hasError('required')">
+            User Name field is required.
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="text" placeholder="Email" formControlName="email" [(ngModel)]="model.email" class="form-control" />
+      <div class="alert alert-danger" *ngIf="registerForm.get('email').errors && registerForm.get('email').touched">
+        <span class="form-validation field-validation-error" data-valmsg-for="email" data-valmsg-replace="true">
+          <span id="Password-error" class="" style="display: inline;" *ngIf="registerForm.get('email').hasError('email')">
+            The Email is invalid.
+          </span>
+        </span>
+      </div>
     </div>
     <div class="form-group">
       <label>Password</label><br />
-      <input type="password" formControlName="password" [(ngModel)]="model.password" class="form-control" />
+      <input type="password" placeholder="Password" formControlName="password" [(ngModel)]="model.password" class="form-control" />
+      <div class="alert alert-danger" *ngIf="registerForm.get('password').errors && registerForm.get('password').touched">
+        <span class="form-validation field-validation-error" data-valmsg-for="password" data-valmsg-replace="true">
+          <span id="Password-error" class="" style="display: inline;" *ngIf="registerForm.get('password').hasError('required')">
+            The Password field is required.
+          </span>
+          <span id="Password-error" class="" style="display: inline;" *ngIf="registerForm.get('password').hasError('minlength')">
+            The Password min lenght is 8.
+          </span>
+        </span>
+      </div>
     </div>
     <div class="form-group">
       <label>Password Confirm</label><br />
-      <input type="password" formControlName="passwordConfirm" [(ngModel)]="model.passwordConfirm" class="form-control" />
+      <input type="password" placeholder="Confirm Password" formControlName="passwordConfirm" [(ngModel)]="model.passwordConfirm" class="form-control" />
+      <div class="alert alert-danger" *ngIf="registerForm.get('passwordConfirm').errors && registerForm.get('passwordConfirm').touched">
+        <span class="form-validation field-validation-error" data-valmsg-for="passwordConfirm" data-valmsg-replace="true">
+          <span id="Password-error" class="" style="display: inline;" *ngIf="registerForm.get('passwordConfirm').hasError('required')">
+            The Password Confirm field is required.
+          </span>
+          <span id="Password-error" class="" style="display: inline;" *ngIf="registerForm.get('passwordConfirm').hasError('minlength')">
+            The Password min lenght is 8.
+          </span>
+          <span id="Password-error" class="" style="display: inline;" *ngIf="registerForm.controls.passwordConfirm.errors?.MatchPassword">
+            Passwords don't match
+          </span>
+        </span>
+      </div>
     </div>
     <div class="form-group">
       <input type="button" value="Register" (click)="register()" class="btn btn-success" />

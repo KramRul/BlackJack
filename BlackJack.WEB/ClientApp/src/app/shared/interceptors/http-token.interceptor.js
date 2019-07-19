@@ -9,6 +9,10 @@ var HttpTokenInterceptor = /** @class */ (function () {
     HttpTokenInterceptor.prototype.intercept = function (request, next) {
         var lStorage = new local_storage_service_1.LocalStorageService();
         var token = lStorage.getItem('accessToken');
+        /*request = request.clone({ headers: request.headers.set('Access-Control-Allow-Origin', '*') });
+        request = request.clone({ headers: request.headers.set('Access-Control-Allow-Credentials', 'true') });
+        request = request.clone({ headers: request.headers.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE') });
+        request = request.clone({ headers: request.headers.set('Access-Control-Allow-Headers', 'Content-Type, Accept, X-Requested-With, remember-me') });*/
         if (token) {
             request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
         }

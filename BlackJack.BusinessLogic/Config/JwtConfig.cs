@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using BlackJack.BusinessLogic.Options;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace BlackJack.BusinessLogic.Config
 {
@@ -13,12 +15,14 @@ namespace BlackJack.BusinessLogic.Config
         public static void JwtConfigures(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtOptions = configuration.GetSection("JWTOptions").Get<JWTOptions>();
+            var googleAuthOptions = configuration.GetSection("GoogleAuthOptions").Get<GoogleAuthOptions>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(cfg =>
+            })
+            .AddJwtBearer(cfg =>
             {
                 cfg.RequireHttpsMetadata = false;
                 cfg.SaveToken = true;

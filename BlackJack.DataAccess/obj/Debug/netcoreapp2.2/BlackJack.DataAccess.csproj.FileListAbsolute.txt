@@ -20,3 +20,14 @@ C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.DataAccess\obj\Debug\netco
 C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.AssemblyInfo.cs
 C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
 C:\Users\KramRul\Documents\GitHub\BlackJack\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.deps.json
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.runtimeconfig.json
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.runtimeconfig.dev.json
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\bin\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.csprojAssemblyReference.cache
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.AssemblyInfo.cs
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.dll
+C:\Users\Anuitex - 62\source\repos\BlackJackTestAuth\BlackJack.DataAccess\obj\Debug\netcoreapp2.2\BlackJack.DataAccess.pdb

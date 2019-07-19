@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginAccountView } from '../entities/account.views/login.account.view';
 import { RegisterAccountView } from '../entities/account.views/register.account.view';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,8 @@ import { LocalStorageService } from './local-storage.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { RegisterAccountResponseView } from '../entities/account.views/register-response.account.view';
+import { GetCurrentUserInfoAccountView } from '../entities/account.views/get-current-user-info.account.view';
+import { UpdateEmailAccountView } from '../entities/account.views/update.email.account.view';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +36,30 @@ export class AccountService {
       }));
   }
 
+  loginWithGoogle(model: LoginAccountView): Observable<void> {
+    return this.http.post<LoginAccountResponseView>(`${this.Url}loginWithGoogle`, model).pipe(
+      map((response: LoginAccountResponseView) => {
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
+      }));
+  }
+
+  loginWithFacebook(model: LoginAccountView): Observable<void> {
+    return this.http.post<LoginAccountResponseView>(`${this.Url}loginWithFacebook`, model).pipe(
+      map((response: LoginAccountResponseView) => {
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
+      }));
+  }
+
+  loginWithGitHub(model: LoginAccountView): Observable<void> {
+    return this.http.post<LoginAccountResponseView>(`${this.Url}loginWithGitHub`, model).pipe(
+      map((response: LoginAccountResponseView) => {
+        this.localStorageService.setItem<string>("accessToken", response.accessToken);
+        this.localStorageService.setItem<string>("userName", response.userName);
+      }));
+  }
+
   logout(): void {
     this.localStorageService.removeItem("accessToken");
     this.localStorageService.removeItem("userName");
@@ -42,6 +68,21 @@ export class AccountService {
   getLoggedPlayerName(): string {
     return this.localStorageService.getItem<string>("userName");
   }
+
+  getCurrentUserInfo(): Observable<GetCurrentUserInfoAccountView> {
+    return this.http.post<GetCurrentUserInfoAccountView>(`${this.Url}getCurrentUserInfo`, null).pipe(
+      map((response: GetCurrentUserInfoAccountView) => {
+        return response;;
+      }));
+  } 
+
+  emailConfirmed(): Observable<void> {
+    return this.http.post<void>(`${this.Url}emailConfirmed`, null).pipe();
+  } 
+
+  updateEmail(model: UpdateEmailAccountView): Observable<void> {
+    return this.http.post<void>(`${this.Url}updateEmail`, model).pipe();
+  } 
 
   register(model: RegisterAccountView): Observable<any> {
     return this.http.post(`${this.Url}register`, model).pipe(

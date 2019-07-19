@@ -1,0 +1,34 @@
+<app-for-logged-players-menu></app-for-logged-players-menu>
+<div class="container-fluid bd-highlight">
+  <div [formGroup]="infoForm">
+    <h2>Account Information</h2>
+      <div class="form-group">
+        <label>UserName:</label>
+        <input type="text" placeholder="User Name" formControlName="userName" [(ngModel)]="model.userName" class="form-control" disabled/>
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="text" placeholder="Email" formControlName="email" [(ngModel)]="model.email" class="form-control" />
+        <div class="alert alert-danger" *ngIf="infoForm.get('email').errors && infoForm.get('email').touched">
+          <span class="form-validation field-validation-error" data-valmsg-for="email" data-valmsg-replace="true">
+            <span id="Password-error" class="" style="display: inline;" *ngIf="infoForm.get('email').hasError('email')">
+              The Email is invalid.
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="button" value="Verifi Email" (click)="verifiEmail()" style="margin-right:10px" class="btn btn-outline-primary btn-sm"
+          [disabled]="model.email === null || model.email === undefined || model.email === '' || (model.emailConfirmed === true)"/>
+        <input type="button" value="Change Email" (click)="changeEmail()" class="btn btn-outline-primary btn-sm"
+          [disabled]="model.email === null || model.email === undefined || model.email === ''"/>
+        <div class="alert alert-warning" *ngIf="model.emailConfirmed === false">
+          <span class="form-validation field-validation-error" data-valmsg-for="model.emailConfirmed" data-valmsg-replace="true">
+            <span id="Verifi-error" class="" style="display: inline;" *ngIf="model.emailConfirmed === false">
+              You must verifi your email.
+            </span>
+          </span>
+        </div>
+      </div>
+  </div>
+</div>

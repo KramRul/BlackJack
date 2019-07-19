@@ -4,6 +4,10 @@ import { RegisterAccountView } from 'src/app/shared/entities/account.views/regis
 import { AccountService } from 'src/app/shared/services/account.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PasswordValidation } from 'src/app/shared/validations/password.validation';
+import * as firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { resolve, reject } from 'q';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +19,12 @@ export class RegisterComponent {
 
   public registerForm = this.formBuilder.group({
     userName: ['', Validators.required],
+    email: ['', [Validators.email]],
     password: ['', Validators.required],
     passwordConfirm: ['', Validators.required]
+  },
+  {
+    validator: PasswordValidation.MatchPassword
   });
 
   constructor(
@@ -27,9 +35,14 @@ export class RegisterComponent {
   }
 
   register(): void {
-    this.accountService.register(this.model).subscribe(
-      data => this.router.navigateByUrl("/"),
-      error => this.notifyService.showError(error)
-    );
+    firebase.auth().createUserWithEmailAndPassword(this.model.email, this.model.password)
+     .then(res => {
+      this.accountService.register(this.model).subscribe(
+        data => this.router.navigateByUrl("/"),
+        error => this.notifyService.showError(error)
+      );
+       resolve(res);
+     }, err => reject(err));
+    
   }
 }
